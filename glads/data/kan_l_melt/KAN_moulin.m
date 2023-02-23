@@ -1,10 +1,10 @@
 function melt=KAN_moulin(time, pin, dmesh, ii_moulin, catchmap, ra)
-% melt = source_moulin_shmip(xy, time, pin)
+% melt = KAN_moulin(time, pin, dmesh, ii_moulin, catchmap, ra)
 %
-% Compute moulin inputs for SHMIP synthetic case based on KAN_L AWS
+% Compute moulin inputs for KAN_L forcing based on KAN_L AWS
 %
 % Returns constant, catchment-dependent moulin inputs for each moulin,
-% using SHMIP melt lapse rate with KAN_L temperature timeseries
+% using KAN_L temperature timeseries and degree-day melt model
 
 %% Parameters
 lr = -0.005;           % Lapse rate (K/m)
@@ -16,11 +16,6 @@ ra = 0;
 
 %% Melt ramp
 ramp = max(0, min(time/T_year/25 - 1, 1));
-% if time/T_year>=5
-%     ramp = 1;
-% else
-%     ramp = 0;
-% end
 
 %% Read AWS data
 KAN_data = importdata('KAN_L_2014_temp_clipped.txt');

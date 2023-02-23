@@ -1,4 +1,4 @@
-% Compute mean KAN melt at each node
+%% Compute mean melt for each node in mesh
 
 mesh_nr = 4;
 lr = -0.005;
@@ -29,6 +29,7 @@ KAN_melt = DDF*max(0, temp_dist);
 
 dt = tt(2) - tt(1);
 
+% Only average over the melt season, where any melt happens
 ii_pos = find(temp_interp>0);
 ii_min = min(ii_pos); ii_max = max(ii_pos);
 DT = 120*86400;
