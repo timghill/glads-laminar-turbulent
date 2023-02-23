@@ -1,0 +1,72 @@
+% Parameters
+ks = 5e-2;
+kc = 0.1;
+alpha = 3; beta = 2;
+omega = 1/1000;
+fname = 'void';
+mesh_nr = 4;
+n_moulin = 68;
+hr = 0.1;
+
+cd ../../seasonal_KAN/
+pa_KAN = get_para_seasonal(4, n_moulin, omega, kc, ks, alpha, beta, hr, fname);
+
+pa_SHMIP = get_para_steady(4, n_moulin, omega, kc, ks, alpha, beta, hr, fname);
+
+dmesh = pa_KAN.dmesh;
+
+m_KAN_fun = pa_KAN.input.source_term_c;
+m_SHMIP_fun = pa_SHMIP.input.source_term_c;
+
+days = 1:365;
+tt = (days + 100*365)*86400;
+
+m_KAN = zeros(dmesh.tri.n_nodes, length(tt));
+m_SHMIP = zeros(dmesh.tri.n_nodes, length(tt));
+for ii=1:length(tt)
+    m_KAN(:, ii) = m_KAN_fun(tt(ii));
+    m_SHMIP(:, ii) = m_SHMIP_fun(tt(ii));
+end
+
+% addpath('../data/AWS_GEUS/')
+moulindata = readmatrix(sprintf('../data/moulins/moulins_KAN_%03d.txt', n_moulin));
+catchmap = readmatrix(sprintf('../data/moulins/catchment_map_KAN_%03d.txt', n_moulin));
+ii_moulin = moulindata(:, 1) + 1;
+
+m_KAN = m_KAN(ii_moulin, :);
+m_SHMIP = m_SHMIP(ii_moulin, :);
+
+tt_melt_1 = min(tt(max(m_KAN, [], 1)>0));
+tt_melt_2 = max(tt(max(m_KAN, [], 1)>0));
+
+ix1 = find(tt==tt_melt_1);
+ix2 = find(tt==tt_melt_2);
+
+melt_len = (tt_melt_2 - tt_melt_1);
+
+figure
+subplot(1, 3, 1)
+pcolor(m_KAN)
+shading flat
+cmocean('Amp')
+caxis([0, 80])
+
+subplot(1, 3, 2)
+dt = tt(2) - tt(1);
+m_KAN_mean = sum(m_KAN, 2)*dt/melt_len;
+pcolor(repmat(m_KAN_mean, [1, length(tt)]))
+shading flat
+cmocean('Amp')
+caxis([0, 80])
+
+subplot(1, 3, 3)
+pcolor(m_SHMIP)
+shading flat
+cmocean('Amp')
+caxis([0, 80])
+
+colorbar
+
+
+cd ../data/AWS_GEUS/
+save(sprintf('mean_KAN_melt_%d.mat', n_moulin), 'm_KAN_mean')
