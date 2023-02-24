@@ -32,8 +32,7 @@ dmesh = meshes{mesh_nr};
 %%  Physical parameters
 
 pp.cond_c = config.k_c;
-% pp.flags.max_S = 500; % limit to channel cross-sectional area for stability
-pp.flags.max_S = 5e3;
+pp.flags.max_S = 5e3;	% Arbitrary large max channel cross section
 
 pp.cond_s = config.k_s;
 pp.alpha_s = config.alpha;
@@ -61,17 +60,11 @@ pn.ts.ode15s.stepper = st{1};
 
 %% Domain geometry
 addpath('../data/topo_x_squared_para/')
-pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_para(xy, time))');
-pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_para(xy, time))');
+pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_KAN(xy, time))');
+pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_KAN(xy, time))');
 
 
 %% INPUT FUNCTIONS
-
-% Sliding
-%u_bed = config.u_bed/365/86400;
-%pin.u_bed = make_anon_fn('@(xy) double(u_bed + 0*xy(:, 1))', u_bed);
-
-
 % Boundary conditions
 
 % Dirichlet BC for phi: applied at nodes where bmark is odd
@@ -84,7 +77,7 @@ pin.bc_flux = make_anon_fn('@(xy, time, bmark_edge) double(zeros(sum(~logical(mo
 
 % Initial conditions
 hr = pp.h_bed;
-pin.ic_h = make_anon_fn('@(xy, time) double(hr/2 - 0.0*xy(:,1)/max(xy(:, 1)))', hr);
+pin.ic_h = make_anon_fn('@(xy, time) double(hr/2 - 0.0*xy(:, 1))', hr);
 pin.ic_S =  make_anon_fn('@(xy, time) double(0 + 0*xy(:,1))');
 
 %% Nondimensionalize and wrap

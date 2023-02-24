@@ -1,0 +1,296 @@
+Case 4:
+Picked up JAVA_TOOL_OPTIONS: -Xmx2g
+Opening log file:  /tmp/java.log.17550
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022a (9.12.0.1884302) 64-bit (glnxa64)
+                             February 16, 2022
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+config = 
+
+  struct with fields:
+
+                 k_s: 0.1000
+                 l_c: 10
+            n_moulin: 68
+    creep_const_soft: 0
+             mesh_nr: 4
+                 k_c: 0.2000
+               h_bed: 0.5000
+               l_bed: 10
+               alpha: 1.2500
+                beta: 1.5000
+               omega: 5.0000e-04
+                 e_v: 1.0000e-04
+
+Running model run (ode15s):
+Run to steady
+Saving model run to
+./RUN/output_004_steady.nc
+Fields, IC & BC initialised
+Initial phi calculated in 1.8s
+0.0/36500.0 days/days; walltime: 13.9
+------------------------------------------1825.0/36500.0 days/days; walltime: 110.2
+3650.0/36500.0 days/days; walltime: 3.5
+5475.0/36500.0 days/days; walltime: 3.2
+7300.0/36500.0 days/days; walltime: 1.1
+--------9125.0/36500.0 days/days; walltime: 6.5
+-10950.0/36500.0 days/days; walltime: 474.1
+12775.0/36500.0 days/days; walltime: 326.2
+14600.0/36500.0 days/days; walltime: 241.4
+16425.0/36500.0 days/days; walltime: 157.9
+--18250.0/36500.0 days/days; walltime: 165.2
+20075.0/36500.0 days/days; walltime: 123.1
+--------21900.0/36500.0 days/days; walltime: 10.4
+23725.0/36500.0 days/days; walltime: 5.5
+25550.0/36500.0 days/days; walltime: 4.0
+27375.0/36500.0 days/days; walltime: 5.2
+29200.0/36500.0 days/days; walltime: 3.1
+31025.0/36500.0 days/days; walltime: 1.9
+32850.0/36500.0 days/days; walltime: 1.6
+34675.0/36500.0 days/days; walltime: 1.5
+36500.0/36500.0 days/days; walltime: 1.2
+Wallclock for model run: 1664.9s
+ 
+
+fields = 
+
+  struct with fields:
+
+    nodes: [1x1 struct]
+    edges: [1x1 struct]
+       BC: [1x1 struct]
+
+Running model run (ode15s):
+Run seasonal
+Saving model run to
+./RUN/output_004_seasonal.nc
+IC initialised from struct
+IC initialised from file/given & rest from parameters and given functions
+36500.0/37230.0 days/days; walltime: 17.6
+36501.0/37230.0 days/days; walltime: 70.8
+36502.0/37230.0 days/days; walltime: 12.7
+36503.0/37230.0 days/days; walltime: 5.8
+36504.0/37230.0 days/days; walltime: 18.1
+36505.0/37230.0 days/days; walltime: 10.4
+36506.0/37230.0 days/days; walltime: 4.0
+36507.0/37230.0 days/days; walltime: 8.0
+36508.0/37230.0 days/days; walltime: 2.7
+36509.0/37230.0 days/days; walltime: 8.4
+36510.0/37230.0 days/days; walltime: 46.9
+36511.0/37230.0 days/days; walltime: 1.9
+36512.0/37230.0 days/days; walltime: 1.8
+36513.0/37230.0 days/days; walltime: 3.9
+36514.0/37230.0 days/days; walltime: 2.1
+36515.0/37230.0 days/days; walltime: 1.8
+36516.0/37230.0 days/days; walltime: 1.7
+36517.0/37230.0 days/days; walltime: 1.8
+36518.0/37230.0 days/days; walltime: 1.6
+36519.0/37230.0 days/days; walltime: 1.4
+36520.0/37230.0 days/days; walltime: 30.0
+36521.0/37230.0 days/days; walltime: 1.4
+36522.0/37230.0 days/days; walltime: 1.3
+36523.0/37230.0 days/days; walltime: 1.4
+36524.0/37230.0 days/days; walltime: 15.0
+36525.0/37230.0 days/days; walltime: 1.0
+36526.0/37230.0 days/days; walltime: 0.8
+36527.0/37230.0 days/days; walltime: 0.9
+36528.0/37230.0 days/days; walltime: 0.5
+36529.0/37230.0 days/days; walltime: 0.8
+36530.0/37230.0 days/days; walltime: 0.8
+36531.0/37230.0 days/days; walltime: 1.0
+36532.0/37230.0 days/days; walltime: 0.9
+36533.0/37230.0 days/days; walltime: 0.8
+36534.0/37230.0 days/days; walltime: 6.5
+36535.0/37230.0 days/days; walltime: 0.5
+36536.0/37230.0 days/days; walltime: 0.7
+36537.0/37230.0 days/days; walltime: 0.4
+36538.0/37230.0 days/days; walltime: 0.7
+36539.0/37230.0 days/days; walltime: 0.4
+36540.0/37230.0 days/days; walltime: 0.4
+36541.0/37230.0 days/days; walltime: 0.4
+36542.0/37230.0 days/days; walltime: 0.7
+36543.0/37230.0 days/days; walltime: 0.5
+36544.0/37230.0 days/days; walltime: 0.6
+36545.0/37230.0 days/days; walltime: 2.3
+36546.0/37230.0 days/days; walltime: 0.3
+36547.0/37230.0 days/days; walltime: 0.3
+36548.0/37230.0 days/days; walltime: 0.2
+36549.0/37230.0 days/days; walltime: 0.4
+36550.0/37230.0 days/days; walltime: 0.4
+36551.0/37230.0 days/days; walltime: 0.4
+36552.0/37230.0 days/days; walltime: 0.4
+36553.0/37230.0 days/days; walltime: 0.4
+36554.0/37230.0 days/days; walltime: 0.6
+36555.0/37230.0 days/days; walltime: 0.4
+36556.0/37230.0 days/days; walltime: 0.4
+36557.0/37230.0 days/days; walltime: 0.2
+36558.0/37230.0 days/days; walltime: 0.4
+36559.0/37230.0 days/days; walltime: 0.4
+36560.0/37230.0 days/days; walltime: 0.4
+36561.0/37230.0 days/days; walltime: 0.3
+36562.0/37230.0 days/days; walltime: 0.4
+36563.0/37230.0 days/days; walltime: 0.3
+36564.0/37230.0 days/days; walltime: 0.3
+36565.0/37230.0 days/days; walltime: 0.4
+36566.0/37230.0 days/days; walltime: 0.2
+36567.0/37230.0 days/days; walltime: 0.4
+36568.0/37230.0 days/days; walltime: 0.4
+36569.0/37230.0 days/days; walltime: 0.4
+36570.0/37230.0 days/days; walltime: 0.3
+36571.0/37230.0 days/days; walltime: 0.3
+36572.0/37230.0 days/days; walltime: 0.4
+36573.0/37230.0 days/days; walltime: 0.3
+36574.0/37230.0 days/days; walltime: 0.4
+36575.0/37230.0 days/days; walltime: 0.3
+36576.0/37230.0 days/days; walltime: 0.3
+36577.0/37230.0 days/days; walltime: 0.3
+36578.0/37230.0 days/days; walltime: 8.5
+36579.0/37230.0 days/days; walltime: 0.3
+36580.0/37230.0 days/days; walltime: 0.3
+36581.0/37230.0 days/days; walltime: 0.1
+36582.0/37230.0 days/days; walltime: 0.2
+36583.0/37230.0 days/days; walltime: 0.1
+36584.0/37230.0 days/days; walltime: 0.1
+36585.0/37230.0 days/days; walltime: 0.2
+36586.0/37230.0 days/days; walltime: 0.1
+36587.0/37230.0 days/days; walltime: 0.2
+36588.0/37230.0 days/days; walltime: 0.1
+36589.0/37230.0 days/days; walltime: 0.2
+36590.0/37230.0 days/days; walltime: 0.1
+36591.0/37230.0 days/days; walltime: 0.1
+36592.0/37230.0 days/days; walltime: 0.2
+36593.0/37230.0 days/days; walltime: 0.1
+36594.0/37230.0 days/days; walltime: 0.2
+36595.0/37230.0 days/days; walltime: 0.3
+36596.0/37230.0 days/days; walltime: 0.2
+36597.0/37230.0 days/days; walltime: 0.3
+36598.0/37230.0 days/days; walltime: 0.1
+36599.0/37230.0 days/days; walltime: 0.3
+36600.0/37230.0 days/days; walltime: 0.3
+36601.0/37230.0 days/days; walltime: 0.1
+36602.0/37230.0 days/days; walltime: 0.3
+36603.0/37230.0 days/days; walltime: 0.1
+36604.0/37230.0 days/days; walltime: 0.3
+36605.0/37230.0 days/days; walltime: 0.1
+36606.0/37230.0 days/days; walltime: 0.3
+36607.0/37230.0 days/days; walltime: 0.1
+36608.0/37230.0 days/days; walltime: 0.3
+36609.0/37230.0 days/days; walltime: 0.3
+36610.0/37230.0 days/days; walltime: 0.1
+36611.0/37230.0 days/days; walltime: 0.3
+36612.0/37230.0 days/days; walltime: 0.1
+36613.0/37230.0 days/days; walltime: 0.3
+36614.0/37230.0 days/days; walltime: 0.1
+36615.0/37230.0 days/days; walltime: 0.3
+36616.0/37230.0 days/days; walltime: 0.1
+36617.0/37230.0 days/days; walltime: 0.1
+36618.0/37230.0 days/days; walltime: 0.3
+36619.0/37230.0 days/days; walltime: 0.1
+36620.0/37230.0 days/days; walltime: 0.3
+36621.0/37230.0 days/days; walltime: 0.1
+36622.0/37230.0 days/days; walltime: 0.2
+--36623.0/37230.0 days/days; walltime: 59.5
+36624.0/37230.0 days/days; walltime: 67.3
+36625.0/37230.0 days/days; walltime: 1.4
+36626.0/37230.0 days/days; walltime: 0.3
+36627.0/37230.0 days/days; walltime: 0.4
+36628.0/37230.0 days/days; walltime: 0.3
+36629.0/37230.0 days/days; walltime: 0.2
+36630.0/37230.0 days/days; walltime: 0.3
+36631.0/37230.0 days/days; walltime: 0.2
+36632.0/37230.0 days/days; walltime: 0.3
+36633.0/37230.0 days/days; walltime: 0.2
+36634.0/37230.0 days/days; walltime: 0.3
+36635.0/37230.0 days/days; walltime: 8.9
+36636.0/37230.0 days/days; walltime: 11.4
+36637.0/37230.0 days/days; walltime: 0.5
+-36638.0/37230.0 days/days; walltime: 14.9
+36639.0/37230.0 days/days; walltime: 83.9
+36640.0/37230.0 days/days; walltime: 70.4
+36641.0/37230.0 days/days; walltime: 57.7
+36642.0/37230.0 days/days; walltime: 19.1
+36643.0/37230.0 days/days; walltime: 1.1
+36644.0/37230.0 days/days; walltime: 0.8
+36645.0/37230.0 days/days; walltime: 1.0
+36646.0/37230.0 days/days; walltime: 0.8
+36647.0/37230.0 days/days; walltime: 0.7
+36648.0/37230.0 days/days; walltime: 0.8
+36649.0/37230.0 days/days; walltime: 0.9
+36650.0/37230.0 days/days; walltime: 0.7
+36651.0/37230.0 days/days; walltime: 0.8
+36652.0/37230.0 days/days; walltime: 5.6
+36653.0/37230.0 days/days; walltime: 98.0
+36654.0/37230.0 days/days; walltime: 97.9
+36655.0/37230.0 days/days; walltime: 394.0
+36656.0/37230.0 days/days; walltime: 352.5
+36657.0/37230.0 days/days; walltime: 427.2
+36658.0/37230.0 days/days; walltime: 528.5
+36659.0/37230.0 days/days; walltime: 102.7
+36660.0/37230.0 days/days; walltime: 581.4
+36661.0/37230.0 days/days; walltime: 230.2
+36662.0/37230.0 days/days; walltime: 353.6
+36663.0/37230.0 days/days; walltime: 181.9
+36664.0/37230.0 days/days; walltime: 65.7
+36665.0/37230.0 days/days; walltime: 54.4
+36666.0/37230.0 days/days; walltime: 121.1
+36667.0/37230.0 days/days; walltime: 186.6
+36668.0/37230.0 days/days; walltime: 934.3
+36669.0/37230.0 days/days; walltime: 709.6
+36670.0/37230.0 days/days; walltime: 108.6
+36671.0/37230.0 days/days; walltime: 127.8
+36672.0/37230.0 days/days; walltime: 170.8
+36673.0/37230.0 days/days; walltime: 448.6
+36674.0/37230.0 days/days; walltime: 398.7
+36675.0/37230.0 days/days; walltime: 117.0
+36676.0/37230.0 days/days; walltime: 545.5
+36677.0/37230.0 days/days; walltime: 630.2
+36678.0/37230.0 days/days; walltime: 124.7
+36679.0/37230.0 days/days; walltime: 279.8
+36680.0/37230.0 days/days; walltime: 264.3
+36681.0/37230.0 days/days; walltime: 143.3
+36682.0/37230.0 days/days; walltime: 87.5
+36683.0/37230.0 days/days; walltime: 536.7
+36684.0/37230.0 days/days; walltime: 579.9
+36685.0/37230.0 days/days; walltime: 1332.2
+36686.0/37230.0 days/days; walltime: 889.7
+36687.0/37230.0 days/days; walltime: 769.5
+36688.0/37230.0 days/days; walltime: 193.9
+36689.0/37230.0 days/days; walltime: 832.9
+36690.0/37230.0 days/days; walltime: 946.5
+36691.0/37230.0 days/days; walltime: 465.6
+36692.0/37230.0 days/days; walltime: 516.5
+36693.0/37230.0 days/days; walltime: 223.0
+36694.0/37230.0 days/days; walltime: 54.8
+36695.0/37230.0 days/days; walltime: 87.6
+36696.0/37230.0 days/days; walltime: 96.3
+36697.0/37230.0 days/days; walltime: 279.6
+36698.0/37230.0 days/days; walltime: 544.6
+36699.0/37230.0 days/days; walltime: 515.9
+36700.0/37230.0 days/days; walltime: 351.4
+36701.0/37230.0 days/days; walltime: 289.0
+36702.0/37230.0 days/days; walltime: 50.4
+36703.0/37230.0 days/days; walltime: 136.8
+36704.0/37230.0 days/days; walltime: 189.9
+36705.0/37230.0 days/days; walltime: 284.5
+36706.0/37230.0 days/days; walltime: 318.9
+36707.0/37230.0 days/days; walltime: 265.8
+36708.0/37230.0 days/days; walltime: 371.6
+36709.0/37230.0 days/days; walltime: 200.8
+36710.0/37230.0 days/days; walltime: 91.5
+36711.0/37230.0 days/days; walltime: 316.2
+36712.0/37230.0 days/days; walltime: 149.5
+36713.0/37230.0 days/days; walltime: 461.2
+36714.0/37230.0 days/days; walltime: 145.5
+36715.0/37230.0 days/days; walltime: 116.1
+36716.0/37230.0 days/days; walltime: 94.9
+36717.0/37230.0 days/days; walltime: 58.8
+36718.0/37230.0 days/days; walltime: 74.6
+36719.0/37230.0 days/days; walltime: 43.8
+36720.0/37230.0 days/days; walltime: 588.7
