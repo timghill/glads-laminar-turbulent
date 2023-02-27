@@ -1,5 +1,5 @@
 """
-Plot floatation fraction for turbulent, laminar, and transition models
+Plot hydraulic potential for turbulent, laminar, and transition models
 
 """
 
@@ -18,7 +18,7 @@ import GladsPlot as gplt
 fname_pattern = '../RUN/output_%03d_steady.nc'
 cases = [101, 103, 104]
 n_cases = 3
-figname = 'steady.png'
+figname = 'steady_phi.png'
 
 tslices = [-1]
 n_times = len(tslices)
@@ -69,14 +69,20 @@ for ii in range(n_cases):
     qs = np.sqrt(q[:, 0]**2 + q[:, 1]**2)
     Re = qs/float(out['para/nu'][:].data)
 
-    phi_0 = 1000*9.81*np.vstack(out['bed'][:].data)
-    pw = phi - phi_0
-    ff = pw/(N + pw)
+    bed = out['bed'][:].data
+    thick = out['thick'][:].data
+    phi_overburden = 1000*9.81*bed + 910*9.81*thick
+    phi_max = np.max(phi_overburden)
+    phi_norm = phi/phi_max
+
+    # phi_0 = 1000*9.81i*np.vstack(out['bed'][:].data)
+    # pw = phi - phi_0
+    # ff = pw/(N + pw)
 
     mtri = Triangulation(nodes[:, 0]/1e3, nodes[:, 1]/1e3, connect)
 
     ax = axs[ii, 0]
-    fcolor = ax.tripcolor(mtri, ff[:, -1], cmap=cmocean.cm.dense, vmin=0, vmax=1)
+    fcolor = ax.tripcolor(mtri, phi_norm[:, -1], cmap=cmocean.cm.matter, vmin=0, vmax=1)
     ax.set_aspect('equal')
     ax.set_xlim([0, 100])
     ax.set_ylim([0, 25])
@@ -116,7 +122,7 @@ for ii in range(n_cases):
 #        ax.set_xticklabels([])
     ax.text(-0.05, 1.05, alphabet[ii*n_times+1], transform=ax.transAxes, fontweight='bold')
     
-    axs_scatter[0].scatter(nodes[:, 0]/1e3, ff[:, -1], 5, alpha=0.5, color=colors[ii],
+    axs_scatter[0].scatter(nodes[:, 0]/1e3, phi_norm[:, -1], 5, alpha=0.5, color=colors[ii],
             label=labels[ii])
     axs_scatter[0].set_ylim([0, 1])
     axs_scatter[0].set_xlim([0, 100])
