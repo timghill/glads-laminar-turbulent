@@ -15,6 +15,9 @@ thick = ice_thickness_synth(xy, 0, pin);
 bed = reshape(bed, size(xx));
 thick = reshape(thick, size(xx));
 
+min(thick(:))
+max(thick(:))
+
 figure;
 subplot(2, 1, 1)
 pcolor(xx, yy, bed)

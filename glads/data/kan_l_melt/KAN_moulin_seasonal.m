@@ -1,28 +1,23 @@
-function melt = source_moulin_shmip_seasonal(t, pin, dmesh, ii_moulin, catchmap, ra)
-    % SOURCE_MOULIN_SHMIP_SEASONAL
+function melt = KAN_moulin_seasonal(t, pin, dmesh, ii_moulin, catchmap)
+    % KAN_MOULIN_SEASONAL
     %
-    % melt = source_moulin_shmip_seasonal(time, pin, dmesh, ii_moulin, catchmap, ra)
+    % melt = KAN_moulin_seasonal(time, pin, dmesh, ii_moulin, catchmap, ra)
     %
-    % Compute moulin inputs for SHMIP synthetic case
+    % Compute moulin inputs for KAN_L forcing case
     %
     % Returns transient, catchment-dependent moulin inputs for each moulin,
-    % using SHMIP melt lapse rate
-
-    %% Parameters
-    ra = 0;                 % No diurnal melt variation
-    lr = -0.0075;           % Lapse rate (C/m)
+    % using degree-day model and KAN_L AWS temperatures
 
     T_day = 86400;
     T_year = T_day*365;
+    ra = 0;
     ramp = max(0, min(t/T_year/25 - 1, 1));
 
     %% Compute instantaneous melt rate
     xy = dmesh.tri.nodes;
     z = pin.bed_elevation(xy, 0) + pin.ice_thickness(xy, 0);
 
-    DT = -min(z).*lr;
-
-    surf_melt = shmip_PDD_melt(t, z, 'DT', DT, 'ra', ra);
+    surf_melt = KAN_PDD_melt(t, z);
 
     %% Compute catchment melt and moulin inputs
     area = dmesh.tri.area_nodes;
