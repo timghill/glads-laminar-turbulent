@@ -3,6 +3,8 @@ function para = get_para(config)
 %
 % Get default parameters for SHMIP ice-sheet margin domain run
 
+addpath(genpath('../data/functions/'))
+
 % Unpack config
 mesh_nr = config.mesh_nr;
 n_moulin = config.n_moulin;
