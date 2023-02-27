@@ -16,7 +16,7 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_steady.nc'
-cases = [1, 3, 4]
+cases = [1, 2, 2]
 n_cases = 3
 figname = 'steady.png'
 
@@ -69,7 +69,7 @@ for ii in range(n_cases):
     qs = np.sqrt(q[:, 0]**2 + q[:, 1]**2)
     Re = qs/float(out['para/nu'][:].data)
 
-    phi_0 = 0
+    phi_0 = 9.81*1000*np.vstack(out['bed'][:].data)
     pw = phi - phi_0
     ff = pw/(N + pw)
 
