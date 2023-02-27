@@ -32,7 +32,7 @@ dmesh = meshes{mesh_nr};
 %%  Physical parameters
 
 pp.cond_c = config.k_c;
-pp.flags.max_S = 5e3;	% Arbitrary large max channel cross section
+pp.flags.max_S = 500;	% Arbitrary large max channel cross section
 
 pp.cond_s = config.k_s;
 pp.alpha_s = config.alpha;

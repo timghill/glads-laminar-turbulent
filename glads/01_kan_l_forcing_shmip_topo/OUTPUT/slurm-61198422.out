@@ -1,0 +1,44 @@
+Case 4:
+Picked up JAVA_TOOL_OPTIONS: -Xmx2g
+Opening log file:  /tmp/java.log.6613
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022a (9.12.0.1884302) 64-bit (glnxa64)
+                             February 16, 2022
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+config = 
+
+  struct with fields:
+
+                 k_s: 0.1000
+                 l_c: 10
+            n_moulin: 68
+    creep_const_soft: 0
+             mesh_nr: 4
+                 k_c: 0.2000
+               h_bed: 0.5000
+               l_bed: 10
+               alpha: 1.2500
+                beta: 1.5000
+               omega: 5.0000e-04
+                 e_v: 1.0000e-04
+
+Running model run (ode15s):
+Run to steady
+Saving model run to
+./RUN/output_004_steady.nc
+Fields, IC & BC initialised
+Initial phi calculated in 1.5s
+0.0/36500.0 days/days; walltime: 17.2
+------------------------------------------1825.0/36500.0 days/days; walltime: 127.4
+3650.0/36500.0 days/days; walltime: 4.0
+5475.0/36500.0 days/days; walltime: 5.0
+7300.0/36500.0 days/days; walltime: 1.2
+--------9125.0/36500.0 days/days; walltime: 7.6
+-slurmstepd: error: *** JOB 61198422 ON cdr451 CANCELLED AT 2023-02-26T19:50:39 ***

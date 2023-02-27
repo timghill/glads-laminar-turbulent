@@ -15,11 +15,11 @@ pt.out_t = pt.start:5*pp.year:pt.end;
 
 %% Source functions
 n_moulin = config.n_moulin;
-moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
-catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
+addpath('../data/melt/')
+moulindata = readmatrix(sprintf('../data/moulins/moulins_normal_%03d.txt', n_moulin));
+catchmap = readmatrix(sprintf('../data/moulins/catchment_map_normal_%03d.txt', n_moulin));
 ii_moulin = moulindata(:, 1) + 1;
 
-addpath(genpath('../data/shmip_melt/'))
 pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
 pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
