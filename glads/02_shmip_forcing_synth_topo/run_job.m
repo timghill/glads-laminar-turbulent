@@ -2,6 +2,8 @@ function pa = run_job(k_c, bump_scale, alpha, beta, omega, id)
 
 set_paths;
 
+addpath('../data/functions/')
+
 fname_steady = sprintf('output_%03d_steady.nc', id);
 fname_seasonal = sprintf('output_%03d_seasonal.nc', id);
 
