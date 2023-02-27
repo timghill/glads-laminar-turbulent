@@ -42,7 +42,7 @@ config.fname_seasonal = fname_seasonal;
 para_steady = get_para_steady(config);
 para_steady.physical;
 pa = para_steady;
-% run_model(para_steady);
+run_model(para_steady);
 
  
 para_seasonal = get_para_seasonal(config);

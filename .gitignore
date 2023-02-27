@@ -3,3 +3,8 @@
 *.mat
 *.swp
 *.asv
+
+MISC/
+STATUSES/
+TMP/
+RUN/

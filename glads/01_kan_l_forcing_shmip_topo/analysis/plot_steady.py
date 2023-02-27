@@ -16,7 +16,7 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_steady.nc'
-cases = [1, 2, 3, 4, 5]
+cases = [1, 2, 2]
 n_cases = 3
 figname = 'steady.png'
 

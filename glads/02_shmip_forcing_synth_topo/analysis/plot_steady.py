@@ -16,9 +16,9 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_steady.nc'
-cases = [911, 912, 913]
+cases = [1, 2, 3]
 n_cases = 3
-figname = 'steady_91x.png'
+figname = 'steady.png'
 
 tslices = [-1]
 n_times = len(tslices)
