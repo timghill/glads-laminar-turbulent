@@ -38,7 +38,8 @@ cb = colorbar;
 cb.Label.String = 'Moulin input (m^3 s^{-1})';
 xlabel('Day of year')
 ylabel('Moulin')
-cmocean('amp')
+%cmocean('amp')
+colormap(flipud(bone))
 print('KAN_moulin_inputs', '-dpng', '-r600')
 
 max(melt(ii_moulin, :), [], 2)

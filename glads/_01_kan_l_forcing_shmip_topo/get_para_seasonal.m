@@ -16,7 +16,7 @@ pm.save_filename = [pm.dir.model_save, filename];
 
 %% Time
 pt.start = 100*pp.year;
-pt.end   = pt.start + 0.5*pp.year;  % end time
+pt.end   = pt.start + 2*pp.year;  % end time
 pt.out_t = pt.start : 1*pp.day : pt.end;
 
 %% Source functions

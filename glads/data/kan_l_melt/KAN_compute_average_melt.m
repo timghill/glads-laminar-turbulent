@@ -44,6 +44,7 @@ while t<t1
     t = t + dt;
 end
 
+t_melt/86400
 mean_melt = net_melt./t_melt;
 
 writematrix(mean_melt, output_fname, 'Delimiter', ',')

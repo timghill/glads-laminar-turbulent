@@ -250,3 +250,31 @@ IC initialised from file/given & rest from parameters and given functions
 36674.0/36682.0 days/days; walltime: 527.8
 36675.0/36682.0 days/days; walltime: 199.0
 36676.0/36682.0 days/days; walltime: 621.6
+36677.0/36682.0 days/days; walltime: 826.7
+36678.0/36682.0 days/days; walltime: 195.5
+36679.0/36682.0 days/days; walltime: 430.9
+36680.0/36682.0 days/days; walltime: 422.6
+36681.0/36682.0 days/days; walltime: 212.5
+36682.0/36682.0 days/days; walltime: 105.3
+Wallclock for model run: 12107.3s
+ 
+
+fields = 
+
+  struct with fields:
+
+    nodes: [1x1 struct]
+    edges: [1x1 struct]
+       BC: [1x1 struct]
+
+
+ans =
+
+   366
+
+
+mean_melt =
+
+    0.9566
+
+No cases left; exiting.

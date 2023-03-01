@@ -5,8 +5,8 @@ function bed = bed_elevation_para(xy, time)
 % assumes this is a function of time
 
 % Bed elevation parameters
-trough_zs = [350, -250, 200];
-trough_xs = [0, 24.5e3, 100e3];
+trough_zs = [350, 0, 350];
+trough_xs = [0, 25e3, 100e3];
 plateau_elev = 350;
 ymid = 12.5e3;
 scaling_exp = 0.5;

@@ -19,7 +19,7 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_seasonal.nc'
-cases = [101, 102, 103]
+cases = [101, 102, 103, 104, 105]
 n_cases = len(cases)
 figname = 'floatation_composite_10x.png'
 

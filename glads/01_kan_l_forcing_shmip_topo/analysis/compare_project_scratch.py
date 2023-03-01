@@ -2,8 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import netCDF4 as nc
 
-project = nc.Dataset('../RUN/output_001_seasonal.nc');
-scratch = nc.Dataset('/home/tghill/subglacial-emulator/glads/seasonal_KAN/RUN/output_301_seasonal.nc')
+project = nc.Dataset('../RUN/output_001_steady.nc');
+scratch = nc.Dataset('/home/tghill/subglacial-emulator/glads/seasonal_KAN/RUN/output_301_steady.nc')
 
 # fig, (ax1, ax2) = plt.subplots()
 
@@ -32,3 +32,8 @@ proj_thick = project['thick'][:].data
 scra_thick = scratch['thick'][:].data
 
 print(proj_thick - scra_thick)
+
+print(project['S_channel'][:].data.T.sum(axis=0))
+print(scratch['S_channel'][:].data.T.sum(axis=0))
+
+

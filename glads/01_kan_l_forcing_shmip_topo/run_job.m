@@ -35,12 +35,32 @@ config
 config.fname_steady = fname_steady;
 config.fname_seasonal = fname_seasonal;
 
+
 % Call GlaDS for each parameter set
 para_steady = get_para_steady(config);
 para_steady.physical;
 pa = para_steady;
-run_model(para_steady);
+save('para_steady.mat', '-struct', 'pa');
+% run_model(para_steady);
 
 
 para_seasonal = get_para_seasonal(config);
-run_model(para_seasonal);
+% run_model(para_seasonal);
+
+% Plot the melt forcing
+pa = para_seasonal;
+save('para_seasonal.mat', '-struct', 'pa');
+mdata = load('../data/moulins/moulins_068.txt');
+ii_moulin = mdata(:, 1);
+tt_melt = (0:(1*86400):(365*86400)) + 100*365*86400;
+length(tt_melt)
+melt = zeros(config.n_moulin, length(tt_melt));
+for ii=1:length(tt_melt)
+    mii = pa.input.source_term_c(tt_melt(ii));
+    melt(:, ii) = mii(ii_moulin+1);
+end
+
+dt = tt_melt(2) - tt_melt(1);
+area = 100e3 * 25e3;
+mean_melt = sum(melt(:))*dt/area
+
