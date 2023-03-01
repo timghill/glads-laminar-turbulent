@@ -571,3 +571,8 @@ IC initialised from file/given & rest from parameters and given functions
 37086.0/37230.0 days/days; walltime: 363.9
 37087.0/37230.0 days/days; walltime: 227.2
 37088.0/37230.0 days/days; walltime: 536.7
+37089.0/37230.0 days/days; walltime: 685.5
+37090.0/37230.0 days/days; walltime: 498.9
+37091.0/37230.0 days/days; walltime: 387.4
+37092.0/37230.0 days/days; walltime: 55.5
+slurmstepd: error: *** JOB 61423099 ON cdr608 CANCELLED AT 2023-03-01T09:58:16 ***

@@ -2,8 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import netCDF4 as nc
 
-project = nc.Dataset('../RUN/output_001_steady.nc');
-scratch = nc.Dataset('/home/tghill/subglacial-emulator/glads/seasonal_KAN/RUN/output_301_steady.nc')
+project = nc.Dataset('../RUN/output_104_steady.nc');
+scratch = nc.Dataset('/home/tghill/subglacial-emulator/glads/seasonal_KAN/RUN/output_402_steady.nc')
 
 # fig, (ax1, ax2) = plt.subplots()
 

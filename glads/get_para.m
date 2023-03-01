@@ -47,7 +47,8 @@ pp.h_bed = config.h_bed;
 
 pp.creep_const_s_soft = config.creep_const_soft;
 
-e_v = 1e-5;
+% Set englacial porosity
+e_v = config.e_v;
 pin.e_v = make_anon_fn('@(xy) double(0*xy(:,1) + e_v)',e_v);
 
 pp.float_frac = 0; % used below for BC
