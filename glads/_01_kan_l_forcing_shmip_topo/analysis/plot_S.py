@@ -2,9 +2,9 @@ import netCDF4 as nc
 import numpy as np
 from matplotlib import pyplot as plt
 
-cases = [1, 2, 3, 4, 5]
+cases = [101, 102, 103]
 fname_pattern = '../RUN/output_%03d_seasonal.nc'
-figname = 'project_channels.png'
+figname = 'project_channels_10x.png'
 
 # cases = [301, 302, 303]
 # fname_pattern = '/home/tghill/scratch/subglacial-emulator/glads/seasonal_KAN/RUN/output_%03d_seasonal.nc'
