@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Seas farm"
+#SBATCH --job-name="Seas resubmit"
 #SBATCH --time=00-24:0:00
 #SBATCH --mem=8G
 #SBATCH --account=def-gflowers
@@ -9,4 +9,4 @@
 
 
 # Don't change this line:
-task.run
+autojob.run
