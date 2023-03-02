@@ -24,7 +24,7 @@ n_cases = len(cases)
 figname = 'SHMIP_seasonal_reduced.png'
 
 # Time slice for 2D snapshots
-tslice = 172
+tslice = 175 + 365
 
 # X bands for timeseries
 x_bands = [15, 30, 70]
