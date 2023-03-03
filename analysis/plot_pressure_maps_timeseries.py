@@ -217,7 +217,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     cax1.xaxis.tick_top()
     cax1.xaxis.set_label_position('top')
 
-    cax2.set_xticks([10, 20, 40, 60, 80, 100])
+    cax2.set_xticks([Qmin, 20, 40, 60, 80, 100])
 
     cax2.xaxis.tick_top()
     cax2.xaxis.set_label_position('top')
