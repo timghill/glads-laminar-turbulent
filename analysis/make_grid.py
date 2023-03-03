@@ -23,7 +23,7 @@ patterns = ['../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
 
 fnames = [[patterns[j] % cases[j][i] for i in range(5)] for j in range(4)]
 print(fnames)
-figname = '00_pressure_seasonal.png'
+figname = 'pressure_grid.png'
 fig_00 = plot_pressure_grid(fnames, figname)
 
 plt.show()

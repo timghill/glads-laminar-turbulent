@@ -126,6 +126,6 @@ def plot_pressure_grid(fnames, figname,
     for ax in axs[1]:
         ax.set_xlabel('Year')
 
-    fig.savefig(figname)
+    fig.savefig(figname, dpi=600)
     return fig
         
