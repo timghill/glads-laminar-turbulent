@@ -63,10 +63,6 @@ time_alphabet = ['g', 'h', 'i']
 map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
 text_args = {'fontweight':'bold'}
 
-# Set colours for 5 models
-prop_cycle = plt.rcParams['axes.prop_cycle']
-colors = prop_cycle.by_key()['color']
-print(colors)
 
 colors = np.array([[4.203e-01, 5.10e-01, 6.20e-01,1],
                    [0.5793, 0.677, 0.7812, 1],
