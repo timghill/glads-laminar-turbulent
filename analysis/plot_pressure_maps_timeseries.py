@@ -23,7 +23,7 @@ figsize=(7, 6)
 
 gs_kwargs=dict(wspace=0.05, hspace=0.2, 
         width_ratios = (100, 30, 115), 
-        left=0.1, right=0.97, bottom=0.08)
+        left=0.1, right=0.9, bottom=0.08)
 
 
 
@@ -98,13 +98,14 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     n_cases = len(fnames)
 
     # Sort out melt forcing
-    if melt_forcing=='SHMIP':
-        tt_temp = np.loadtxt('../../data/AWS_GEUS/KAN_L_2014_temp_clipped.txt', delimiter=',')
+    if melt_forcing=='KAN':
+        tt_temp = np.loadtxt('../glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
         tt_days = tt_temp[:, 0]
         temp_sl = tt_temp[:, 1]
-        temp_fun = lambda t: np.interp(t, tt_days/365, temp_sl, left=0, right=0)
-    elif melt_forcing=='KAN':
-        temp_fun = lambda t: -16*np.cos(2*np.pi*t) - 5
+        temp_fun = lambda t: np.maximum(0*t, np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
+    elif melt_forcing=='SHMIP':
+        DT = 0.0075*390
+        temp_fun = lambda t: np.maximum(-16*np.cos(2*np.pi*t) - 5 + DT, 0*t)
 
     ## Start the figure
     fig = plt.figure(figsize=figsize)
@@ -218,7 +219,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
                 melt = temp_fun(tt)
                 ax_right = timeax.twinx()
                 ax_right.plot(tt, melt, color='k', linewidth=0.5)
-
+            
+            ax_right.set_ylabel('Temp ($^\circ$C)')
             timeax.set_zorder(3)
             ax_right.set_zorder(2)
             timeax.patch.set_visible(False)
@@ -248,7 +250,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     cax1.text(0, 1.1, r'$p_{\rm{w}}/p_{\rm{i}}$', transform=cax1.transAxes)
     cax2.set_xlabel(r'$Q~(\rm{m}^3~\rm{s}^{-1})$')
 
-    axs_timeseries[0].legend(bbox_to_anchor=[0, 1.02, 1., 0.102], loc='lower left',
+    axs_timeseries[0].legend(bbox_to_anchor=[0, 1.02, 1.2, 0.102], loc='lower left',
         ncol=2, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
     for j, xb in enumerate(x_bands):
         axi = axs_timeseries[j]
