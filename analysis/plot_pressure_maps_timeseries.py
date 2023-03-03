@@ -32,7 +32,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     figsize=figsize, gs_kwargs=gs_kwargs, labels=defaults.labels, 
     colors=defaults.colors, map_cmap=defaults.cmaps['floatation'],
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
-    tlim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5]):
+    tlim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
+    melt_forcing='SHMIP', fill_between=False):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -96,7 +97,14 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
     n_cases = len(fnames)
 
-    # Time slice for 2D snapshots
+    # Sort out melt forcing
+    if melt_forcing=='SHMIP':
+        tt_temp = np.loadtxt('../../data/AWS_GEUS/KAN_L_2014_temp_clipped.txt', delimiter=',')
+        tt_days = tt_temp[:, 0]
+        temp_sl = tt_temp[:, 1]
+        temp_fun = lambda t: np.interp(t, tt_days/365, temp_sl, left=0, right=0)
+    elif melt_forcing=='KAN':
+        temp_fun = lambda t: -16*np.cos(2*np.pi*t) - 5
 
     ## Start the figure
     fig = plt.figure(figsize=figsize)
@@ -173,8 +181,10 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         quantile_95 = lambda x: np.quantile(x, 0.95)
         _, ff_upper= helpers.width_average(nodes, ff[:, tslice], metric=lambda x: np.quantile(x, 0.975))
         _, ff_lower = helpers.width_average(nodes, ff[:, tslice], metric=lambda x: np.quantile(x, 0.025))
-        ax_scatter.fill_between(xmid/1e3, ff_lower, ff_upper, facecolor=colors[ii], alpha=0.33,
-            edgecolor=None)
+
+        if fill_between:
+            ax_scatter.fill_between(xmid/1e3, ff_lower, ff_upper, facecolor=colors[ii], alpha=0.33,
+                edgecolor=None)
         ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii])
         ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_xlim([0, 100])
@@ -192,14 +202,27 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             f_lower = np.quantile(ff[node_mask, :], 0.025, axis=0)
             f_upper = np.quantile(ff[node_mask, :], 0.975, axis=0)
             timeax = axs_timeseries[j]
-            timeax.fill_between(tt, f_lower, f_upper, facecolor=colors[ii], alpha=0.3)
-            timeax.plot(tt, f_mean, label=labels[ii], color=colors[ii])
+
+            if fill_between:
+                timeax.fill_between(tt, f_lower, f_upper, facecolor=colors[ii], alpha=0.3)
+
+            timeax.plot(tt, f_mean, label=labels[ii], color=colors[ii], linewidth=1)
 
             mapax.axvline(xb, color='w', linewidth=0.5)
             timeax.axvline(tslice/365, color='k', linewidth=0.5)
 
             timeax.text(0.025, 0.95, time_alphabet[j], transform=timeax.transAxes,
             va='top', ha='left', **text_args)
+
+            if melt_forcing:
+                melt = temp_fun(tt)
+                ax_right = timeax.twinx()
+                ax_right.plot(tt, melt, color='k', linewidth=0.5)
+
+            timeax.set_zorder(3)
+            ax_right.set_zorder(2)
+            timeax.patch.set_visible(False)
+
 
 
     ax_scatter.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
