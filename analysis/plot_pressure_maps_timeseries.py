@@ -32,7 +32,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     figsize=figsize, gs_kwargs=gs_kwargs, labels=defaults.labels, 
     colors=defaults.colors, map_cmap=defaults.cmaps['floatation'],
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
-    tlim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2]):
+    tlim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5]):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -84,6 +84,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     
     t_ticks : Array-like
         x-axis ticks for timeseries panels
+
+    ff_ylim : (ymin, ymax) for ff panels
     
     Returns:
     --------
@@ -174,7 +176,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         ax_scatter.fill_between(xmid/1e3, ff_lower, ff_upper, facecolor=colors[ii], alpha=0.33,
             edgecolor=None)
         ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii])
-        ax_scatter.set_ylim([0, 1.25])
+        ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_xlim([0, 100])
         ax_scatter.grid()
 
@@ -230,7 +232,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         if j<len(x_bands)-1:
             axi.set_xticklabels([])
         axi.set_xlim(tlim)
-        axi.set_ylim([0, 1.5])
+        axi.set_ylim(ff_ylim)
         axi.set_xticks(t_ticks)
         axi.grid()
 
