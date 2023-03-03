@@ -19,12 +19,12 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_seasonal.nc'
-cases = [1, 2, 3, 4, 5]
+cases = [101, 102, 104, 104, 105]
 n_cases = len(cases)
 figname = 'floatation_composite.png'
 
 # Time slice for 2D snapshots
-tslice = 175
+tslice = 182
 
 # X bands for timeseries
 x_bands = [15, 30, 70]
@@ -63,6 +63,10 @@ time_alphabet = ['g', 'h', 'i']
 map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
 text_args = {'fontweight':'bold'}
 
+# Set colours for 5 models
+prop_cycle = plt.rcParams['axes.prop_cycle']
+colors = prop_cycle.by_key()['color']
+print(colors)
 
 colors = np.array([[4.203e-01, 5.10e-01, 6.20e-01,1],
                    [0.5793, 0.677, 0.7812, 1],
@@ -177,9 +181,11 @@ for j, xb in enumerate(x_bands):
     axi = axs_timeseries[j]
     if j<len(x_bands)-1:
         axi.set_xticklabels([])
-    axi.set_xlim([0, 1])
+    axi.set_xlim([1, 2])
     axi.set_ylim([0, 1.5])
-    axi.set_xticks([0, 0.25, 0.5, 0.75, 1])
+#    axi.set_xlim([0, 1])
+    axi.set_xticks([1.0, 1.25, 1.5, 1.75, 2])
+#    axi.set_xticks([0, 0.25, 0.5, 0.75, 1])
     axi.grid()
 
 axs_timeseries[-1].set_xlabel('Time (a)')

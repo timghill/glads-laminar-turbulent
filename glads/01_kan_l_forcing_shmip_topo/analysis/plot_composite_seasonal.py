@@ -19,7 +19,7 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_seasonal.nc'
-cases = [101, 102, 103, 104]
+cases = [101, 102, 104, 105]
 n_cases = len(cases)
 figname = 'floatation_composite.png'
 
@@ -183,9 +183,9 @@ for j, xb in enumerate(x_bands):
         axi.set_xticklabels([])
 #    axi.set_xlim([1, 2])
     axi.set_ylim([0, 1.5])
-    axi.set_xlim([0, 1])
+    axi.set_xlim([1, 2])
 #    axi.set_xticks([1.0, 1.25, 1.5, 1.75, 2])
-    axi.set_xticks([0, 0.25, 0.5, 0.75, 1])
+    axi.set_xticks([1.0, 1.25, 1.5, 1.75, 2])
     axi.grid()
 
 axs_timeseries[-1].set_xlabel('Time (a)')
