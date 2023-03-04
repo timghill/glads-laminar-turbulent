@@ -100,8 +100,8 @@ def plot_pressure_grid(fnames, figname,
             tt = out['time'][:].data/86400/365 - 100
             out.close()
 
-            axii.fill_between(tt, ff_lower, ff_upper, facecolor=colors[jj], alpha=0.3)
-            axii.plot(tt, ff_mean, color=colors[jj], label=labels[jj])
+            # axii.fill_between(tt, ff_lower, ff_upper, facecolor=colors[jj], alpha=0.3)
+            axii.plot(tt, ff_mean, color=colors[jj], label=labels[jj], linewidth=1)
 
     axs.flat[0].legend(bbox_to_anchor=(0.2, 1.15, 1.8, 0.2), ncol=3, frameon=False)
     alphabet = ['a', 'b', 'c', 'd']

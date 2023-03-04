@@ -12,7 +12,7 @@ from plot_pressure_maps_timeseries import plot_pressure_maps_timeseries
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
 figname = '00_pressure_seasonal.png'
-fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP')
+#fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP')
 
 ## Case 01: Flat topo, KAN_L forcing
 KAN_tslice = 569

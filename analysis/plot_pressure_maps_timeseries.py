@@ -227,7 +227,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             ax_right.set_zorder(2)
             timeax.patch.set_visible(False)
 
-
+        out.close()
 
     ax_scatter.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
     ax_scatter.text(0.025, 0.95, map_alphabet[n_cases], transform=ax_scatter.transAxes,
@@ -262,6 +262,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         axi.set_ylim(ff_ylim)
         axi.set_xticks(t_ticks)
         axi.grid()
+
+        ax_scatter.axvline(xb, color='k', linewidth=1)
 
     axs_timeseries[-1].set_xlabel('Time (a)')
     axs_timeseries[1].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')

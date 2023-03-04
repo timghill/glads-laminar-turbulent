@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 from plot_pressure_grid import plot_pressure_grid
 
 ## Case 00: Flat topo, SHMIP forcing
-cases = [[1, 2, 3, 4, 5],
+cases = [[1, 2, 4, 4, 5],
          [101, 102, 104, 104, 105],
          [201, 202, 203, 204, 205],
          [101, 102, 104, 104, 105]
