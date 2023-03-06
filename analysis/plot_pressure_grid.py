@@ -9,14 +9,14 @@ Plot 2x2 grid of water pressure timeseries:
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import gridspec
-from matplotlib.tri import Triangulation
+from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 import netCDF4 as nc
 
 import helpers
 import defaults
 
 
-figsize=(6, 4)
+figsize=(7, 4)
 
 
 def plot_pressure_grid(fnames, figname,
@@ -110,6 +110,7 @@ def plot_pressure_grid(fnames, figname,
         ax.grid()
         ax.set_xlim(tlim)
         ax.set_xticks(t_ticks)
+
 
         if t_ticklabels:
             ax.set_xticklabels(t_ticklabels)
