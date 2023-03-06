@@ -8,7 +8,12 @@ from matplotlib import pyplot as plt
 
 from plot_pressure_grid import plot_pressure_grid
 
-## Case 00: Flat topo, SHMIP forcing
+## Global
+
+t_lim = [1 + 4/12, 1 + 10/12]
+t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12] 
+t_ticklabels = ['4', '6', '8', '10']
+
 cases = [[1, 2, 3, 4, 5],
          [101, 102, 103, 104, 105],
          [201, 202, 203, 204, 205],
@@ -22,8 +27,9 @@ patterns = ['../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
 ]
 
 fnames = [[patterns[j] % cases[j][i] for i in range(5)] for j in range(4)]
-print(fnames)
 figname = 'pressure_grid.png'
-fig_00 = plot_pressure_grid(fnames, figname)
+fig_00 = plot_pressure_grid(fnames, figname,
+    tlim=t_lim, t_ticks=t_ticks, t_ticklabels=t_ticklabels,
+    xlabel='Month')
 
 plt.show()

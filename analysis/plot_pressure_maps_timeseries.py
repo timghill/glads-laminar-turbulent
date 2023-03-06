@@ -32,7 +32,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     figsize=figsize, gs_kwargs=gs_kwargs, labels=defaults.labels, 
     colors=defaults.colors, map_cmap=defaults.cmaps['floatation'],
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
-    tlim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
+    t_lim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
+    t_ticklabels=None, t_xlabel='Year',
     melt_forcing='SHMIP', fill_between=False):
     """
     Plot 2D floatation fraction maps and timeseries.
@@ -102,10 +103,11 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         tt_temp = np.loadtxt('../glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
         tt_days = tt_temp[:, 0]
         temp_sl = tt_temp[:, 1]
-        temp_fun = lambda t: np.maximum(0*t, np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
+        lr = -0.005
+        DT = lr*(0 - 390)
+        temp_fun = lambda t: np.maximum(0*t, DT + np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
     elif melt_forcing=='SHMIP':
-        DT = 0.0075*390
-        temp_fun = lambda t: np.maximum(-16*np.cos(2*np.pi*t) - 5 + DT, 0*t)
+        temp_fun = lambda t: np.maximum(-16*np.cos(2*np.pi*t) - 5, 0*t)
 
     ## Start the figure
     fig = plt.figure(figsize=figsize)
@@ -258,14 +260,16 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         axi = axs_timeseries[j]
         if j<len(x_bands)-1:
             axi.set_xticklabels([])
-        axi.set_xlim(tlim)
+        axi.set_xlim(t_lim)
         axi.set_ylim(ff_ylim)
         axi.set_xticks(t_ticks)
+        if t_ticklabels:
+            axi.set_xticklabels(t_ticklabels)
         axi.grid()
 
         ax_scatter.axvline(xb, color='k', linewidth=1)
 
-    axs_timeseries[-1].set_xlabel('Time (a)')
+    axs_timeseries[-1].set_xlabel(t_xlabel)
     axs_timeseries[1].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
 
     fig.savefig(figname, dpi=600)

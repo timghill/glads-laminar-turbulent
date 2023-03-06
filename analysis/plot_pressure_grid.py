@@ -24,6 +24,7 @@ def plot_pressure_grid(fnames, figname,
     figsize=figsize, labels=defaults.labels, 
     colors=defaults.colors, tlim=[1, 2],
     t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
+    t_ticklabels=None, xlabel='Years',
     rhow=1000, g=9.81):
     """
     Plot 2D floatation fraction maps and timeseries.
@@ -109,6 +110,9 @@ def plot_pressure_grid(fnames, figname,
         ax.grid()
         ax.set_xlim(tlim)
         ax.set_xticks(t_ticks)
+
+        if t_ticklabels:
+            ax.set_xticklabels(t_ticklabels)
         ax.set_ylim(ff_ylim)
         ax.text(0.05, 0.95, alphabet[i], va='top', transform=ax.transAxes,
             fontweight='bold')
@@ -124,7 +128,7 @@ def plot_pressure_grid(fnames, figname,
         ax.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
     
     for ax in axs[1]:
-        ax.set_xlabel('Year')
+        ax.set_xlabel(xlabel)
 
     fig.savefig(figname, dpi=600)
     return fig
