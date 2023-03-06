@@ -9,10 +9,10 @@ from matplotlib import pyplot as plt
 from plot_pressure_grid import plot_pressure_grid
 
 ## Case 00: Flat topo, SHMIP forcing
-cases = [[1, 2, 4, 4, 5],
-         [101, 102, 104, 104, 105],
+cases = [[1, 2, 3, 4, 5],
+         [101, 102, 103, 104, 105],
          [201, 202, 203, 204, 205],
-         [101, 102, 104, 104, 105]
+         [101, 102, 103, 104, 105]
 ]
 
 patterns = ['../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
