@@ -20,7 +20,7 @@ figsize=(6, 6)
 def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice, 
     x_band=defaults.x_bands[1], band_width=defaults.band_width, 
     figsize=figsize, labels=defaults.labels, 
-    colors=defaults.colors, tlim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2],
+    colors=defaults.colors, tlim=[3, 9], t_ticks=[3, 4.5, 6, 7.5, 9],
     k_turb=1, rhow=1000, g=9.81, nu=1.79e-6, omega=1/1000):
     """Plot components of discharge parameterization to attribute differences.
 
@@ -111,7 +111,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         n_edges = connect_edge.shape[0]
 
         time = out['time'][:].data.T
-        tt = time/86400/365 - 100
+        tt = 12*(time/86400/365 - 101)
         n_time = len(time)
 
         ## Net sheet and channel flux
@@ -242,7 +242,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax2.set_yticks([1e-2, 1e-1, 1e0, 1e1])
 
     ax1.set_xlabel('x (km)')
-    ax2.set_xlabel('Year')
+    ax2.set_xlabel('Month')
 
     for ax in axs[:, 0]:
         ax.grid(True)
