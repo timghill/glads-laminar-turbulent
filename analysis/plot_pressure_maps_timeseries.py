@@ -104,7 +104,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         tt_days = tt_temp[:, 0]
         temp_sl = tt_temp[:, 1]
         lr = -0.005
-        DT = lr*(0 - 390)
+        DT = lr*390
         temp_fun = lambda t: np.maximum(0*t, DT + np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
     elif melt_forcing=='SHMIP':
         temp_fun = lambda t: np.maximum(-16*np.cos(2*np.pi*t) - 5, 0*t)
@@ -181,8 +181,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         if ii<n_cases:
             mapax.set_xticklabels([])
         
-        mapax.text(0.025, 0.95, map_alphabet[ii], transform=mapax.transAxes,
-            va='top', ha='left', **text_args)
+        mapax.text(0.95, 0.95, map_alphabet[ii], transform=mapax.transAxes,
+            va='top', ha='right', **text_args)
         xmid, ff_avg = helpers.width_average(nodes, ff[:, tslice])
 
         quantile_95 = lambda x: np.quantile(x, 0.95)
@@ -218,8 +218,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             mapax.axvline(xb, color='w', linewidth=0.5)
             timeax.axvline(tslice/365, color='k', linewidth=0.5)
 
-            timeax.text(0.025, 0.95, time_alphabet[j], transform=timeax.transAxes,
-            va='top', ha='left', **text_args)
+            timeax.text(0.95, 0.95, time_alphabet[j], transform=timeax.transAxes,
+            va='top', ha='right', **text_args)
 
             if melt_forcing:
                 melt = temp_fun(tt)
@@ -227,7 +227,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
                 ax_right.plot(tt, melt, color='k', linewidth=0.5)
             
             ax_right.set_ylabel('Temp ($^\circ$C)')
-            ax_right.set_ylim([0, 15])
+            ax_right.set_ylim([0, 12])
             ax_right.set_yticks([0, 5, 10, 15])
             timeax.set_zorder(3)
             ax_right.set_zorder(2)

@@ -13,7 +13,8 @@ tt_days = tt_temp[:, 0]
 temp_sl = tt_temp[:, 1]
 
 # SHMIP temp model
-temp_fun = lambda t: -16*np.cos(2*np.pi*t/86400/365) - 5
+DT = 0.0075*390
+temp_fun = lambda t: -16*np.cos(2*np.pi*t/86400/365) - 5 + DT
 
 tt = np.arange(0, 365*86400, 86400)
 tt_a = tt/365/86400
@@ -33,8 +34,8 @@ ax2.grid()
 ax1.set_xticks([0, 0.25, 0.5, 0.75, 1])
 ax2.set_xticks([0, 0.25, 0.5, 0.75, 1])
 
-ax1.set_ylim([-1, 13])
-ax2.set_ylim([-1, 13])
+ax1.set_ylim([-1, 16])
+ax2.set_ylim([-1, 16])
 
 ax1.set_title('SHMIP')
 ax2.set_title('KAN_L')
