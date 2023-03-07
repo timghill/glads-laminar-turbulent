@@ -12,7 +12,7 @@ config.l_c = 10;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
 config.mesh_nr = 4;
-config.e_v = config;
+config.e_v = 1e-4;
 
 % Tuning parameters
 config.k_c = k_c;
