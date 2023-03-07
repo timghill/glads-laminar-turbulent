@@ -1,6 +1,7 @@
 function pa = run_job(k_c, bump_scale, alpha, beta, omega, id)
 
 set_paths;
+addpath(genpath('../data/functions/'))
 
 fname_steady = sprintf('output_%03d_steady.nc', id);
 fname_seasonal = sprintf('output_%03d_seasonal.nc', id);
@@ -11,6 +12,7 @@ config.l_c = 10;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
 config.mesh_nr = 4;
+config.e_v = config;
 
 % Tuning parameters
 config.k_c = k_c;

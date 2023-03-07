@@ -38,12 +38,12 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 axs_scatter = np.array([fig.add_subplot(gs[n_cases+1, j]) for j in range(2)])
 labels = ['Turbulent', 'Laminar', 'Transition', 'Turbulent (3/2)', 'Transition (3/2)']
 
-colors = np.array([#[0.420, 0.510, 0.620, 1],
-                   [0.579, 0.677, 0.781, 1],
+colors = np.array([[0.420, 0.510, 0.620, 1],
+#                   [0.579, 0.677, 0.781, 1],
                    [0.500, 0.500, 0.500, 1],
-#                   [0.859, 0.683, 0.275, 1],
-#                    ])
-                   [0.929, 0.835, 0.408, 1]])
+                   [0.859, 0.683, 0.275, 1],
+                    ])
+#                   [0.929, 0.835, 0.408, 1]])
 
 cm1 = palettes.get_cmap('BrownGray')
 cm2 = palettes.get_cmap('blue-8').reversed()
@@ -69,7 +69,7 @@ for ii in range(n_cases):
     qs = np.sqrt(q[:, 0]**2 + q[:, 1]**2)
     Re = qs/float(out['para/nu'][:].data)
 
-    phi_0 = 0
+    phi_0 = 9.81*1000*np.vstack(out['bed'][:].data)
     pw = phi - phi_0
     ff = pw/(N + pw)
 

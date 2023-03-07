@@ -7,6 +7,7 @@ fname_steady = config.fname_steady;
 filename = config.fname_seasonal;
 
 %% Get defaults and unwrap
+addpath('../')
 para = get_para(config);
 [pm, pn, pin, ps, pst, psp, mesh, dmesh, pp, pt, psin, pmd, psmd, pcm] = unwrap_all_para(para);
 
@@ -18,17 +19,23 @@ pt.start = 100*pp.year;
 pt.end   = pt.start + 2*pp.year;  % end time
 pt.out_t = pt.start : 1*pp.day : pt.end;
 
+%% Synthetic bed topo
+addpath('../data/topo_x_squared_para/')
+pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_flat(xy, time))');
+pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_flat(xy, time))');
+
+
 %% Source functions
-addpath('../data/melt/')
+addpath('../data/shmip_melt/')
 n_moulin = config.n_moulin;
-moulindata = readmatrix(sprintf('../data/moulins/moulins_normal_%03d.txt', n_moulin));
-catchmap = readmatrix(sprintf('../data/moulins/catchment_map_normal_%03d.txt', n_moulin));
+moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
+catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
 ii_moulin = moulindata(:, 1) + 1;
 
-pin.source_term_s = make_anon_fn('@(xy, t) double(0.01/86400/365 + 0*xy(:, 1));');
+pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
 
 % Moulin inputs will need to be adjusted for diurnal simulations
-pin.source_term_c = make_anon_fn('@(t) double(source_moulin_shmip_seasonal(t, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_seasonal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
 %% Numerics
 st = {'ode15s', 'ode23s', 'ode23t', 'odebim'};  % can also use ode23t, ode23s but ode15s is probbaly best

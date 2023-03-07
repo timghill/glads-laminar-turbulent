@@ -13,15 +13,20 @@ para = get_para(config);
 pt.end   = 100*pp.year;  % end time
 pt.out_t = pt.start:5*pp.year:pt.end;
 
+%% Synthetic bed topo
+addpath('../data/topo_x_squared_para/')
+pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_flat(xy, time))');
+pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_flat(xy, time))');
+
 %% Source functions
 n_moulin = config.n_moulin;
-addpath('../data/shmip_melt/')
-moulindata = readmatrix(sprintf('../data/moulins/moulins_normal_%03d.txt', n_moulin));
-catchmap = readmatrix(sprintf('../data/moulins/catchment_map_normal_%03d.txt', n_moulin));
+moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
+catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
 ii_moulin = moulindata(:, 1) + 1;
 
-pin.source_term_s = make_anon_fn('@(xy, t) double(0.01/86400/365 + 0*xy(:, 1));');
-pin.source_term_c = make_anon_fn('@(t) double(source_moulin_shmip_steady(t, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+addpath(genpath('../data/shmip_melt/'))
+pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
+pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
 %% Nondimensionalize and re-wrap
 [psp, pst, psmd, psin, mesh] = scale_para(pp, pt, pmd, pin, dmesh, ps);

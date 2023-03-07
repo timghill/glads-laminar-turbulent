@@ -1,0 +1,38 @@
+Case 2:
+Picked up JAVA_TOOL_OPTIONS: -Xmx2g
+Opening log file:  /tmp/java.log.24764
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022a (9.12.0.1884302) 64-bit (glnxa64)
+                             February 16, 2022
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+config = 
+
+  struct with fields:
+
+                 k_s: 0.0299
+                 l_c: 10
+            n_moulin: 68
+    creep_const_soft: 0
+             mesh_nr: 4
+                 e_v: [1x1 struct]
+                 k_c: 0.1500
+               h_bed: 0.5000
+               l_bed: 10
+               alpha: 1.5000
+                beta: 1.5000
+               omega: 0
+
+Running model run (ode15s):
+Run to steady
+Saving model run to
+./RUN/output_102_steady.nc
+{Operator '+' is not supported for operands of type 'struct'.
+} 
+No cases left; exiting.
