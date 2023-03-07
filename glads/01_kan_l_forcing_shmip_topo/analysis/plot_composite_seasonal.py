@@ -19,9 +19,9 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_seasonal.nc'
-cases = [101, 102, 104, 105]
+cases = [201, 202, 203, 203]
 n_cases = len(cases)
-figname = 'floatation_composite.png'
+figname = 'floatation_composite_200.png'
 
 # Time slice for 2D snapshots
 tslice = 182
@@ -96,7 +96,8 @@ for ii in range(n_cases):
     phi_0 = 9.81*1000*np.vstack(out['bed'][:].data)
     pw = phi - phi_0
     ff = pw/(N + pw)
-
+    pi = N + pw
+    print('Min ice pressure:', np.min(pi))
     tt = out['time'][:].data/86400/365 - 100
 
     # Initialize triangulation for faster plotting

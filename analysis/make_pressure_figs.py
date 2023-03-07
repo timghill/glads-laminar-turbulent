@@ -15,7 +15,7 @@ t_xlabel = 'Month'
 
 ## Case 00: Flat topo, SHMIP forcing
 cases = [1, 2, 3, 4, 5]
-fnames = ['../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
 figname = '00_pressure_seasonal.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP',
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
@@ -28,6 +28,15 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '01_pressure_seasonal.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=1, melt_forcing='KAN',
     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim)
+
+## Case 02: Trough topo, SHMIP forcing
+cases = [201, 202, 203, 204, 205]
+pattern = '../glads/02_shmip_forcing_synth_topo/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '02_pressure_seasonal.png'
+fig_02 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=1, melt_forcing='SHMIP',
+    t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12])
+
 
 ## Case 03: Trough topo, KAN_L forcing
 cases = [101, 102, 103, 104, 105]

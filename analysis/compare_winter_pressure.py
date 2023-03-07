@@ -97,7 +97,7 @@ print('    SEASONAL (case 00)')
 print('-------------------------------------------------')
 
 seasonal_cases = [1, 2, 3, 4, 5]
-seasonal_dir = '../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+seasonal_dir = '../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
 fnames = [seasonal_dir % caseid for caseid in seasonal_cases]
 
 print('\nMean winter water pressure')
@@ -115,7 +115,7 @@ print('-------------------------------------------------')
 print('    SEASONAL (case 01)')
 print('-------------------------------------------------')
 
-seasonal_cases = [1, 1, 1, 1, 1]
+seasonal_cases = [101, 102, 103, 104, 105]
 seasonal_dir = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
 fnames = [seasonal_dir % caseid for caseid in seasonal_cases]
 

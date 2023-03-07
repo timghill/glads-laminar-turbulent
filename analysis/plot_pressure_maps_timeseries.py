@@ -143,6 +143,10 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         print(fname)
 
         out = nc.Dataset(fname, 'r')
+        
+        walltime = float(out['model/wallclock'][:])
+        print('Walltime (hours):', walltime/3600)
+
         nodes = out['nodes'][:].data.T
         connect = out['connect'][:].data.T.astype(int) - 1
         connect_edge = out['connect_edge'][:].data.T.astype(int) - 1
