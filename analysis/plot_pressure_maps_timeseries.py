@@ -228,7 +228,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             
             ax_right.set_ylabel('Temp ($^\circ$C)')
             ax_right.set_ylim([0, 12])
-            ax_right.set_yticks([0, 5, 10, 15])
+            ax_right.set_yticks([0, 4, 8, 12])
             timeax.set_zorder(3)
             ax_right.set_zorder(2)
             timeax.patch.set_visible(False)
