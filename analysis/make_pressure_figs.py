@@ -20,6 +20,14 @@ figname = '00_pressure_seasonal.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP',
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
 
+## Case 00.2: Flat topo, SHMIP forcing
+cases = [201, 202, 203, 204, 205]
+fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+figname = '00_pressure_seasonal_200.png'
+fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP',
+    t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
+
+
 ## Case 01: Flat topo, KAN_L forcing
 KAN_tslice = 569
 cases = [101, 102, 103, 104, 105]

@@ -17,13 +17,13 @@ t_ticks = 1 + np.arange(4, 11)/12
 t_ticklabels = ['4', '', '6', '', '8', '', '10']
 ff_ylim = [0, 1.75]
 
-cases = [[1, 2, 3, 4, 5],
+cases = [[201, 202, 203, 204, 205],
          [101, 102, 103, 104, 105],
          [201, 202, 203, 204, 205],
          [101, 102, 103, 104, 105]
 ]
 
-patterns = ['../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
+patterns = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
             '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
             '../glads/02_shmip_forcing_synth_topo/RUN/output_%03d_seasonal.nc',
             '../glads/03_kan_l_forcing_synth_topo/RUN/output_%03d_seasonal.nc',
