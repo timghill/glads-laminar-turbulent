@@ -218,8 +218,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             mapax.axvline(xb, color='w', linewidth=0.5)
             timeax.axvline(tslice/365, color='k', linewidth=0.5)
 
-            timeax.text(0.95, 0.95, time_alphabet[j], transform=timeax.transAxes,
-            va='top', ha='right', **text_args)
+            timeax.text(0.025, 0.95, time_alphabet[j], transform=timeax.transAxes,
+            va='top', ha='left', **text_args)
 
             if melt_forcing:
                 melt = temp_fun(tt)
@@ -236,8 +236,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         out.close()
 
     ax_scatter.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
-    ax_scatter.text(0.025, 0.95, map_alphabet[n_cases], transform=ax_scatter.transAxes,
-        va='top', ha='left', **text_args)
+    ax_scatter.text(0.95, 0.95, map_alphabet[n_cases], transform=ax_scatter.transAxes,
+        va='top', ha='right', **text_args)
 
     axs_maps[2].set_ylabel('y (km)')
 

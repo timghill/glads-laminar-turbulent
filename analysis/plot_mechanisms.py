@@ -259,6 +259,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax.set_xticks(t_ticks)
         ax.set_xticklabels([])
         ax.set_yticklabels([])
+        ax.axvline((tslice/365 - 1)*12, color='k', linewidth=0.5)
     ax.set_xticklabels([str(tii) for tii in t_ticks])
 
     fig.savefig(figname, dpi=600)
