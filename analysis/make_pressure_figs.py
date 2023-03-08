@@ -38,10 +38,10 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=
     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim)
 
 ## Case 02: Trough topo, SHMIP forcing
-cases = [201, 202, 203, 204, 205]
+cases = [301, 302, 303, 304, 305]
 pattern = '../glads/02_shmip_forcing_synth_topo/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
-figname = '02_pressure_seasonal.png'
+figname = '02_pressure_seasonal_300.png'
 fig_02 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP',
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12])
 

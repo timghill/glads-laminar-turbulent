@@ -19,9 +19,9 @@ import GladsPlot as gplt
 
 # Define fnames
 fname_pattern = '../RUN/output_%03d_seasonal.nc'
-cases = [201, 202, 203, 204, 205]
+cases = [301, 302, 303, 304, 305]
 n_cases = len(cases)
-figname = 'floatation_composite.png'
+figname = 'floatation_composite_300.png'
 
 # Time slice for 2D snapshots
 tslice = 185 + 365
