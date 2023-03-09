@@ -7,10 +7,11 @@ y = linspace(0, 25e3, 101);
 xy = [xx(:), yy(:)];
 
 % Mimic pin
-pin.bed_elevation = @(xy, t) bed_elevation_synth(xy, t);
+% pin.bed_elevation = @(xy, t) bed_elevation_synth(xy, t);
+pin.bed_elevation = @(xy, t) bed_elevation_valley(xy, t);
 
-bed = bed_elevation_synth(xy, 0);
-thick = ice_thickness_synth(xy, 0, pin);
+bed = pin.bed_elevation(xy, 0);
+thick = ice_thickness_valley(xy, 0, pin);
 
 bed = reshape(bed, size(xx));
 thick = reshape(thick, size(xx));

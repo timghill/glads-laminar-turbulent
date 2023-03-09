@@ -16,6 +16,8 @@ temp_sl = tt_temp[:, 1]
 DT = 0.0075*390
 temp_fun = lambda t: -16*np.cos(2*np.pi*t/86400/365) - 5 + DT
 
+shmip_adj_fun = lambda t: -9.0684*np.cos(2*np.pi*t/86400/365) + 9.0684*(DT - 5)/16
+
 tt = np.arange(0, 365*86400, 86400)
 tt_a = tt/365/86400
 
@@ -25,7 +27,10 @@ KAN_temp[KAN_temp<0] = 0
 SHMIP_temp = temp_fun(tt)
 SHMIP_temp[SHMIP_temp<0] = 0
 
-ax1.plot(tt_a, SHMIP_temp)
+SHMIP_adj_temp = shmip_adj_fun(tt)
+SHMIP_adj_temp[SHMIP_adj_temp<0] = 0
+ax1.plot(tt_a, SHMIP_temp, label='SHMIP')
+ax1.plot(tt_a, SHMIP_adj_temp, label='SHMIP adjusted')
 ax1.grid()
 
 ax2.plot(tt_a, KAN_temp)
