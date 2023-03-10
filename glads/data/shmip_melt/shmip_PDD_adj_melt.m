@@ -26,11 +26,13 @@ function melt = shmip_PDD_melt(t, z, varargin)
     
     %% Default parameters
     DDF = 0.01/day;       % Degree day factor (m/K/s)
-    kan_lr = -0.005;           % Lapse rate (K/m)
+    % kan_lr = -0.005;           % Lapse rate (K/m)
+    kan_lr = -0.005;
     shmip_lr = -0.0075;
-    DT = shmip_lr*390;                 % Simulate case "D3"
+    DT = -shmip_lr*390;                 % Simulate case "D3"
     ra = 0;			% No diurnal melt variation
     a = 9.0684;
+    % a = 16;
 
     if nargin>0
         for ii=1:2:(nargin-2)
@@ -41,8 +43,8 @@ function melt = shmip_PDD_melt(t, z, varargin)
                 DDF = val/day;
             case 'lr'
                 lr = val;
-            case 'DT'
-                DT = val;
+         %   case 'DT'
+         %       DT = val;
             case 'ra'
                 ra = val;
             otherwise
