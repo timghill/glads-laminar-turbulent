@@ -24,7 +24,7 @@ n_cases = len(cases)
 figname = 'floatation_composite.png'
 
 # Time slice for 2D snapshots
-tslice = 0
+tslice = 365 + 180
 
 # X bands for timeseries
 x_bands = [15, 30, 70]
