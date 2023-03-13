@@ -27,7 +27,7 @@ import helpers
 figsize=(5, 4)
 
 gs_kwargs=dict(wspace=0.05, hspace=0.2, 
-        height_ratios=(2, 1), top=0.95)
+        height_ratios=(2, 1), top=0.9)
 
 labels = ['Turbulent', 'Laminar', 'Transition']
 colors = np.array([[0.420, 0.510, 0.620, 1],
@@ -167,6 +167,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
         timeax.text(0.025, 0.95, alphabet[0], transform=timeax.transAxes,
             va='top', ha='left', **text_args)
 
+        timeax.set_ylim([0, 1.5])
+
         out.close()
 
     melt = temp_fun(tt)
@@ -179,7 +181,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
 
     ax_right.text(0.025, 0.95, alphabet[1], transform=ax_right.transAxes,
             va='top', ha='left', **text_args)
-    axs[0].legend(bbox_to_anchor=[0.1, 0.9, 0.9, 0.102], loc='lower left',
+    axs[0].legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
         ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
 
     for j in range(2):
@@ -199,14 +201,14 @@ if __name__ == '__main__':
     # t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
     # t_ticklabels = ['4', '6', '8', '10']
     # t_lim = [t_ticks[0], t_ticks[-1]]
-    t_lim = [140, 250]
+    t_lim = [140, 265]
     t_xlabel = 'Day of year'
 
     ## Case 01: Flat topo, KAN_L forcing
     KAN_tslice = 569
     # cases = [2, 3, 5]
     cases = [102, 103, 105]
-    pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+    pattern = '../../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
     # pattern = '../../glads/02a_shmip_forcing_valley_topo/RUN/output_%03d_seasonal.nc'
     fnames = [pattern % caseid for caseid in cases]
     figname = '01_pressure_simple.png'
