@@ -46,6 +46,15 @@ fig_02 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SH
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12])
 
 
+## Case 02: Valley topo, SHMIP forcing
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/02a_shmip_forcing_valley_topo/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '02_pressure_seasonal_valley.png'
+fig_02 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='SHMIP',
+    t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12])
+
+
 ## Case 03: Trough topo, KAN_L forcing
 cases = [101, 102, 103, 104, 105]
 pattern = '../glads/03_kan_l_forcing_synth_topo/RUN/output_%03d_seasonal.nc'

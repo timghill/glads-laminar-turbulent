@@ -17,72 +17,41 @@ connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
 
 out_trough = nc.Dataset('../glads/02_shmip_forcing_synth_topo/RUN/output_203_seasonal.nc')
 
+out_valley = nc.Dataset('../glads/02a_shmip_forcing_valley_topo/RUN/output_003_seasonal.nc')
+
 
 bed_flat = 350 + 0*nodes[:, 0]
 bed_trough = out_trough['bed'][:].data
+bed_valley = out_valley['bed'][:].data
 
 surf = 6*(np.sqrt(nodes[:, 0] + 5e3) - np.sqrt(5e3)) + 390
 
 mesh_tri = tri.Triangulation(nodes[:, 0]/1e3, nodes[:, 1]/1e3, connect)
 
-fig = plt.figure(figsize=(7, 4))
-ax1 = fig.add_subplot(1, 2, 1, projection='3d', box_aspect=(100, 25, 1.6*20), elev=20, azim=-120)
-ax2 = fig.add_subplot(1, 2, 2, projection='3d', box_aspect=(100, 25, 1.6*20), elev=20, azim=-120)
-psurf = ax1.plot_trisurf(mesh_tri, surf, cmap=palettes.get_cmap('BlueIce'), vmin=0, vmax=2000, edgecolors=(0, 0, 0, 0.5), linewidths=0.2)
-ax1.plot_trisurf(mesh_tri, bed_flat, cmap=palettes.get_cmap('BrownEarth'), vmin=0, vmax=400)
-ax1.set_xlim([0, 100])
-ax1.set_ylim([0, 25])
-ax1.set_zlim([0, 1950])
-ax1.set_yticks([0, 12.5, 25])
-
-ax1.set_xlabel('x (km)')
-ax1.set_ylabel('y (km)')
-
-cbar = fig.colorbar(psurf, location='bottom', aspect=40, ax=ax1)
-cbar.set_label('Surface elevation (m)')
-
-# ax1.set_position(Bbox.from_bounds(-0.95, -0.1, 1.7, 1.2))
-# ax1.set_position(Bbox.from_bounds(-0.45, 0.05, 2, 1.2))
-
-
-ax2.plot_trisurf(mesh_tri, surf, cmap=palettes.get_cmap('BlueIce'), vmin=0, vmax=2000, edgecolors=(0, 0, 0, 0.5), linewidths=0.2)
-bsurf = ax2.plot_trisurf(mesh_tri, bed_trough, cmap=palettes.get_cmap('BrownEarth'), vmin=0, vmax=400)
-ax2.set_xlim([0, 100])
-ax2.set_ylim([0, 25])
-ax2.set_zlim([0, 1950])
-
-ax2.set_xlabel('x (km)')
-ax2.set_ylabel('y (km)')
-ax2.set_yticks([0, 12.5, 25])
-# ax2.set_position(Bbox.from_bounds(-0.45, 0.05, 2, 1.2))
-
-cbar = fig.colorbar(bsurf, location='bottom', aspect=40, ax=ax2)
-cbar.set_label('Bed elevation (m)')
-
-# plt.tight_layout()
-fig.savefig('shmip_domain')
-
+bed_levels = np.arange(0, 600, 50) - 25
+thick_levels = np.arange(0, 2100, 100)
 
 ## Plot bed elevation and ice thickness
 
-fig2 = plt.figure(figsize=(7, 3))
+fig2 = plt.figure(figsize=(7, 4.5))
 
-gs = GridSpec(3, 2, height_ratios=(10, 100, 100),
+gs = GridSpec(4, 2, height_ratios=(10, 100, 100, 100),
     left=0.1, bottom=0.15, right=0.97, top=0.8,
     hspace=0.05, wspace=0.075)
 
-axs = np.array([[fig2.add_subplot(gs[i+1,j]) for j in range(2)] for i in range(2)])
+axs = np.array([[fig2.add_subplot(gs[i+1,j]) for j in range(2)] for i in range(3)]).T
 
 bed_cmap = palettes.get_cmap('BrownEarth').reversed()
 thick_cmap = palettes.get_cmap('BlueIce')
 
-bed_pcolor = axs[0, 0].tricontourf(mesh_tri, bed_flat, cmap=bed_cmap, vmin=0, vmax=400, levels=np.arange(0, 450, 50))
+bed_pcolor = axs[0, 0].tricontourf(mesh_tri, bed_flat, cmap=bed_cmap, levels=bed_levels)
+thick_pcolor = axs[1, 0].tricontourf(mesh_tri, surf - bed_flat, cmap=thick_cmap,  levels=thick_levels)
 
-thick_pcolor = axs[1, 0].tricontourf(mesh_tri, surf - bed_flat, cmap=thick_cmap, vmin=0, vmax=2000, levels=np.arange(0, 2100, 100))
+axs[0, 1].tricontourf(mesh_tri, bed_trough, cmap=bed_cmap, levels=bed_levels)
+axs[1, 1].tricontourf(mesh_tri, surf - bed_trough, cmap=thick_cmap, levels=thick_levels)
 
-axs[0, 1].tricontourf(mesh_tri, bed_trough, cmap=bed_cmap, vmin=0, vmax=400, levels=np.arange(0, 450, 50))
-
-axs[1, 1].tricontourf(mesh_tri, surf - bed_trough, cmap=thick_cmap, vmin=0, vmax=2000, levels=np.arange(0, 2100, 100))
+axs[0, 2].tricontourf(mesh_tri, bed_valley, cmap=bed_cmap,  levels=bed_levels)
+axs[1, 2].tricontourf(mesh_tri, surf - bed_valley, cmap=thick_cmap, levels=thick_levels)
 
 for ax in axs.flat:
     ax.set_aspect('equal')
@@ -90,17 +59,24 @@ for ax in axs.flat:
     ax.set_ylim([0, 25])
     ax.set_yticks([0, 12.5, 25])
 
-axs[0, 0].set_xticklabels([])
-axs[0, 1].set_xticklabels([])
+axT = axs.T
+axT[0, 0].set_xticklabels([])
+axT[0, 1].set_xticklabels([])
 
-axs[0, 1].set_yticklabels([])
-axs[1, 1].set_yticklabels([])
+axT[1, 0].set_xticklabels([])
+axT[1, 1].set_xticklabels([])
+# axT[0, 2].set_xticklabels([])
 
-axs[0, 0].set_ylabel('y (km)')
-axs[1, 0].set_ylabel('y (km)')
+axT[0, 1].set_yticklabels([])
+axT[1, 1].set_yticklabels([])
+axT[2, 1].set_yticklabels([])
 
-axs[1, 0].set_xlabel('x (km)')
-axs[1, 1].set_xlabel('x (km)')
+axT[0, 0].set_ylabel('y (km)')
+axT[1, 0].set_ylabel('y (km)')
+axT[2, 0].set_ylabel('y (km)')
+
+axT[2, 0].set_xlabel('x (km)')
+axT[2, 1].set_xlabel('x (km)')
 
 cax1 = fig2.add_subplot(gs[0, 0])
 cax2 = fig2.add_subplot(gs[0, 1])
