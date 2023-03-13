@@ -302,9 +302,9 @@ if __name__ == '__main__':
     ## Case 01: Flat topo, KAN_L forcing
     KAN_tslice = 569
     # cases = [2, 3, 5]
-    cases = [3, 3, 3]
-    # pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
-    pattern = '../../glads/02a_shmip_forcing_valley_topo/RUN/output_%03d_seasonal.nc'
+    cases = [102, 103, 105]
+    pattern = '../../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+    # pattern = '../../glads/02a_shmip_forcing_valley_topo/RUN/output_%03d_seasonal.nc'
     fnames = [pattern % caseid for caseid in cases]
     figname = '01_pressure_seasonal.png'
     fig_01 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=1, melt_forcing='KAN',
