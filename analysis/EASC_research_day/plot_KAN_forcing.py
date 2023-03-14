@@ -39,7 +39,15 @@ ax.set_ylabel('Temperature (C)')
 
 ax.axhline(0, color='k')
 
+<<<<<<< HEAD
 fig.subplots_adjust(bottom=0.1, top=0.95, right=0.98, left=0.125)
+=======
+<<<<<<< HEAD
+fig.subplots_adjust(bottom=0.1, top=0.95, right=0.98, left=0.125)
+=======
+fig.subplots_adjust(bottom=0.15, top=0.95, right=0.95, left=0.125)
+>>>>>>> refs/remotes/origin/main
+>>>>>>> refs/remotes/origin/main
 
 fig.savefig(figname, dpi=600)
 
