@@ -10,8 +10,8 @@ from matplotlib import pyplot as plt
 
 # Graphics
 figname = 'KAN_forcing.png'
-figsize=(6, 5)
-color = 'dimgray'
+figsize=(6, 3)
+color = 'indigo'
 
 # Get melt data
 KAN_day_temp = np.loadtxt('../../glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
@@ -35,10 +35,11 @@ month_labels = ['May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov']
 ax.set_xticks([5, 6, 7, 8, 9, 10, 11])
 ax.set_xlim([4.75, 11.25])
 ax.set_xticklabels(month_labels)
-ax.set_xlabel('Month')
 ax.set_ylabel('Temperature (C)')
 
 ax.axhline(0, color='k')
+
+fig.subplots_adjust(bottom=0.1, top=0.95, right=0.98, left=0.125)
 
 fig.savefig(figname, dpi=600)
 
