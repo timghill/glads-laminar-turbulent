@@ -111,7 +111,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     elif melt_forcing=='SHMIPadj':
         a = 9.0684
         DT = 390*0.0075
-        temp_fun = lambda t: -a*np.cos(2*np.pi*t) + a*(DT - 5)/16
+        DT_term = 0.005*390
+        temp_fun = lambda t: -a*np.cos(2*np.pi*t) + a*(DT - 5)/16 - DT_term
 
 
     ## Start the figure
