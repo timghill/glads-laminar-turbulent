@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 
 # Graphics
 figname = 'KAN_forcing.png'
-figsize=(6, 5)
+figsize=(6, 3)
 color = 'dimgray'
 
 # Get melt data
@@ -39,6 +39,8 @@ ax.set_xlabel('Month')
 ax.set_ylabel('Temperature (C)')
 
 ax.axhline(0, color='k')
+
+fig.subplots_adjust(bottom=0.15, top=0.95, right=0.95, left=0.125)
 
 fig.savefig(figname, dpi=600)
 

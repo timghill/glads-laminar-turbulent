@@ -21,7 +21,7 @@ line_color = 'lightblue'
 figname = 'domain_profile.png'
 figsize=(6, 2)
 
-bands = [15, 30, 70]
+bands = [30]
 band_width = 5
 band_background = [0.5, 0.5, 0.5, 0.25]
 band_color = 'dimgray'
