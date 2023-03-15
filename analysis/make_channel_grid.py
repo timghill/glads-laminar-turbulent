@@ -30,7 +30,7 @@ patterns = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
 ]
 
 fnames = [[patterns[j] % cases[j][i] for i in range(5)] for j in range(4)]
-figname = 'pressure_grid_new.png'
+figname = 'channel_timeseries.png'
 fig_00 = plot_channel_volume(fnames, figname,
     tlim=t_lim, t_ticks=t_ticks, t_ticklabels=t_ticklabels,
     xlabel='Month')

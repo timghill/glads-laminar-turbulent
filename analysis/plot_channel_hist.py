@@ -149,7 +149,7 @@ if __name__=='__main__':
         ]
 
     fnames = [[patterns[j] % cases[j][i] for i in range(5)] for j in range(4)]
-    figname = 'pressure_grid_new.png'
+    figname = 'channel_hist.png'
     fig_00 = plot_channel_volume(fnames, figname)
 
     plt.show()
