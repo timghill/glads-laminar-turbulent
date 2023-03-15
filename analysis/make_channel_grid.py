@@ -8,7 +8,7 @@ import numpy as np
 
 from matplotlib import pyplot as plt
 
-from plot_pressure_grid import plot_pressure_grid
+from plot_channel_volume import plot_channel_volume
 
 ## Global
 

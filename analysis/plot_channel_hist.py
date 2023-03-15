@@ -24,8 +24,8 @@ def plot_channel_volume(fnames, figname,
     figsize=figsize, labels=defaults.labels, 
     colors=defaults.colors, tlim=[1, 2],
     t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ylim=None,
-    t_ticklabels=None, xlabel='Years',
-    rhow=1000, g=9.81):
+    t_ticklabels=None, xlabel=r'S (m$^2$)',
+    rhow=1000, g=9.81, tslice=365+120):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -88,29 +88,29 @@ def plot_channel_volume(fnames, figname,
             # Get channel cross section
             S = out['S_channel'][:].data.T
             channel_volume = S*np.vstack(dmesh['tri/edge_length'][:].data)
-            sum_volume = np.sum(channel_volume, axis=0)
-            print(sum_volume)
-            tt = out['time'][:].data/86400/365 - 100
+            volume_slice = channel_volume[:, tslice]
 
             # axii.fill_between(tt, ff_lower, ff_upper, facecolor=colors[jj], alpha=0.3)
-            axii.plot(tt, sum_volume, color=colors[jj], label=labels[jj], linewidth=1)
-            axii.set_yscale('log')
+            # axii.plot(tt, sum_volume, color=colors[jj], label=labels[jj], linewidth=1)
+            # axii.set_yscale('log')
+            bins = np.linspace(-6, 3, 25)
+            axii.hist(volume_slice, cumulative=False, log=True, facecolor=colors[jj], alpha=0.3,
+                range=(10**bins[0], 10**bins[-1]), bins=10**bins, edgecolor=colors[jj],
+                histtype='step', density=True)
+            axii.set_xscale('log')
 
     axs.flat[0].legend(bbox_to_anchor=(0.2, 1.15, 1.8, 0.2), ncol=3, frameon=False)
     alphabet = ['a', 'b', 'c', 'd']
     for i,ax in enumerate(axs.flat):
         ax.grid()
-        ax.set_xlim(tlim)
-        ax.set_xticks(t_ticks)
-
-        if t_ticklabels:
-            ax.set_xticklabels(t_ticklabels)
-
-        # if ylim:
-        #     ax.set_ylim(ylim)
-
-        ax.text(0.05, 0.95, alphabet[i], va='top', transform=ax.transAxes,
-            fontweight='bold')
+        # ax.set_xlim(tlim)
+        # ax.set_xticks(t_ticks)
+        # 
+        # if t_ticklabels:
+        #     ax.set_xticklabels(t_ticklabels)
+        # 
+        # ax.text(0.05, 0.95, alphabet[i], va='top', transform=ax.transAxes,
+        #     fontweight='bold')
 
 
     for ax in axs[0]:
@@ -120,11 +120,37 @@ def plot_channel_volume(fnames, figname,
         ax.set_yticklabels([])
 
     for ax in axs[:, 0]:
-        ax.set_ylabel(r'Channel volume (m$^3$)')
+        ax.set_ylabel(r'Count')
     
     for ax in axs[1]:
         ax.set_xlabel(xlabel)
 
     fig.savefig(figname, dpi=600)
     return fig
-        
+
+if __name__=='__main__':
+    ## Global
+
+    t_lim = [1 + 4/12, 1 + 10/12]
+    t_ticks = 1 + np.arange(4, 11)/12
+    t_ticklabels = ['4', '', '6', '', '8', '', '10']
+    ff_ylim = [0, 1.75]
+
+    cases = [[201, 202, 203, 204, 205],
+         [101, 102, 103, 104, 105],
+         [301, 302, 303, 304, 305],
+         [101, 102, 103, 104, 105]
+            ]
+
+    patterns = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
+            '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc',
+            '../glads/02_shmip_forcing_synth_topo/RUN/output_%03d_seasonal.nc',
+            '../glads/03_kan_l_forcing_synth_topo/RUN/output_%03d_seasonal.nc',
+        ]
+
+    fnames = [[patterns[j] % cases[j][i] for i in range(5)] for j in range(4)]
+    figname = 'pressure_grid_new.png'
+    fig_00 = plot_channel_volume(fnames, figname)
+
+    plt.show()
+
