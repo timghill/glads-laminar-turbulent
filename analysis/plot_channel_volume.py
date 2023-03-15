@@ -23,7 +23,7 @@ def plot_channel_volume(fnames, figname,
     x_band=defaults.x_bands[1], band_width=defaults.band_width, 
     figsize=figsize, labels=defaults.labels, 
     colors=defaults.colors, tlim=[1, 2],
-    t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ylim=None,
+    t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ylim=[1e3, 1e7],
     t_ticklabels=None, xlabel='Years',
     rhow=1000, g=9.81):
     """
@@ -106,8 +106,8 @@ def plot_channel_volume(fnames, figname,
         if t_ticklabels:
             ax.set_xticklabels(t_ticklabels)
 
-        # if ylim:
-        #     ax.set_ylim(ylim)
+        if ylim:
+            ax.set_ylim(ylim)
 
         ax.text(0.05, 0.95, alphabet[i], va='top', transform=ax.transAxes,
             fontweight='bold')
