@@ -244,6 +244,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
     ax_right.set_ylim([0, 12])
     ax_right.set_yticks([0, 4, 8, 12])
 
+    mapax.set_xlabel('Distance from terminus (km)')
+
     axs_maps[1].set_ylabel('y (km)')
 
     cax1 = fig.add_subplot(gs_maps[1:6, 1])
