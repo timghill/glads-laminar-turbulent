@@ -167,7 +167,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
         timeax.text(0.025, 0.95, alphabet[0], transform=timeax.transAxes,
             va='top', ha='left', **text_args)
 
-        timeax.set_ylim([0, 1.5])
+        timeax.set_ylim([0, 1.8])
 
         out.close()
 

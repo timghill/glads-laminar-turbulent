@@ -187,7 +187,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
             line_cmap, vmin=Qmin, vmax=Qmax)
         mapax.add_collection(lc)
 
-        if ii<n_cases:
+        if ii<(n_cases-1):
             mapax.set_xticklabels([])
         
         mapax.text(0.95, 0.95, map_alphabet[ii], transform=mapax.transAxes,
@@ -285,9 +285,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
     
     axs_timeseries[0].set_xticklabels([])
     axs_timeseries[0].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
-    axs_timeseries[0].set_ylim([0, 1.5])
+    axs_timeseries[0].set_ylim([0, 1.85])
 
-    axs_timeseries[1].set_xlabel(t_xlabel)
+    # axs_timeseries[1].set_xlabel(t_xlabel)
     axs_timeseries[1].set_ylabel('Temperature ($^\circ$C)')
     axs_timeseries[1].set_ylim([0, 10])
 
@@ -297,7 +297,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
 
 if __name__ == '__main__':
     t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
-    t_ticklabels = ['4', '6', '8', '10']
+    t_ticklabels = ['May', 'Jul', 'Sep', 'Nov']
     t_lim = [t_ticks[0], t_ticks[-1]]
     t_xlabel = 'Month'
 
