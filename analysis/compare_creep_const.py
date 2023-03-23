@@ -8,12 +8,12 @@ from matplotlib.gridspec import GridSpec
 
 import netCDF4 as nc
 
-pattern_creep_glads = '../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_steady.nc'
+pattern_creep_glads = '../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
 cases_creep_glads = [201, 202, 203, 204, 205]
 fnames_creep_glads = [pattern_creep_glads % caseid for caseid in cases_creep_glads]
 
-pattern_creep_paterson = '../glads/00b_shmip_forcing_shmip_topo_creep_const/RUN/output_%03d_steady.nc'
-cases_creep_paterson = [1, 2, 3, 4, 5]
+pattern_creep_paterson = '../glads/00b_shmip_forcing_shmip_topo_creep_const/RUN/output_%03d_seasonal.nc'
+cases_creep_paterson = [1, 2, 1, 2, 1]
 fnames_creep_paterson = [pattern_creep_paterson % caseid for caseid in cases_creep_paterson]
 
 xb = 30e3
@@ -52,8 +52,8 @@ for ii in range(len(fnames_creep_glads)):
     ax1.plot(time, np.mean(N_glads[node_mask, :], axis=0)/1e6, color=colors[ii])
     ax2.plot(time, np.mean(N_paterson[node_mask, :], axis=0)/1e6, color=colors[ii])
 
-    ax1.set_ylim([1, 5])
-    ax2.set_ylim([1, 5])
+    ax1.set_ylim([-2, 5])
+    ax2.set_ylim([-2, 5])
 
     creep_glads = out_glads['para/creep_const_s'][:].data
     creep_paterson = out_paterson['para/creep_const_s'][:].data
@@ -76,6 +76,6 @@ for ii in range(len(fnames_creep_glads)):
 ax1.set_xlabel('Day of year 2')
 ax2.set_xlabel('Day of year 2')
 
-fig.savefig('steady_creep_comparison.png', dpi=600)
+fig.savefig('seasonal_creep_comparison.png', dpi=600)
 
 plt.show()
