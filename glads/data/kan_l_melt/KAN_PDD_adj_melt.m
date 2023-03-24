@@ -1,4 +1,4 @@
-function melt = KAN_PDD_melt(t, z, varargin)
+function melt = KAN_PDD_adj_melt(t, z, varargin)
     % KAN_PDD_melt Degree-day melt model for KAN_L AWS temperature
     %
     % melt = KAN_PDD_melt(t, z) computes melt rate for default parameters
@@ -52,7 +52,7 @@ function melt = KAN_PDD_melt(t, z, varargin)
     end
 
     %% Read AWS data
-    KAN_data = importdata('KAN_L_2014_temp_clipped.txt');
+    KAN_data = importdata('KAN_L_2014_temp_adjusted.txt');
     tt_days = KAN_data(:, 1);
     sl_temp = KAN_data(:, 2) + DT;
 
