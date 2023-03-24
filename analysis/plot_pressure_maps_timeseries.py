@@ -201,7 +201,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii])
         ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_xlim([0, 100])
-        ax_scatter.grid()
+        ax_scatter.grid(linestyle=':', linewidth=1)
 
         if ii==0:
             ax_scatter.set_xlabel('x (km)')
@@ -275,7 +275,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         axi.set_xticks(t_ticks)
         if t_ticklabels:
             axi.set_xticklabels(t_ticklabels)
-        axi.grid()
+        axi.grid(linestyle=':', linewidth=1)
 
         ax_scatter.axvline(xb, color='k', linewidth=1)
 

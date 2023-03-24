@@ -210,7 +210,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_yticks(ff_yticks)
         ax_scatter.set_xlim([0, 100])
-        ax_scatter.grid()
+        ax_scatter.grid(linestyle=':', linewidth=0.5)
 
         if ii==0:
             ax_scatter.set_xlabel('x (km)')
@@ -252,7 +252,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     melt_ax.set_ylabel('Temperature ($^\circ$C)')
     melt_ax.set_ylim([0, 12])
     melt_ax.set_yticks([0, 4, 8, 12])
-    melt_ax.grid()
+    melt_ax.grid(linestyle=':', linewidth=0.5)
     melt_ax.axvline(tslice/365, color='k', linewidth=0.5)
 
     axs_maps[2].set_ylabel('y (km)')
@@ -289,7 +289,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         axi.set_ylim(ff_ylim)
         axi.set_yticks(ff_yticks)
         axi.set_xticks(t_ticks)
-        axi.grid()
+        axi.grid(linestyle=':', linewidth=0.5)
 
         ax_scatter.axvline(xb, color='k', linewidth=0.5)
 
