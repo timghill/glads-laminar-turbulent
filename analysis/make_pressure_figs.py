@@ -29,7 +29,7 @@ fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%cas
 figname = 'colours_test.png'
 
 colors = np.array([#[0.420, 0.510, 0.620, 1],
-                   [62/256, 104/256, 156/256, 1],
+                   [51/256, 84/256, 126/256, 1],
                    [0.579, 0.677, 0.781, 1],
                    [0.500, 0.500, 0.500, 1],
                    [0.859, 0.683, 0.275, 1],
