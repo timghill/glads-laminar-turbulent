@@ -60,6 +60,16 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], colors=colors)
 
+## Case 01b: Flat topo, KAN_L increased forcing
+KAN_tslice = 190+365
+cases = [1, 2, 1, 2, 1]
+pattern = '../glads/01a_kan_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname ='01b_pressure_seasonal.png'
+fig_01 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=1, Qmax=100, melt_forcing='KAN',
+     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
+     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], colors=colors)
+
 
 # ## Case 02: Trough topo, SHMIP forcing
 # cases = [201, 202, 203, 204, 205]
