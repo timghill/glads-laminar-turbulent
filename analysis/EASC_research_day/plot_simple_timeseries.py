@@ -30,7 +30,8 @@ gs_kwargs=dict(wspace=0.05, hspace=0.2,
         height_ratios=(2, 1), top=0.9)
 
 labels = ['Turbulent', 'Laminar', 'Transition']
-colors = np.array([[0.420, 0.510, 0.620, 1],
+colors = np.array([#[0.420, 0.510, 0.620, 1],
+                    [51/256, 84/256, 126/256, 1],
                 #    [0.579, 0.677, 0.781, 1],
                    [0.500, 0.500, 0.500, 1],
                    [0.859, 0.683, 0.275, 1],
@@ -133,11 +134,37 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
 
     alphabet = ['a', 'b']
     text_args = {'fontweight':'bold'}
+    
+    tt = np.arange(0, 2, 1/365)
+    melt = temp_fun(tt)
+    ax_right = axs[-1]
+    ax_right.plot(tt, melt, color='k')
+    
+    ax_right.set_ylabel(r'Temp ($^\circ{\rm{C}}$)')
+    ax_right.set_ylim([-15, 10])
+    ax_right.set_yticks([-15, -10, -5, 0, 5, 10])
 
-    # Start reading the data
+    ax_right.text(0.025, 0.95, alphabet[1], transform=ax_right.transAxes,
+            va='top', ha='left', **text_args)
+    axs[0].legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
+        ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
+
+    for j in range(2):
+        axi = axs[j]
+
+        axi.grid(linestyle=':', linewidth=0.5)
+        axi.set_xlim(t_lim)
+        axi.set_xticks(t_ticks)
+        axi.set_xticklabels(t_ticklabels)
+        axi.text(0.025, 0.95, alphabet[j], transform=axi.transAxes,
+            va='top', ha='left', **text_args)
+
+    axs[0].set_xticklabels([])
+    axs[0].set_ylabel('Floatation fraction')
+    axs[0].set_ylim([0, 1.8])
+
     for ii in range(n_cases):
         fname = fnames[ii]
-        print(fname)
 
         out = nc.Dataset(fname, 'r')
 
@@ -162,46 +189,25 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
         f_lower = np.quantile(ff[node_mask, :], 0.025, axis=0)
         f_upper = np.quantile(ff[node_mask, :], 0.975, axis=0)
         timeax = axs[0]
-        timeax.plot(tt*365, f_mean, label=labels[ii], color=colors[ii])#, linewidth=1)
+        timeax.plot(tt, f_mean, label=labels[ii], color=colors[ii])#, linewidth=1)
 
-        timeax.text(0.025, 0.95, alphabet[0], transform=timeax.transAxes,
-            va='top', ha='left', **text_args)
+#        timeax.text(0.025, 0.95, alphabet[0], transform=timeax.transAxes,
+#            va='top', ha='left', **text_args)
 
-        timeax.set_ylim([0, 1.8])
 
         out.close()
+        fig.savefig(figname.replace('.png', '_%03d.png' % ii))
 
-    melt = temp_fun(tt)
-    ax_right = axs[-1]
-    ax_right.plot(tt*365, melt, color='k')
-    
-    ax_right.set_ylabel(r'Temp ($^\circ{\rm{C}}$)')
-    ax_right.set_ylim([-15, 10])
-    ax_right.set_yticks([-15, -10, -5, 0, 5, 10])
-
-    ax_right.text(0.025, 0.95, alphabet[1], transform=ax_right.transAxes,
-            va='top', ha='left', **text_args)
-    axs[0].legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
-        ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
-
-    for j in range(2):
-        axi = axs[j]
-
-        axi.grid()
-        axi.set_xlim(t_lim)
-
-    axs[0].set_xticklabels([])
-    axs[0].set_ylabel('Floatation fraction')
-    axs[1].set_xlabel('Day of 2014')
+    # axs[1].set_xlabel('Day of 2014')
     fig.savefig(figname, dpi=600)
     return fig
 
 
 if __name__ == '__main__':
-    # t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
-    # t_ticklabels = ['4', '6', '8', '10']
-    # t_lim = [t_ticks[0], t_ticks[-1]]
-    t_lim = [140, 265]
+#    t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
+    t_ticks = 1 + np.array([4, 5, 6, 7, 8, 9, 10])/12
+    t_ticklabels = ['May', '', 'July', '', 'Sep', '', 'Nov']
+    t_lim = [t_ticks[0], t_ticks[-1]]
     t_xlabel = 'Day of year'
 
     ## Case 01: Flat topo, KAN_L forcing
@@ -213,5 +219,5 @@ if __name__ == '__main__':
     fnames = [pattern % caseid for caseid in cases]
     figname = '01_pressure_simple.png'
     fig_01 = plot_pressure_maps_timeseries(fnames, figname, tslice=KAN_tslice, Qmin=1, melt_forcing='KAN',
-        t_xlabel=t_xlabel, t_lim=t_lim)
+        t_xlabel=t_xlabel, t_lim=t_lim, t_ticklabels=t_ticklabels, t_ticks=t_ticks)
     plt.show()
