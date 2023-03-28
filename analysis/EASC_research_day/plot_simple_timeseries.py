@@ -196,7 +196,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
 
 
         out.close()
-        fig.savefig(figname.replace('.png', '_%03d.png' % ii))
+        fig.savefig(figname.replace('.png', '_%03d.png' % ii), dpi=600)
 
     # axs[1].set_xlabel('Day of 2014')
     fig.savefig(figname, dpi=600)
