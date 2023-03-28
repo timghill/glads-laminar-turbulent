@@ -192,7 +192,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
         timeax.plot(tt, f_mean, label=labels[ii], color=colors[ii])#, linewidth=1)
 
         timeax.legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
-             ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
+             ncol=3, borderaxespad=0.05, frameon=False, borderpad=0)
 
 
 
