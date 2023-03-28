@@ -146,8 +146,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
 
     ax_right.text(0.025, 0.95, alphabet[1], transform=ax_right.transAxes,
             va='top', ha='left', **text_args)
-    axs[0].legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
-        ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
+    # axs[0].legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
+    #     ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
 
     for j in range(2):
         axi = axs[j]
@@ -190,6 +190,11 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=182,
         f_upper = np.quantile(ff[node_mask, :], 0.975, axis=0)
         timeax = axs[0]
         timeax.plot(tt, f_mean, label=labels[ii], color=colors[ii])#, linewidth=1)
+
+        timeax.legend(bbox_to_anchor=[0.1, 1.04, 0.9, 0.102], loc='lower left',
+             ncol=3, mode='expand', borderaxespad=0.05, frameon=False, borderpad=0)
+
+
 
 #        timeax.text(0.025, 0.95, alphabet[0], transform=timeax.transAxes,
 #            va='top', ha='left', **text_args)
