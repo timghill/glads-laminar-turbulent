@@ -122,7 +122,7 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
     cticks = np.unique(cticks)
     cb2.set_ticks(cticks)
 
-    plt.show()
+    return fig
 
 # if __name__ == '__main__':
 #     cases = [1, 2, 3, 4, 5]
