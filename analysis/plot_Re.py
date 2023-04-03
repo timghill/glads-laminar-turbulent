@@ -39,8 +39,10 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
     if map_cmap is None:
         cm1 = palettes.get_cmap('BrownGray')
         cm2 = palettes.get_cmap('blue-8').reversed()
-        z1 = 200*int(2000/Re_ylim[1])
+        z1 = int(200*2000/Re_ylim[1])
         z2 = 200 - z1
+        print(z1)
+        print(z2)
         map_cmap = tools.join_cmaps(cm1, cm2, N1=z1, N2=z2, average=10)
 
     ## Start the figure
@@ -133,6 +135,6 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
 #     fnames = [fpattern%caseid for caseid in cases]
 #     print(fnames)
 
-#     figname = ''
+#     figname = 'tmp.png'
 
-#     plot_Re(fnames, figname, Qmin=10, Qmax=100)
+#     plot_Re(fnames, figname, Qmin=10, Qmax=100, Re_ylim=(0, 4e3))
