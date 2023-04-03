@@ -15,6 +15,7 @@ t_ticklabels = ['May', 'July', 'Sep', 'Nov']
 t_lim = [t_ticks[0], t_ticks[-1]]
 t_xlabel = 'Month'
 
+"""
 ## Case 00: Flat topo, SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -37,15 +38,15 @@ cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shimp_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
 figname = '00_Re_seasonal.png'
 fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
-
+"""
 
 ## Case 00a: Flat topo, scaled SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shimp_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-figname = '00_Re_seasonal_day152.png'
-fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=517)
+figname = '00_Re_seasonal_day165.png'
+figi_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=530)
 
-
+"""
 ## Case 01: Flat topo, KAN_L forcing
 cases = [201, 202, 203, 204, 205]
 pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
@@ -87,5 +88,5 @@ pattern = '../glads/03_kan_l_forcing_synth_topo/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '03_Re_seasonal.png'
 fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
-
+"""
 plt.show()
