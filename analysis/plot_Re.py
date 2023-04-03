@@ -27,18 +27,21 @@ gs_kwargs=dict(wspace=0.075, hspace=0.2,
         left=0.09, right=0.95, bottom=0.12,
         top=0.95)
 
-cm1 = palettes.get_cmap('BrownGray')
-cm2 = palettes.get_cmap('blue-8').reversed()
-cm = tools.join_cmaps(cm1, cm2, N1=40, N2=160, average=10)
-
 def plot_Re(fnames, figname, tslice=defaults.tslice,
     figsize=figsize, gs_kwargs=gs_kwargs, labels=defaults.labels,
-    map_cmap=cm, line_cmap=defaults.cmaps['Q'],
+    map_cmap=None, line_cmap=defaults.cmaps['Q'],
     Qmin=10, Qmax=100, Re_ylim=[0, 1e4], ff_yticks=None):
 
     ## CONFIG
 
     n_cases = len(fnames)
+
+    if map_cmap is None:
+        cm1 = palettes.get_cmap('BrownGray')
+        cm2 = palettes.get_cmap('blue-8').reversed()
+        z1 = 200*int(2000/Re_ylim[1])
+        z2 = 200 - z1
+        map_cmap = tools.join_cmaps(cm1, cm2, N1=z1, N2=z2, average=10)
 
     ## Start the figure
     fig = plt.figure(figsize=figsize)
@@ -77,7 +80,7 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
         mtri = Triangulation(nodes[:, 0]/1e3, nodes[:, 1]/1e3, connect)
 
         Re_color = ax.tripcolor(mtri, Re[:],
-            cmap=cm, vmin=Re_ylim[0], vmax=Re_ylim[1])
+            cmap=map_cmap, vmin=Re_ylim[0], vmax=Re_ylim[1])
 
         lc = gplt.plot_edge_data(nodes/1e3, connect_edge, Q[:],
             line_cmap, vmin=Qmin, vmax=Qmax)
