@@ -73,4 +73,4 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '03_Re_seasonal.png'
 fig_03 = plot_Re(fnames, figname, Qmin=1)
 
-plt.show()
+# plt.show()

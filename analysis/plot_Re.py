@@ -121,7 +121,7 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
     cticks[0] = Qmin
     cticks = np.unique(cticks)
     cb2.set_ticks(cticks)
-
+    fig.savefig(figname)
     return fig
 
 # if __name__ == '__main__':
