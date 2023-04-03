@@ -36,13 +36,18 @@ fnames = ['../glads/00a_shimp_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc
 figname = '00_Re_seasonal.png'
 fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
 
-
 ## Case 01: Flat topo, KAN_L forcing
 cases = [201, 202, 203, 204, 205]
 pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
+figname = '01_Re_seasonal_day174.png'
+fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365+174)
+
+cases = [201, 202, 203, 204, 205]
+pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
 figname = '01_Re_seasonal.png'
-fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365 + 188)
+fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
 
 ## Case 01b: Flat topo, KAN_L increased forcing
 cases = [1, 2, 3, 4, 5]
