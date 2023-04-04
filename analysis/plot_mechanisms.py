@@ -20,7 +20,8 @@ figsize=(6, 6)
 def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice, 
     x_band=defaults.x_bands[1], band_width=defaults.band_width, 
     figsize=figsize, labels=defaults.labels, 
-    colors=defaults.colors, tlim=[3, 9], t_ticks=[3, 4.5, 6, 7.5, 9],
+    colors=defaults.colors, tlim=[3, 9], t_ticks=[4, 5, 6, 7, 8, 9],
+    t_ticklabels=['May', '', 'July', '', 'Sep', ''],
     k_turb=1, rhow=1000, g=9.81, nu=1.79e-6, omega=1/1000):
     """Plot components of discharge parameterization to attribute differences.
 
@@ -260,7 +261,8 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax.set_xticklabels([])
         ax.set_yticklabels([])
         ax.axvline((tslice/365 - 1)*12, color='k', linewidth=0.5)
-    ax.set_xticklabels([str(tii) for tii in t_ticks])
+    # ax.set_xticklabels([str(tii) for tii in t_ticks])
+    ax.set_xticklabels(t_ticklabels)
 
     fig.savefig(figname, dpi=600)
     return fig

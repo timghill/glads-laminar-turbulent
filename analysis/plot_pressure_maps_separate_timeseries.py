@@ -142,7 +142,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     ax_scatter = fig.add_subplot(gs_maps[-1, 0])
 
     # Set style for panel labels
-    time_alphabet = ['g', 'h', 'i']
+    time_alphabet = ['g', 'h', 'i', 'j']
     map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
     text_args = {'fontweight':'bold'}
 
@@ -254,6 +254,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     melt_ax.set_yticks([0, 4, 8, 12])
     melt_ax.grid(linestyle=':', linewidth=0.5)
     melt_ax.axvline(tslice/365, color='k', linewidth=0.5)
+    melt_ax.text(0.025, 0.95, time_alphabet[j+1], transform=melt_ax.transAxes,
+        va='top', ha='left', **text_args)
 
     axs_maps[2].set_ylabel('y (km)')
 
