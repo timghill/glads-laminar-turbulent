@@ -25,7 +25,6 @@ cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
 
 models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
-fnames = [pattern%id for id in cases]
 print(fnames)
 
 colors = defaults.colors
