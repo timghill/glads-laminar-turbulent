@@ -73,7 +73,7 @@ laminar_transition = 64/Re_transition
 ax_theory.loglog(Re, darcy_friction.T, color='k')
 ax_theory.loglog(Re_laminar, laminar_friction, color='k')
 ax_theory.loglog(Re_transition, laminar_transition, color='k', linestyle='--')
-ax_theory.grid(linestyle='--')
+ax_theory.grid(linestyle=':')
 
 ax_theory.set_yticks(list(np.arange(1e-2, 1e-1, 1e-2/2)) + list(np.arange(1e-1, 1e0 + 1e-1/2, 1e-1/2)))
 ax_theory.set_ylim([1e-2, 1e0])
