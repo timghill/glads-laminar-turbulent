@@ -18,16 +18,13 @@ pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_flat(xy, time
 pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_flat(xy, time))');
 
 %% Source functions
-% n_moulin = config.n_moulin;
-% moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
-% catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
-% ii_moulin = moulindata(:, 1) + 1;
+n_moulin = config.n_moulin;
 
-addpath(genpath('../data/shmip_melt/'))
-% pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
-% pin.source_term_c = make_anon_fn('@(time) double(source_dist_shmip_adj_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+addpath(genpath('./data/shmip_melt/'))
+pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
+pin.source_term_c = make_anon_fn('@(time) double(source_mesh_refinement(time, pin, dmesh));', pin, dmesh);
 
-pin.source_term_s = make_anon_fn('@(xy, time) double(source_dist_shmip_adj_steady(time, xy, pin));', pin);
+% pin.source_term_s = make_anon_fn('@(xy, time) double(source_mesh_refinement(time, xy, pin));', pin);
 
 
 %% Nondimensionalize and re-wrap
