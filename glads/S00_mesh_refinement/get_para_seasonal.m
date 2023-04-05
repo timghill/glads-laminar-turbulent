@@ -21,22 +21,15 @@ pt.out_t = pt.start : 1*pp.day : pt.end;
 
 %% Synthetic bed topo
 addpath('../data/topo_x_squared_para/')
-pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_trough(xy, time))');
-pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_trough(xy, time, pin))', pin);
+pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_flat(xy, time))');
+pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_flat(xy, time))');
 
 
 %% Source functions
-addpath('../data/kan_l_melt/')
-n_moulin = config.n_moulin;
-moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
-catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
-ii_moulin = moulindata(:, 1) + 1;
+addpath('../data/shmip_melt/')
 
-% Distributed basal melt
-pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
+pin.source_term_s = make_anon_fn('@(xy, time) double(source_dist_shmip_adj_seasonal(time, xy, pin));', pin);
 
-% Moulin inputs will need to be adjusted for diurnal simulations
-pin.source_term_c = make_anon_fn('@(time) double(KAN_moulin_seasonal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
 %% Numerics
 st = {'ode15s', 'ode23s', 'ode23t', 'odebim'};  % can also use ode23t, ode23s but ode15s is probbaly best

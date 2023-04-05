@@ -1,4 +1,4 @@
-function pa = run_job(k_c, bump_scale, alpha, beta, omega, id)
+function pa = run_job(id)
 
 set_paths;
 addpath(genpath('../data/functions/'))
@@ -11,16 +11,17 @@ config.k_s = 0.1;	% Turbulent conductivity
 config.l_c = 10;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
-config.mesh_nr = 4;
 config.e_v = 1e-4;
 
-% Tuning parameters
-config.k_c = k_c;
+config.k_c = 0.2;
+bump_scale = 10;
 config.h_bed = bump_scale/20;
 config.l_bed = bump_scale;
-config.alpha = alpha;
-config.beta = beta;
-config.omega = omega;
+config.alpha = 3/2;
+config.beta = 3/2;
+config.omega = 1/2000;
+
+config.mesh_nr = id;
 
 if config.alpha<3 && config.omega==0
     % Compute potential gradient for turbulent conductivity scaling
@@ -46,6 +47,6 @@ para_steady.physical;
 pa = para_steady;
 run_model(para_steady);
 
- 
-para_seasonal = get_para_seasonal(config);
-run_model(para_seasonal);
+
+% para_seasonal = get_para_seasonal(config);
+% run_model(para_seasonal);

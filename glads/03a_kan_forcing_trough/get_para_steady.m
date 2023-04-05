@@ -15,8 +15,8 @@ pt.out_t = pt.start:5*pp.year:pt.end;
 
 %% Synthetic bed topo
 addpath('../data/topo_x_squared_para/')
-pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_synth(xy, time))');
-pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_synth(xy, time, pin))', pin);
+pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_trough(xy, time))');
+pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_trough(xy, time, pin))', pin);
 
 %% Source functions
 n_moulin = config.n_moulin;
