@@ -8,7 +8,7 @@ xy = [xx(:), yy(:)];
 
 % Mimic pin
 % pin.bed_elevation = @(xy, t) bed_elevation_synth(xy, t);
-pin.bed_elevation = @(xy, t) bed_elevation_valley_reversed(xy, t);
+pin.bed_elevation = @(xy, t) bed_elevation_valley(xy, t);
 
 bed = pin.bed_elevation(xy, 0);
 thick = ice_thickness_valley(xy, 0, pin);

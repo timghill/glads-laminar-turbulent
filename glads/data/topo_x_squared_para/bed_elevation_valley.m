@@ -13,9 +13,9 @@ const_bed = 350;
 x = xy(:, 1);
 y = xy(:, 2);
 
-bed_ramp = trough_dz*(x - min(x))./(max(x) - min(x));
+bed_ramp = trough_dz*((x - min(x) + 5e3).^0.5 - (5e3).^0.5)./(max(x) - min(x)).^0.5;
 
-ridge_ramp = ridge_dz*(x - min(x)).^0.25./(max(x) - min(x)).^0.25;
+ridge_ramp = ridge_dz*((x - min(x) + 5e3).^(1/3) - (5e3).^(1/3))./(max(x) - min(x)).^(1/3);
 bed_trough = ridge_ramp.*(y - yc).^2./(max(abs(y - yc))).^2;
 
 bed = const_bed + bed_ramp + bed_trough;
