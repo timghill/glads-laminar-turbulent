@@ -1,5 +1,0 @@
-"""
-
-Compute effective turbulent conductivity
-
-"""

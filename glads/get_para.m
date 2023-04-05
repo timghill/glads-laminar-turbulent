@@ -36,6 +36,9 @@ dmesh = meshes{mesh_nr};
 pp.cond_c = config.k_c;
 pp.flags.max_S = 500;	% Arbitrary large max channel cross section
 
+op = {'freeze-on', 'freeze-melt', 'none'};;
+pp.flags.include_sheet_diss_press = op{1}; % if true, allows freezing shut of the sheet on reverse slopes
+
 pp.cond_s = config.k_s;
 pp.alpha_s = config.alpha;
 pp.beta_s =  config.beta;
@@ -45,7 +48,11 @@ pp.l_bed = config.l_bed;
 pp.l_c = config.l_c;
 pp.h_bed = config.h_bed;
 
-pp.creep_const_s_soft = config.creep_const_soft;
+% Set creep constant to match recommended Cuffey & Paterson (2010)
+% value for temperate ice
+pp.creep_const_c = 1.78e-25;
+pp.creep_const_s = 1.78e-25;
+pp.creep_const_s_soft = config.creep_const_soft; % Applied when N<0
 
 % Set englacial porosity
 e_v = config.e_v;
