@@ -69,6 +69,7 @@ fig_02 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12],
     ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+"""
 ## Case 02b: Valley topo, synthetic
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/02b_synth_forcing_valley/RUN/output_%03d_seasonal.nc'
@@ -77,7 +78,7 @@ figname = '02b_pressure_seasonal_valley.png'
 fig_02 = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='SHMIPadj',
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12],
     ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
-
+"""
 
 ## Case 03a: Trough topo, KAN forcing
 cases = [1, 2, 3, 4, 5]

@@ -59,13 +59,14 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '02a_Re_seasonal_trough.png'
 fig_02 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
 
+"""
 ## Case 02b: Synthetic forcing, valley topo
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/02b_synth_forcing_valley/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '02b_Re_seasonal_valley.png'
 fig_02 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
-
+"""
 
 ## Case 03a: KAN forcing, trough topo
 cases = [1, 2, 3, 4, 5]

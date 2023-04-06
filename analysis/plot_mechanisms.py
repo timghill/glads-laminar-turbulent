@@ -94,6 +94,8 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     axs = np.array([[fig.add_subplot(gs[ii, jj]) for jj in range(2)] for ii in range(5)])
 
+    labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', ' ', 'Transition 5/4', 'Transition 3/2']
+
     w = 25e3    # Domain width (km)
     for ii in range(n_cases):
         fname = fnames[ii]
@@ -133,10 +135,13 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax1.set_ylim([1e-4, 50])
         # ax1.set_yticks([0, 1, 5, 10])
         ax1.set_ylabel(r'$\omega{\rm{Re}}$', labelpad=4)
-        ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2.2, 0.2], nrow=2,
-            loc='lower center', frameon=False, mode='expand')
+        # ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2.2, 0.2], ncol=3,
+        #     loc='lower center', frameon=False, mode='expand')
         ax1.text(textx, texty, 'a', transform=ax1.transAxes, **textfmt)
         ax1.set_yscale('log')
+
+        if ii==2:
+            ax1.plot([-1, 0], [-1, 0], color=(1, 1, 1, 0))
 
         Re = qs/nu
         ax2.plot(tt, omega * np.mean(Re[band_mask, :], axis=0), color=colors[ii])
@@ -242,8 +247,15 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax2.set_ylim([1e-2, 1e1])
         ax2.set_yticks([1e-2, 1e-1, 1e0, 1e1])
 
-    ax1.set_xlabel('x (km)')
-    ax2.set_xlabel('Month')
+
+    ax1 = axs[0, 0]
+    # ax1.plot([-1, 0], [-1, 0], color='k')
+    ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2, 0.2], ncol=3,
+        loc='lower center', frameon=False, mode='expand')
+
+    
+    axs[-1, 0].set_xlabel('x (km)')
+    axs[-1, 0].set_xlabel('Month')
 
     for ax in axs[:, 0]:
         ax.grid(True)

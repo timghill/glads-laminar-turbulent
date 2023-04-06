@@ -108,7 +108,11 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
         
         if ii==2:
             ax.set_ylabel('y (km)')
+        
+        if ii==2:
+            ax.plot([-1, 0], [-1, 0], color=(1, 1, 1, 0), label='  ')
     
+
     cax1 = fig.add_subplot(cax_gs[1])
     cax2 = fig.add_subplot(cax_gs[2])
 
