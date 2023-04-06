@@ -255,7 +255,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
 
     
     axs[-1, 0].set_xlabel('x (km)')
-    axs[-1, 0].set_xlabel('Month')
+    axs[-1, 1].set_xlabel('Month')
 
     for ax in axs[:, 0]:
         ax.grid(True)
