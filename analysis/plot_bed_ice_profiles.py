@@ -28,7 +28,7 @@ line_color = 'k'
 # band_color = 'lightslategrey'
 band_color = 'steelblue'
 figname = 'domain_profile.png'
-figsize=(6, 3)
+figsize=(6, 6)
 
 bands = [15, 30, 70]
 band_width = 5
@@ -48,7 +48,6 @@ ax = fig.add_subplot(projection='3d', computed_zorder=False)
 
 # Plot bed
 ax.plot_surface(xx/1e3, yy/1e3, bed, color=bed_color, edgecolor='none', zorder=0)
-ax.plot_surface(xx/1e3, yy/1e3, surf, color=ice_color, edgecolor='none', alpha=1, zorder=0, antialiased=False)
 xs = [0, 100]
 ys = [0, 0]
 zzs = 0*xs
@@ -70,7 +69,8 @@ z1[0] = 390
 print(xx1)
 print(yy1)
 print(z1)
-ax.plot_surface(xx1/1e3, yy1/1e3, z1, color=ice_color, edgecolor='none', alpha=1, zorder=0, antialiased=False)
+ax.plot_surface(xx/1e3, yy/1e3, surf, color=ice_color, edgecolor=ice_color, alpha=1, zorder=0, antialiased=False, linewidth=0.25)
+ax.plot_surface(xx1/1e3, yy1/1e3, z1, color=ice_color, edgecolor=ice_color, alpha=1, zorder=0, antialiased=False, linewidth=0.25)
 
 # Plot bands
 for xb in bands:
@@ -89,23 +89,28 @@ for xb in bands:
     ax.plot_surface(xxs, yys*0, z3, zorder=2, color=band_color, alpha=1, antialiased=False)
 
 # Plot moulins
-dmesh = nc.Dataset('
+# dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
+moulins = np.loadtxt('../glads/data/moulins/moulins_068.txt')
+print(moulins)
+moulinx = moulins[:, 1]
+mouliny = moulins[:, 2]
+moulinz = surf_fun(moulinx)
+
+ax.plot(moulinx/1e3, mouliny/1e3, moulinz, marker='.', color='k', zorder=6, linestyle='')
 
 
 ax.set_xticks([0, 20, 40, 60, 80, 100])
 ax.set_yticks([0, 12.5, 25])
 ax.set_zticks([0, 500, 1000, 1500, 2000])
 
-ax.set_xlabel('Distance from terminus (km)', labelpad=12)
+ax.set_xlabel('Distance from terminus (km)', labelpad=20)
 ax.set_ylabel('Distance (km)')
-ax.set_zlabel('z (m)')
+ax.zaxis.set_rotate_label(False)  # disable automatic rotation
+ax.set_zlabel('z (m)', rotation=90)
 
 ax.view_init(elev=24, azim=-125) #Works!
-# ax.set_adjustable('box')
 ax.set_box_aspect((4, 1, 1))
 ax.set_aspect('equalxy')
-# print(ax)
-# print(dir(ax))
 
 
 # ax.set_box_aspect(1)
@@ -135,7 +140,16 @@ ax.set_aspect('equalxy')
 # ax.set_ylabel('Elevation (m)')
 
 # fig.subplots_adjust(left=0.12, right=0.98, top=0.95, bottom=0.23)
-ax.set_position(Bbox.from_bounds(-0.45, 0.05, 2, 1.2))
+# ax.set_position(Bbox.from_bounds(-0.6, 0.5, 2, 0.65))
+ax.set_position(Bbox.from_extents(0.1, 0.4, 1, 1.15))
+
+ax2 = fig.add_subplot()
+ax2.set_position(Bbox.from_bounds(0.15, 0.1, 0.8, 0.35))
+
+ax2.set_xlabel('Elevation (m)')
+ax2.set_ylabel(r'Density (km$^{-2}$)')
+ax2.grid()
+
 fig.savefig(figname, dpi=600)
 
 plt.show()
