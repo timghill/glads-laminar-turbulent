@@ -197,6 +197,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         
         mapax.text(0.95, 0.95, map_alphabet[ii], transform=mapax.transAxes,
             va='top', ha='right', **text_args)
+        mapax.text(0.95, 0.05, labels[ii], transform=mapax.transAxes,
+            va='bottom', ha='right', **text_args)
         xmid, ff_avg = helpers.width_average(nodes, ff[:, tslice])
 
         quantile_95 = lambda x: np.quantile(x, 0.95)
