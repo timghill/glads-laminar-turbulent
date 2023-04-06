@@ -22,6 +22,8 @@ figname = '00_pressure_seasonal.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
 
+plt.show()
+
 ## Case 00a: Flat topo, standard SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
