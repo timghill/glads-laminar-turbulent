@@ -96,6 +96,8 @@ def plot_Re(fnames, figname, tslice=defaults.tslice,
 
         ax.text(0.95, 0.95, alphabet[ii], transform=ax.transAxes,
             va='top', ha='right', fontweight='bold')
+        ax.text(0.95, 0.05, labels[ii], transform=ax.transAxes,
+            va='bottom', ha='right', color='k', fontsize=8)
         if ii>=3:
             ax.set_xlabel('x (km)')
         else:

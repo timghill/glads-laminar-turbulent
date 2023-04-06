@@ -15,78 +15,70 @@ t_ticklabels = ['May', 'July', 'Sep', 'Nov']
 t_lim = [t_ticks[0], t_ticks[-1]]
 t_xlabel = 'Month'
 
-"""
-## Case 00: Flat topo, SHMIP forcing
+## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
-fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-figname = '00_Re_seasonal_SHMIP.png'
-# fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIP', Qmin=10, Qmax=200,
-#     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
-fig_00 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
-
-
-
-## Case 00.2: Flat topo, SHMIP forcing, consistent para
-cases = [201, 202, 203, 204, 205]
-fnames = ['../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-figname = '00_Re_seasonal_SHMIP_200.png'
-fig_00 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
-
-
-## Case 00a: Flat topo, scaled SHMIP forcing
-cases = [1, 2, 3, 4, 5]
-fnames = ['../glads/00a_shimp_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
 figname = '00_Re_seasonal.png'
-fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
-"""
+fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=530)
 
-## Case 00a: Flat topo, scaled SHMIP forcing
+plt.show()
+
+## Case 00a: Flat topo, SHMIP forcing
 cases = [1, 2, 3, 4, 5]
-fnames = ['../glads/00a_shimp_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-figname = '00_Re_seasonal_day165.png'
-figi_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=530)
+fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+figname = '00a_Re_seasonal_SHMIP.png'
+fig_00 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3), tslice=530)
 
-"""
 ## Case 01: Flat topo, KAN_L forcing
-cases = [201, 202, 203, 204, 205]
-pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
-fnames = [pattern % caseid for caseid in cases]
-figname = '01_Re_seasonal_day174.png'
-fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365+174)
-
-cases = [201, 202, 203, 204, 205]
-pattern = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '01_Re_seasonal.png'
-fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
+fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365+174)
 
-## Case 01b: Flat topo, KAN_L increased forcing
+"""
+## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/01a_kan_adj_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
+pattern = '../glads/01a_kan_adj_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
-figname ='01b_Re_seasonal.png'
+figname = '01a_Re_seasonal.png'
 fig_01 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
 
-## Case 02a: Trough topo, SHMIP forcing
+## Case 01b: Flat topo, KAN_L forcing, reduced ev
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/02a_shmip_forcing_valley_topo/RUN/output_%03d_seasonal.nc'
+pattern = '../glads/01b_kan_forcing_ev/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
-figname = '02a_Re_seasonal.png'
-fig_02 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
-
-## Case 02: Valley topo, SHMIP forcing
-cases = [1, 2, 3, 4, 5]
-pattern = '../glads/02a_shmip_forcing_valley_topo/RUN/output_%03d_seasonal.nc'
-fnames = [pattern % caseid for caseid in cases]
-figname = '02_Re_seasonal_valley.png'
-fig_02 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
-
-
-## Case 03: Trough topo, KAN_L forcing
-cases = [101, 102, 103, 104, 105]
-pattern = '../glads/03_kan_l_forcing_synth_topo/RUN/output_%03d_seasonal.nc'
-fnames = [pattern % caseid for caseid in cases]
-figname = '03_Re_seasonal.png'
-fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
+figname ='01b_Re_seasonal_ev.png'
+fig_01 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
 """
-plt.show()
+
+## Case 02a: Synthetic forcing, trough topo
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/02a_synth_forcing_trough/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '02a_Re_seasonal_trough.png'
+fig_02 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
+
+## Case 02b: Synthetic forcing, valley topo
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/02b_synth_forcing_valley/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '02b_Re_seasonal_valley.png'
+fig_02 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
+
+
+## Case 03a: KAN forcing, trough topo
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/03a_kan_forcing_trough/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '03a_Re_seasonal_trough.png'
+fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
+
+## Case 03b: KAN forcing, valley topo
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/03b_kan_forcing_valley/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '03b_Re_seasonal_valley.png'
+fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
+
+

@@ -133,7 +133,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax1.set_ylim([1e-4, 50])
         # ax1.set_yticks([0, 1, 5, 10])
         ax1.set_ylabel(r'$\omega{\rm{Re}}$', labelpad=4)
-        ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2.2, 0.2], ncol=3,
+        ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2.2, 0.2], nrow=2,
             loc='lower center', frameon=False, mode='expand')
         ax1.text(textx, texty, 'a', transform=ax1.transAxes, **textfmt)
         ax1.set_yscale('log')
