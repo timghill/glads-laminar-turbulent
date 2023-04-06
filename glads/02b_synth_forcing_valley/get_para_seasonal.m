@@ -37,7 +37,7 @@ ii_moulin = moulindata(:, 1) + 1;
 pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
 
 % Moulin inputs will need to be adjusted for diurnal simulations
-pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_seasonal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
 %% Numerics
 st = {'ode15s', 'ode23s', 'ode23t', 'odebim'};  % can also use ode23t, ode23s but ode15s is probbaly best
