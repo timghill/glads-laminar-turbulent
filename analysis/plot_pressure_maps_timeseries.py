@@ -106,6 +106,13 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         lr = -0.005
         DT = lr*390
         temp_fun = lambda t: np.maximum(0*t, DT + np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
+    elif melt_forcing=='KANadj':
+        tt_temp = np.loadtxt('../glads/data/kan_l_melt/KAN_L_2014_temp_adjusted.txt', delimiter=',')
+        tt_days = tt_temp[:, 0]
+        temp_sl = tt_temp[:, 1]
+        lr = -0.0075
+        DT = lr*390
+        temp_fun = lambda t: np.maximum(0*t, DT + np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
     elif melt_forcing=='SHMIP':
         temp_fun = lambda t: np.maximum(-16*np.cos(2*np.pi*t) - 5, 0*t)
     elif melt_forcing=='SHMIPadj':

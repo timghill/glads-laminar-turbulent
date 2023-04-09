@@ -36,7 +36,6 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '01_Re_seasonal.png'
 fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365+174)
 
-"""
 ## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/01a_kan_adj_forcing/RUN/output_%03d_seasonal.nc'
@@ -50,7 +49,6 @@ pattern = '../glads/01b_kan_forcing_ev/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname ='01b_Re_seasonal_ev.png'
 fig_01 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3))
-"""
 
 ## Case 02a: Synthetic forcing, trough topo
 cases = [1, 2, 3, 4, 5]
@@ -59,14 +57,12 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '02a_Re_seasonal_trough.png'
 fig_02 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
 
-"""
 ## Case 02b: Synthetic forcing, valley topo
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/02b_synth_forcing_valley/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '02b_Re_seasonal_valley.png'
 fig_02 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3))
-"""
 
 ## Case 03a: KAN forcing, trough topo
 cases = [1, 2, 3, 4, 5]
