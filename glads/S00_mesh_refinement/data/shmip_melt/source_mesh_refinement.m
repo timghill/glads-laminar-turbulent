@@ -23,7 +23,7 @@ function melt = source_moulin_shmip_steady(time, pin, dmesh)
     moulins = zeros(ref_dmesh.tri.n_nodes, 1);
     moulins(ii_moulin) = 1;
 
-    ref_xy = dmesh.tri.nodes;
+    ref_xy = ref_dmesh.tri.nodes;
 
     % Read steady surface melt
     ref_steady_melt = readmatrix('SHMIP_adj_mean_melt.txt');
@@ -38,7 +38,7 @@ function melt = source_moulin_shmip_steady(time, pin, dmesh)
     for ii=1:length(ref_catch_melt)
         meltii = ref_catch_melt(ii);
         if meltii>0
-            dist = sqrt((ref_xy(:, 1) - xy(:, 1)).^2 + (ref_xy(:, 2) - xy(:, 2)).^2);
+            dist = sqrt((ref_xy(ii, 1) - xy(:, 1)).^2 + (ref_xy(ii, 2) - xy(:, 2)).^2);
             dist(catch_melt>0) = 1e10;
             [mindist, ii_min] = min(dist);
             catch_melt(ii_min) = meltii;
