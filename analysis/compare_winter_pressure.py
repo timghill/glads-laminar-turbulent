@@ -15,235 +15,104 @@ rhow = 1000
 rhoi = 910
 g = 9.81
 
-x_band = [70e3]
-band_width = 60e3
-
 x_bands = np.array([15e3, 30e3, 70e3])
 band_widths = 5e3
-winter_tindex = [350, 365]
+KAN_winter_tindex = [365 + 60, 365 + 120]
+synth_winter_tindex = [360 + 30, 365 + 90]
 labels = ['Turbulent 5/4', 'Turbulent 3/2',
           'Laminar',
           'Transition 5/4', 'Transition 3/2']
 labels = [l.ljust(14) for l in labels]
 
-def quantify_floatation(fnames, metric=np.nanmean, tslices=None,
+def quantify_floatation(fnames, tslices=None,
     x_bands=None, band_width=None, strfmt='%.4f', labels=None):
     """Docstring..."""
     if x_bands is None:
-        ff_means = np.zeros((len(fnames), 1))
+        ff_winters = np.zeros((len(fnames), 1))
+        ff_summers = np.zeros((len(fnames), 1))
     else:
-        ff_means = np.zeros((len(fnames), len(x_bands)))
+        ff_winters = np.zeros((len(fnames), len(x_bands)))
+        ff_summers = np.zeros((len(fnames), len(x_bands)))
 
     if tslices is None:
         tslices = [0, -1]
 
     if labels is None:
         labels = [fname.split('/')[-1] for fname in fnames]
-
-    ff_strfmt = []
+    
+    dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
+    area_nodes = np.vstack(dmesh['tri/area_nodes'][:].data.T)
+    # ff_strfmt = []
+    # winter_strfmt = ''
+    # summer_strfmt = ''
     for i in range(len(fnames)):
+        # ff_strfmt.append(labels[i])
         out = nc.Dataset(fnames[i])
-        phi = out['phi'][tslices[0]:tslices[1], :].data.T
-        N = out['N'][tslices[0]:tslices[1], :].data.T
+        phi = out['phi'][:].data.T
+        N = out['N'][:].data.T
         
         bed = np.vstack(out['bed'][:].data)
         phi_elevation = rhow*g*bed
 
         pw = phi - phi_elevation
         ff = pw/(N + pw)
+        nodex = np.vstack(out['nodes'][0].data)
+        out.close()
         
         if x_bands is None:
-            ff_mean = metric(ff)
-            ff_means[i, 0] = ff_mean
-            ff_strfmt.append(labels[i] + ':\t' + (strfmt % ff_mean))
+            ff_global_mean = np.sum(ff*area_nodes)/np.sum(area_nodes)
+            ff_winter = np.mean(ff_global_mean[tslices[0]:tslices[1]])
+            ff_winters[i, 0] = ff_winter
+
+            ff_summer = np.max(ff_global_mean)
+            ff_summers[i, 0] = ff_summer
+
+            # ff_strfmt.append(labels[i] + ':\t' + (strfmt % ff_mean))
+
         else:
             for k in range(len(x_bands)):
                 xmin = x_bands[k] - band_width/2
                 xmax = x_bands[k] + band_width/2
-                nodex = out['nodes'][0, :].data
-                mask = np.logical_and(nodex>=xmin, nodex<=xmax)
-                ff_mean = metric(ff[mask, :])
-                ff_means[i, k] = ff_mean
-            ff_strfmt.append(labels[i] + ':\t' + '\t'.join(
-                    [strfmt % f for f in ff_means[i, :]]))
-        out.close()
+                mask = np.logical_and(nodex>=xmin, nodex<=xmax).flatten()
 
-    ff_strfmt = '\n'.join(ff_strfmt)
-    return ff_means, ff_strfmt
+                ff_band_avg = np.sum(ff[mask]*(area_nodes[mask]), axis=0)/np.sum(area_nodes[mask])
+
+                ff_winter = np.mean(ff_band_avg[tslices[0]:tslices[1]])
+                ff_summer = np.max(ff_band_avg)
+                ff_winters[i, k] = ff_winter
+                ff_summers[i, k] = ff_summer
+            # winter_strfmt = winter_strfmt + '\t'.join(ff_winters[i])
+            # summer_strfmt = summer_strfmt + '\t'.join(ff_summers[i])
+            # ff_strfmt.append(':\t' + winter_strfmt + '\n' + ''.ljust(14) + ':\t' + summer_strfmt)
+
+        # ff_strfmt.append(labels[i] + ':\t' + (strfmt % ff_winter) + '\n' + ''.ljust(14) +  ':\t' + (strfmt % ff_summer))
+
+    # ff_strfmt = '\n'.join(ff_strfmt)
+    return (ff_winters, ff_summers)
+
+print('-------------------------------------------------')
+print('    SYNTHETIC (case 00)')
+print('-------------------------------------------------')
+cases = [1, 2, 3, 4, 5]
+steady_dir = '../glads/00_synth_forcing/RUN/output_%03d_steady.nc'
+fnames = [synth_dir % caseid for caseid in cases]
+winter, summer = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
+    tslices=synth_winter_tindex, labels=labels)
+print('Winter:')
+print(winter.T)
+print('Summer:')
+print(summer.T)
 
 
 print('-------------------------------------------------')
-print('    STEADY (case 00)')
+print('    KAN (case 01)')
 print('-------------------------------------------------')
-
-steady_cases = [1, 2, 3, 4, 5]
-steady_dir = '../glads/00_shmip_forcing_shmip_topo/RUN/output_%03d_steady.nc'
-fnames = [steady_dir % caseid for caseid in steady_cases]
-
-print('\nMean water pressure')
-data, strfmt = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    tslices=[-2, -1], labels=labels)
-print(strfmt)
-
-print('\nPeak water pressure')
-data, strfmt = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    metric=np.nanmax, labels=labels, tslices=[-2, -1])
-print(strfmt)
-
-
-print('\n\n')
-print('-------------------------------------------------')
-print('    SEASONAL (case 00)')
-print('-------------------------------------------------')
-
-seasonal_cases = [1, 2, 3, 4, 5]
-seasonal_dir = '../glads/_00_shmip_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
-fnames = [seasonal_dir % caseid for caseid in seasonal_cases]
-
-print('\nMean winter water pressure')
-data, strfmt = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    tslices=winter_tindex, labels=labels)
-print(strfmt)
-
-print('\nPeak summer water pressure')
-data, strfmt = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    metric=np.nanmax, labels=labels)
-print(strfmt)
-
-print('\n\n')
-print('-------------------------------------------------')
-print('    SEASONAL (case 01)')
-print('-------------------------------------------------')
-
-seasonal_cases = [101, 102, 103, 104, 105]
-seasonal_dir = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
-fnames = [seasonal_dir % caseid for caseid in seasonal_cases]
-
-print('\nMean winter water pressure')
-data, strfmt = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    tslices=winter_tindex, labels=labels)
-print(strfmt)
-
-print('\nPeak summer water pressure')
-data, strfmt = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    metric=np.nanmax, labels=labels)
-print(strfmt)
-
-
-"""
-xb_print = list(x_bands/1e3)
-print('Average winter floatation fraction for bands: ', xb_print)
-for i in range(len(seasonal_cases)):
-    out = nc.Dataset(seasonal_dir % seasonal_cases[i])
-    phi = out['phi'][winter_index[0]:winter_index[1], :].data.T
-    N = out['N'][winter_index[0]:winter_index[1], :].data.T
-    bed = np.vstack(out['bed'][:].data)
-    phi_elevation = rhow*g*bed
-    pw = phi - phi_elevation
-    ff = pw/(N + pw)
-    
-    ff_means = len(seasonal_cases)*['']
-    for k in range(len(x_bands)):
-        xmin = x_bands[k] - band_width/2
-        xmax = x_bands[k] + band_width/2
-        nodex = out['nodes'][0, :].data
-        mask = np.logical_and(nodex>=xmin, nodex<=xmax)
-        ff_mean = np.nanmean(ff[mask, :])
-        ff_means[k] = '%.4f' % ff_mean
-    print(labels[i]+':\t' + '\t'.join(ff_means))
-
-    out.close()
-
-
-print('\nPeak summer floatation fraction for bands: ', xb_print)
-for i in range(len(seasonal_cases)):
-    out = nc.Dataset(seasonal_dir % seasonal_cases[i])
-    phi = out['phi'][:].data.T
-    N = out['N'][:].data.T
-    bed = np.vstack(out['bed'][:].data)
-    phi_elevation = rhow*g*bed
-    pw = phi - phi_elevation
-    ff = pw/(N + pw)
-    
-    ff_peaks = len(seasonal_cases)*['']
-    for k in range(len(x_bands)):
-        xmin = x_bands[k] - band_width/2
-        xmax = x_bands[k] + band_width/2
-        nodex = out['nodes'][0, :].data
-        mask = np.logical_and(nodex>=xmin, nodex<=xmax)
-        ff_peak = np.nanmax(ff[mask, :])
-        ff_peaks[k] = '%.4f' % ff_peak
-    print(labels[i]+':\t' + '\t'.join(ff_peaks))
-    out.close()
-
-
-
-print('\n\n')
-print('-------------------------------------------------')
-print('    SEASONAL (case 01)\n')
-
-# Define winter in terms of the range of time indices
-winter_index = [350, 365]
-
-# Range of domain to use
-x_bands = np.array([15e3, 30e3, 70e3])
-band_width = 5e3
-
-seasonal_cases = [1, 1, 1, 1, 1]
-
-labels = ['Turbulent 5/4', 'Turbulent 3/2',
-          'Laminar', 'Transition 5/4', 'Transition 3/2']
-labels = [l.ljust(14) for l in labels]
-seasonal_dir = '../glads/01_kan_l_forcing_shmip_topo/RUN/output_%03d_seasonal.nc'
-
-xb_print = list(x_bands/1e3)
-print('Average winter floatation fraction for bands: ', xb_print)
-for i in range(len(seasonal_cases)):
-    out = nc.Dataset(seasonal_dir % seasonal_cases[i])
-    phi = out['phi'][winter_index[0]:winter_index[1], :].data.T
-    N = out['N'][winter_index[0]:winter_index[1], :].data.T
-    bed = np.vstack(out['bed'][:].data)
-    phi_elevation = rhow*g*bed
-    pw = phi - phi_elevation
-    ff = pw/(N + pw)
-    
-    ff_means = len(seasonal_cases)*['']
-    for k in range(len(x_bands)):
-        xmin = x_bands[k] - band_width/2
-        xmax = x_bands[k] + band_width/2
-        nodex = out['nodes'][0, :].data
-        mask = np.logical_and(nodex>=xmin, nodex<=xmax)
-        ff_mean = np.nanmean(ff[mask, :])
-        ff_means[k] = '%.4f' % ff_mean
-    print(labels[i]+':\t' + '\t'.join(ff_means))
-    out.close()
-
-
-print('\nPeak summer floatation fraction for bands: ', xb_print)
-for i in range(len(seasonal_cases)):
-    out = nc.Dataset(seasonal_dir % seasonal_cases[i])
-    phi = out['phi'][:].data.T
-    N = out['N'][:].data.T
-    bed = np.vstack(out['bed'][:].data)
-    phi_elevation = rhow*g*bed
-    pw = phi - phi_elevation
-    ff = pw/(N + pw)
-
-    ff_peaks = len(seasonal_cases)*['']
-    for k in range(len(x_bands)):
-        xmin = x_bands[k] - band_width/2
-        xmax = x_bands[k] + band_width/2
-        nodex = out['nodes'][0, :].data
-        mask = np.logical_and(nodex>=xmin, nodex<=xmax)
-        ff_peak = np.nanmax(ff[mask, :])
-        ff_peaks[k] = '%.4f' % ff_peak
-    print(labels[i]+':\t' + '\t'.join(ff_peaks))
-    out.close()
-"""
-
-
-
-
-
-
-
+cases = [1, 2, 3, 4, 5]
+steady_dir = '../glads/01_kan_forcing/RUN/output_%03d_steady.nc'
+fnames = [synth_dir % caseid for caseid in cases]
+winter, summer = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
+    tslices=synth_winter_tindex, labels=labels)
+print('Winter:')
+print(winter.T)
+print('Summer:')
+print(summer.T)
