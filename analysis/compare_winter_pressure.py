@@ -18,7 +18,7 @@ g = 9.81
 x_bands = np.array([15e3, 30e3, 70e3])
 band_widths = 5e3
 KAN_winter_tindex = [365 + 60, 365 + 120]
-synth_winter_tindex = [360 + 30, 365 + 90]
+synth_winter_tindex = [365 + 30, 365 + 90]
 labels = ['Turbulent 5/4', 'Turbulent 3/2',
           'Laminar',
           'Transition 5/4', 'Transition 3/2']
@@ -58,6 +58,7 @@ def quantify_floatation(fnames, tslices=None,
         ff = pw/(N + pw)
         nodex = np.vstack(out['nodes'][0].data)
         out.close()
+
         
         if x_bands is None:
             ff_global_mean = np.sum(ff*area_nodes)/np.sum(area_nodes)
@@ -94,7 +95,7 @@ print('-------------------------------------------------')
 print('    SYNTHETIC (case 00)')
 print('-------------------------------------------------')
 cases = [1, 2, 3, 4, 5]
-steady_dir = '../glads/00_synth_forcing/RUN/output_%03d_steady.nc'
+synth_dir = '../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [synth_dir % caseid for caseid in cases]
 winter, summer = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
     tslices=synth_winter_tindex, labels=labels)
@@ -108,8 +109,8 @@ print('-------------------------------------------------')
 print('    KAN (case 01)')
 print('-------------------------------------------------')
 cases = [1, 2, 3, 4, 5]
-steady_dir = '../glads/01_kan_forcing/RUN/output_%03d_steady.nc'
-fnames = [synth_dir % caseid for caseid in cases]
+kan_dir = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+fnames = [kan_dir % caseid for caseid in cases]
 winter, summer = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
     tslices=synth_winter_tindex, labels=labels)
 print('Winter:')
