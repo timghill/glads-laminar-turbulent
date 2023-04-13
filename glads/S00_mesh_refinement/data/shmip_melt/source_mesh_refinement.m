@@ -32,6 +32,7 @@ function melt = source_moulin_shmip_steady(time, pin, dmesh)
     ref_catch_melt = integrate_melt_by_catchment(ii_moulin, catchmap, ref_area, ref_steady_melt);
 
     % Now find the nearest nodes to inject melt
+    ii_interp = [];
     xy = dmesh.tri.nodes;
     catch_melt = zeros(size(xy, 1), 1);
     for ii=1:length(ref_catch_melt)
@@ -41,9 +42,10 @@ function melt = source_moulin_shmip_steady(time, pin, dmesh)
             dist(catch_melt>0) = 1e10;
             [mindist, ii_min] = min(dist);
             catch_melt(ii_min) = meltii;
+	    ii_interp = [ii_interp, ii_min];
         end
     end
-
-
+    n_nodes = length(dmesh.tri.nodes);
+    writematrix(ii_interp, sprintf('moulins_%05d.txt', n_nodes))
     melt = catch_melt.*ramp;
 end
