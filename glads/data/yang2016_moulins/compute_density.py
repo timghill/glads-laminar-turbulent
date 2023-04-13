@@ -106,6 +106,12 @@ for i in range(nz):
     density[i] = interval_density
     # print(interval_density)
 
+save_arr = np.zeros((len(z), 2))
+save_arr[:, 0] = z
+save_arr[:, 1] = density
+print(save_arr)
+np.savetxt('yang2016_density.txt', save_arr)
+
 elevation_bins = np.zeros(len(z))
 n_moulin_bins = np.zeros(len(z))
 for i in range(nz):

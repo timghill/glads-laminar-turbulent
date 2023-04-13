@@ -13,8 +13,6 @@ from matplotlib.transforms import Bbox
 
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-#  class mpl_toolkits.mplot3d.art3d.Poly3DCollection(verts, *args, zsort='average', shade=False, lightsource=None, **kwargs)[source]
-
 # Domain topography
 bed_fun = lambda x: 350 + 0*x
 surf_fun = lambda x: 6*(np.sqrt(x  +5e3) - np.sqrt(5e3)) + 390
@@ -28,7 +26,7 @@ line_color = 'k'
 # band_color = 'lightslategrey'
 band_color = 'steelblue'
 figname = 'domain_profile.png'
-figsize=(6, 6)
+figsize=(5, 5)
 
 bands = [15, 30, 70]
 band_width = 5
@@ -89,14 +87,14 @@ for xb in bands:
     ax.plot_surface(xxs, yys*0, z3, zorder=2, color=band_color, alpha=1, antialiased=False)
 
 # Plot moulins
-# dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
+dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
 moulins = np.loadtxt('../glads/data/moulins/moulins_068.txt')
 print(moulins)
 moulinx = moulins[:, 1]
 mouliny = moulins[:, 2]
 moulinz = surf_fun(moulinx)
 
-ax.plot(moulinx/1e3, mouliny/1e3, moulinz, marker='.', color='k', zorder=6, linestyle='')
+ax.plot(moulinx/1e3, mouliny/1e3, moulinz, marker='.', color='k', zorder=6, linestyle='', markersize=5)
 
 
 ax.set_xticks([0, 20, 40, 60, 80, 100])
@@ -112,39 +110,38 @@ ax.view_init(elev=24, azim=-125) #Works!
 ax.set_box_aspect((4, 1, 1))
 ax.set_aspect('equalxy')
 
+ax.set_position(Bbox.from_extents(-0.1, 0.415, 1.25, 1.15))
+# ax.text(0.05, 0.95, 'a', fontweight='bold')
 
-# ax.set_box_aspect(1)
-# ax.set_aspect('equal')
+## Compute moulin density
+z_bins = np.arange(400, 2000, 200)
+n_moulin_bins = np.zeros(z_bins.shape)
+density_bins = np.zeros(len(z_bins)-1)
+tri_surf = surf_fun(dmesh['tri/nodes'][0].data.T)
+node_area = dmesh['tri/area_nodes'][:].data.T/1e6
+for ii in range(len(z_bins)-1):
+    moulin_mask = np.logical_and(moulinz>=z_bins[ii], moulinz<z_bins[ii+1])
+    n_moulin_ii = len(moulins[moulin_mask])
 
-# ax.set_aspect([10, 10, 10])
+    node_mask = np.logical_and(tri_surf>=z_bins[ii], tri_surf<z_bins[ii+1])
+    band_area = np.sum(node_area[node_mask])
+    density_bins[ii] = n_moulin_ii/band_area
 
+yang_2016_density = np.loadtxt('../glads/data/yang2016_moulins/yang2016_density.txt')
 
-# fig, ax = plt.subplots(figsize=figsize, projection='3d')
-
-# ax.fill_between(x/1e3, bed, 0, facecolor=bed_color)
-# ax.fill_between(x/1e3, surf, bed, facecolor=ice_color, edgecolor=line_color)
-# ax.axhline(350, color='dodgerblue', linewidth=2)
-
-# for xb in bands:
-#     xx_band = np.linspace(xb - band_width/2, xb + band_width/2, 21)
-#     yy_band = surf_fun(xx_band*1e3)
-#     ax.fill_between(xx_band, yy_band, 350, facecolor=band_background)
-#     ax.plot([xb, xb], [350, surf_fun(xb*1e3)], color=band_color)
-
-
-# ax.set_xlim([0, 100]); ax.set_ylim([0, xb00])
-# ax.spines['top'].set_visible(False)
-# ax.spines['right'].set_visible(False)
-
-# ax.set_xlabel('Distance from terminus')
-# ax.set_ylabel('Elevation (m)')
-
-# fig.subplots_adjust(left=0.12, right=0.98, top=0.95, bottom=0.23)
-# ax.set_position(Bbox.from_bounds(-0.6, 0.5, 2, 0.65))
-ax.set_position(Bbox.from_extents(0.1, 0.4, 1, 1.15))
-
+z_bin_center = 0.5*(z_bins[:-1] + z_bins[1:])
 ax2 = fig.add_subplot()
 ax2.set_position(Bbox.from_bounds(0.15, 0.1, 0.8, 0.35))
+ax2.plot(yang_2016_density[:, 0], yang_2016_density[:, 1], label='Target density', color='#f1a340')
+ax2.plot(z_bin_center, density_bins, label='Synthetic density', color='#8073ac')
+ax2.spines['right'].set_visible(False)
+ax2.spines['top'].set_visible(False)
+ax2.set_xlim([200, 2000])
+ax2.set_ylim([0, 0.07])
+ax2.text(-0.125, 2.35, 'a', transform=ax2.transAxes, fontweight='bold')
+ax2.text(-0.125, 1, 'b', transform=ax2.transAxes, fontweight='bold')
+
+ax2.legend(bbox_to_anchor=(0.075, 0.95, 0.85, 0.2), ncol=2, mode='expand', frameon=False)
 
 ax2.set_xlabel('Elevation (m)')
 ax2.set_ylabel(r'Density (km$^{-2}$)')
