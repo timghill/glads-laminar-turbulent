@@ -34,6 +34,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
         connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
         connect_edge = dmesh['tri/connect_edge'][:].data.T.astype(int) - 1
         area_nodes = dmesh['tri/area_nodes'][:].data.T
+        mean_edge_lengths[i] = np.mean(dmesh['tri/edge_length'][:].data)
 
         # Compute averaged quantities
         xb = 30e3       # Set x position for averaging
@@ -69,25 +70,44 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
         clock = out['model/wallclock'][:].data
 
         n_nodes[i] = nodes.shape[0]
-        mean_edge_lengths[i] = n_nodes[i]**2
         ff_arr[i] = ff_mean
         Q_arr[i] = Qtot
         clock_arr[i] = clock
     
-    h1, = ax1.semilogx(n_nodes, ff_arr, marker='o', label=r'$p_{\rm{w}}/p_{\rm{i}}$', color='r')
+    h1, = ax1.semilogx(n_nodes, ff_arr, marker='o', label=r'$p_{\rm{w}}/p_{\rm{i}}$',
+        color='mediumblue')
     ax1.grid()
     ax1.set_xlabel('Nodes')
+    ax1.set_xlim([75, 1e4])
+    ax1.text(0, 1.05, r'$p_{\rm{w}}/p_{\rm{i}}$', ha='center', transform=ax1.transAxes)
     
     ax2 = ax1.twinx()
-    h2, = ax2.semilogx(n_nodes, Q_arr, marker='^', label='Q (m$^3$ s$^{-1}$)', color='b')
+    h2, = ax2.semilogx(n_nodes, Q_arr, marker='^', label='Q (m$^3$ s$^{-1}$)',
+        color='deepskyblue')
     ax2.yaxis.tick_left()
     ax2.yaxis.set_label_position('left')
-    ax2.spines.left.set_position(('axes', -0.1))
+    ax2.spines.left.set_position(('axes', -0.2))
+    ax2.text(-0.2, 1.05, r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$', transform=ax2.transAxes, ha='center')
     
     ax3 = ax1.twinx()
     h3, = ax3.semilogx(n_nodes, clock_arr/3600, marker='x', label='Time (h)', color='k')
+    ax3.set_ylabel('Time (h)')
 
-    ax1.legend(handles=(h1, h2, h3))
+    ax1.legend(handles=(h1, h2, h3), bbox_to_anchor=(0, 1.2, 1, 0.1), ncol=3, mode='expand',
+        frameon=False)
+
+    ax_hidden = ax1.twiny()
+    ax_hidden.set_xscale('log')
+    ax_hidden.xaxis.tick_top()
+    ax_hidden.xaxis.set_label_position('top')
+    ax_hidden.set_xlim(ax1.get_xlim())
+    ax_hidden.set_xlabel('Edge length (km)')
+
+    ax_hidden.set_xticks(n_nodes)
+    ax_hidden.set_xticklabels(['%.1f' % xi for xi in mean_edge_lengths/1e3])
+
+    ax_hidden.minorticks_off()
+    fig.subplots_adjust(bottom=0.15, left=0.2, right=0.9, top=0.8)
 
     plt.show()
 
@@ -96,7 +116,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
 
 if __name__=='__main__':
-    cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    cases = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     fnames = ['../glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
     figname = 'S00_mesh_refinement.png'
     plot_mesh_refinement(fnames, figname)

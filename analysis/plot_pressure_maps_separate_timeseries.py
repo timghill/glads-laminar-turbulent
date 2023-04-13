@@ -23,7 +23,7 @@ figsize=(7, 6)
 
 gs_kwargs=dict(wspace=0.05, hspace=0.2, 
         width_ratios = (100, 30, 110), 
-        left=0.09, right=0.985, bottom=0.08,
+        left=0.09, right=0.98, bottom=0.08,
         top=0.915)
 
 

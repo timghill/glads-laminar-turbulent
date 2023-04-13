@@ -47,7 +47,7 @@ fnames = [pattern % caseid for caseid in cases]
 figname ='01a_pressure_seasonal.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='KANadj',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
-     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+     ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
 
 ## Case 01b: Flat topo, KAN_L forcing, reduced e_v
 cases = [1, 2, 3, 4, 5]
@@ -56,7 +56,7 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '01b_pressure_seasonal_ev.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
-     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+     ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
 
 ## Case 02a: Trough topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
