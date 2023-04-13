@@ -3,8 +3,8 @@ function pa = run_job(id)
 set_paths;
 addpath(genpath('../data/functions/'))
 
-fname_steady = sprintf('output_%03d_tmp.nc', id);
-fname_seasonal = sprintf('output_%03d_seasonal_tmp.nc', id);
+fname_steady = sprintf('output_%03d_steady.nc', id);
+fname_seasonal = sprintf('output_%03d_seasonal.nc', id);
 
 % Fixed parameters
 config.k_s = 0.1;	% Turbulent conductivity
