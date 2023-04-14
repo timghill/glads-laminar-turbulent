@@ -78,7 +78,8 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
         color='mediumblue')
     ax1.grid()
     ax1.set_xlabel('Nodes')
-    ax1.set_xlim([75, 1e4])
+    ax1.set_xlim([75, 2e4])
+    ax1.set_ylim([0.605, 0.615])
     ax1.text(0, 1.05, r'$p_{\rm{w}}/p_{\rm{i}}$', ha='center', transform=ax1.transAxes)
     
     ax2 = ax1.twinx()
@@ -86,8 +87,8 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
         color='deepskyblue')
     ax2.yaxis.tick_left()
     ax2.yaxis.set_label_position('left')
-    ax2.spines.left.set_position(('axes', -0.2))
-    ax2.text(-0.2, 1.05, r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$', transform=ax2.transAxes, ha='center')
+    ax2.spines.left.set_position(('axes', -0.175))
+    ax2.text(-0.175, 1.05, r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$', transform=ax2.transAxes, ha='center')
     
     ax3 = ax1.twinx()
     h3, = ax3.semilogx(n_nodes, clock_arr/3600, marker='x', label='Time (h)', color='k')
@@ -108,7 +109,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
     ax_hidden.minorticks_off()
     fig.subplots_adjust(bottom=0.15, left=0.2, right=0.9, top=0.8)
-
+    fig.savefig(figname)
     plt.show()
 
 
@@ -116,7 +117,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
 
 if __name__=='__main__':
-    cases = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     fnames = ['../glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
     figname = 'S00_mesh_refinement.png'
     plot_mesh_refinement(fnames, figname)

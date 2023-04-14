@@ -56,7 +56,7 @@ def plot_steady(fname, figname):
     fig.savefig(figname)
 
 if __name__=='__main__':
-    cases = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     for caseid in cases:
         fname = '../RUN/output_%03d_steady.nc' % caseid
         figname = 'steady_%03d.png' % caseid
