@@ -83,5 +83,7 @@ cases = [1, 2, 3, 4, 5]
 pattern = '../glads/S01_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'S01_Re_parameter.png'
-fig_S01 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
+fig_S01 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3), tslice=365+174)
+
+plt.show()
 
