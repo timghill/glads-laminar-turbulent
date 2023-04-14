@@ -14,7 +14,7 @@ t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
 t_ticklabels = ['May', 'July', 'Sep', 'Nov']
 t_lim = [t_ticks[0], t_ticks[-1]]
 t_xlabel = 'Month'
-
+"""
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -77,5 +77,11 @@ pattern = '../glads/03b_kan_forcing_valley/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '03b_Re_seasonal_valley.png'
 fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
-
+"""
+## Case S01: Parameter sensitivity
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/S01_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = 'S01_Re_parameter.png'
+fig_S01 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
 

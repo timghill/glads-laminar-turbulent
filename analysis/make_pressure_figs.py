@@ -94,4 +94,12 @@ fig_03 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='KA
     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
     ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+## Case S01: Parameter sensitivity
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/S01_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = 'S01_pressure_seasonal_params.png'
+fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
+     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
+     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
