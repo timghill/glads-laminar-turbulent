@@ -80,15 +80,15 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
     ax1.set_xlabel('Nodes')
     ax1.set_xlim([75, 2e4])
     ax1.set_ylim([0.605, 0.615])
-    ax1.text(0, 1.05, r'$p_{\rm{w}}/p_{\rm{i}}$', ha='center', transform=ax1.transAxes)
+    ax1.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
     
     ax2 = ax1.twinx()
     h2, = ax2.semilogx(n_nodes, Q_arr, marker='^', label='Q (m$^3$ s$^{-1}$)',
         color='deepskyblue')
     ax2.yaxis.tick_left()
     ax2.yaxis.set_label_position('left')
-    ax2.spines.left.set_position(('axes', -0.175))
-    ax2.text(-0.175, 1.05, r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$', transform=ax2.transAxes, ha='center')
+    ax2.spines.left.set_position(('axes', -0.225))
+    ax2.set_ylabel(r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$')
     
     ax3 = ax1.twinx()
     h3, = ax3.semilogx(n_nodes, clock_arr/3600, marker='x', label='Time (h)', color='k')
@@ -108,9 +108,9 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
     ax_hidden.set_xticklabels(['%.1f' % xi for xi in mean_edge_lengths/1e3])
 
     ax_hidden.minorticks_off()
-    fig.subplots_adjust(bottom=0.15, left=0.2, right=0.9, top=0.8)
+    fig.subplots_adjust(bottom=0.15, left=0.25, right=0.9, top=0.8)
     fig.savefig(figname, dpi=600)
-    # plt.show()
+    plt.show()
 
 
         
