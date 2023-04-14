@@ -53,7 +53,7 @@ def plot_steady(fname, figname):
 
 
     out.close()
-    fig.savefig(figname)
+    fig.savefig(figname, dpi=600)
 
 if __name__=='__main__':
     cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -62,4 +62,3 @@ if __name__=='__main__':
         figname = 'steady_%03d.png' % caseid
 
         plot_steady(fname, figname)
-    plt.show()

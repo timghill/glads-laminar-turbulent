@@ -109,8 +109,8 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
     ax_hidden.minorticks_off()
     fig.subplots_adjust(bottom=0.15, left=0.2, right=0.9, top=0.8)
-    fig.savefig(figname)
-    plt.show()
+    fig.savefig(figname, dpi=600)
+    # plt.show()
 
 
         
