@@ -32,8 +32,8 @@ figname = 'moulin_design.png'
 
 # Plot parameters
 figsize=(7, 6)
-data_color = 'r'
-synth_color = 'coral'
+data_color = 'coral'
+synth_color = 'teal'
 
 #######################################
 # Read moulin locations
@@ -172,11 +172,14 @@ xax2.set_xlabel('Elevation (m)')
 mtri = tri.Triangulation(nodexy[:, 0]/1e3, nodexy[:, 1]/1e3, connect)
 # ax2.tripcolor(mtri, nodez, vmin=0, vmax=2000, cmap='gray')
 # ax2.tricontour(mtri, nodez, levels=np.arange(0, 2100, 100), color='k')
-ax2.tripcolor(mtri, catchment_labels, cmap=cmocean.cm.ice)
+# ax2.tripcolor(mtri, catchment_labels, cmap=cmocean.cm.ice)
+ax2.tripcolor(mtri, catchment_labels, cmap='gray')
 ax2.plot(catchments[:, 1]/1e3, catchments[:, 2]/1e3, linestyle='',
-    marker='.', markersize=7, color='magenta', label='Catchments')
+    marker='.', markersize=10, color='k', label='Catchments',
+    markeredgecolor='w', markeredgewidth=0.25)
 ax2.plot(moulinx/1e3, mouliny/1e3, linestyle='',
-    marker='.', markersize=7, color=synth_color, label='Moulins')
+    marker='.', markersize=10, color=synth_color, label='Moulins',
+    markeredgecolor='k', markeredgewidth=0.5)
 ax2.set_yticks([0, 12.5, 25])
 ax2.legend(loc='lower right', markerscale=1.5)
 ax2.text(0.01, 0.975, 'c', va='top', fontweight='bold',
