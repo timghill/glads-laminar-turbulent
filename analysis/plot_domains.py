@@ -33,10 +33,10 @@ thick_levels = np.arange(0, 2100, 100)
 
 ## Plot bed elevation and ice thickness
 
-fig2 = plt.figure(figsize=(7, 4.5))
+fig2 = plt.figure(figsize=(7, 4.))
 
 gs = GridSpec(4, 2, height_ratios=(10, 100, 100, 100),
-    left=0.1, bottom=0.15, right=0.97, top=0.8,
+    left=0.1, bottom=0.1, right=0.97, top=0.85,
     hspace=0.05, wspace=0.075)
 
 axs = np.array([[fig2.add_subplot(gs[i+1,j]) for j in range(2)] for i in range(3)]).T
@@ -62,18 +62,18 @@ for ax in axs.flat:
 axT = axs.T
 axT[0, 0].set_xticklabels([])
 axT[0, 1].set_xticklabels([])
-axT[0, 0].text(0.025, 0.85, 'a', transform=axT[0, 0].transAxes, fontweight='bold')
+axT[0, 0].text(-0.2, 0.95, 'a', transform=axT[0, 0].transAxes, fontweight='bold')
 
 
 axT[1, 0].set_xticklabels([])
 axT[1, 1].set_xticklabels([])
-axT[1, 0].text(0.025, 0.85, 'c', transform=axT[1, 0].transAxes, fontweight='bold')
+axT[1, 0].text(-0.2, 0.95, 'b', transform=axT[1, 0].transAxes, fontweight='bold')
 # axT[0, 2].set_xticklabels([])
 
 axT[0, 1].set_yticklabels([])
 axT[1, 1].set_yticklabels([])
 axT[2, 1].set_yticklabels([])
-axT[2, 0].text(0.025, 0.85, 'c', transform=axT[2, 0].transAxes, fontweight='bold')
+axT[2, 0].text(-0.2, 0.95, 'c', transform=axT[2, 0].transAxes, fontweight='bold')
 
 axT[0, 0].set_ylabel('y (km)')
 axT[1, 0].set_ylabel('y (km)')
@@ -100,7 +100,6 @@ cax2.xaxis.set_label_position('top')
 
 cbar1.set_label('Bed Elevation (m)')
 cbar2.set_label('Thickness (m)')
-
 fig2.savefig('bed_thickness.png', dpi=600)
 
 plt.show()
