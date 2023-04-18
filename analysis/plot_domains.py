@@ -15,9 +15,9 @@ dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
 nodes = dmesh['tri/nodes'][:].data.T
 connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
 
-out_trough = nc.Dataset('../glads/02_shmip_forcing_synth_topo/RUN/output_203_seasonal.nc')
+out_trough = nc.Dataset('../glads/02a_synth_forcing_trough/RUN/output_203_seasonal.nc')
 
-out_valley = nc.Dataset('../glads/02a_shmip_forcing_valley_topo/RUN/output_003_seasonal.nc')
+out_valley = nc.Dataset('../glads/02b_synth_forcing_valley/RUN/output_003_seasonal.nc')
 
 
 bed_flat = 350 + 0*nodes[:, 0]
@@ -62,14 +62,17 @@ for ax in axs.flat:
 axT = axs.T
 axT[0, 0].set_xticklabels([])
 axT[0, 1].set_xticklabels([])
+axT[0, 0].text(0.025, 0.9, 'a', transform=axT[0, 0].transAxes, fontweight='bold')
 
 axT[1, 0].set_xticklabels([])
 axT[1, 1].set_xticklabels([])
+axT[1, 0].text(0.025, 0.9, 'c', transform=axT[1, 0].transAxes, fontweight='bold')
 # axT[0, 2].set_xticklabels([])
 
 axT[0, 1].set_yticklabels([])
 axT[1, 1].set_yticklabels([])
 axT[2, 1].set_yticklabels([])
+axT[2, 0].text(0.025, 0.9, 'c', transform=axT[2, 0].transAxes, fontweight='bold')
 
 axT[0, 0].set_ylabel('y (km)')
 axT[1, 0].set_ylabel('y (km)')
