@@ -32,8 +32,8 @@ figname = 'moulin_design.png'
 
 # Plot parameters
 figsize=(7, 6)
-data_color = 'deepskyblue'
-synth_color = 'b'
+data_color = 'r'
+synth_color = 'coral'
 
 #######################################
 # Read moulin locations
