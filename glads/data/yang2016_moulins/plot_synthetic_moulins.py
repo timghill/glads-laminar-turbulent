@@ -32,7 +32,7 @@ figname = 'moulin_design.png'
 
 # Plot parameters
 figsize=(7, 6)
-data_color = 'r'
+data_color = 'deepskyblue'
 synth_color = 'b'
 
 #######################################
@@ -92,7 +92,7 @@ mouliny = moulins[:, 2]
 moulinz = surf_fun(moulinx)
 catchment_labels = np.loadtxt(synthetic_catchment_file)
 catchments = np.loadtxt(synthetic_catchment_centers)
-z_bins = np.arange(400, 2000, 200)
+z_bins = np.arange(400, 2000, 100)
 n_moulin_bins = np.zeros(z_bins.shape)
 density_bins = np.zeros(len(z_bins)-1)
 tri_surf = surf_fun(dmesh['tri/nodes'][0].data.T)
@@ -124,7 +124,7 @@ cax = fig.add_subplot(gs[0, 0])
 pc = ax0.contourf(dem_xx/1e3, dem_yy/1e3, dem, cmap='gray', 
     levels=np.arange(0, 2100, 100))
 ax0.plot(XY[:, 0]/1e3, XY[:, 1]/1e3, linestyle='', marker='.', markersize=5,
-    color=data_color, markeredgecolor='none')
+    color=data_color, markeredgecolor='k', markeredgewidth=0.25)
 ax0.set_aspect('equal')
 ax0.set_xlabel('Easting (km)')
 ax0.set_ylabel('Northing (km)')
@@ -141,7 +141,7 @@ ax1.set_ylabel('Density (km$^{-2}$)')
 ax1.set_xlabel('Elevation (m)')
 ax1.grid(linestyle=':', linewidth=0.5)
 ax1.set_xlim([350, 2000])
-ax1.set_ylim([0, 0.06])
+ax1.set_ylim([0, 0.065])
 ax1.legend(bbox_to_anchor=(0, 1.02, 1, 0.1), ncol=2, mode='expand',
     frameon=False)
 ax1.text(0.01, 0.975, 'b', va='top', fontweight='bold',
