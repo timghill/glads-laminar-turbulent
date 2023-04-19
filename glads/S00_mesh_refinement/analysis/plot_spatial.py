@@ -48,7 +48,7 @@ def plot_steady(fname, figname):
 
     # Get moulin positions
     n_nodes = nodes.shape[0]
-    moulin_indices = np.loadtxt('../moulins_%05d.txt' % n_nodes, delimiter=',')
+    moulin_indices = np.loadtxt('../moulins_%05d.txt' % n_nodes, delimiter=',').astype(int)
     moulin_xy = nodes[moulin_indices, :]
     ax.plot(moulin_xy[:, 0]/1e3, moulin_xy[:, 1]/1e3, linestyle='', marker='x', color='k')
 
