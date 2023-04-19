@@ -69,3 +69,4 @@ if __name__=='__main__':
         figname = 'steady_%03d.png' % caseid
 
         plot_steady(fname, figname)
+    plt.show()
