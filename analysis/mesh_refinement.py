@@ -107,7 +107,8 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
     ax_hidden.set_xticklabels(['%.1f' % xi for xi in mean_edge_lengths/1e3])
 
     ax_hidden.minorticks_off()
-    fig.subplots_adjust(bottom=0.15, left=0.25, right=0.9, top=0.8)
+    ax1.axvline(4156, color='gray')
+    fig.subplots_adjust(bottom=0.125, left=0.25, right=0.9, top=0.8)
     fig.savefig(figname, dpi=600)
     plt.show()
 
