@@ -39,8 +39,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
         # Compute averaged quantities
         xb = 30e3       # Set x position for averaging
         bw = 5e3        # Band width for averaging
-        # node_mask = np.abs(nodes[:, 0] - xb)<=bw/2
-        node_mask = nodes[:, 0]>=0
+        node_mask = np.abs(nodes[:, 0] - xb)<=bw/2
 
         # Floatation fraction: check pressure steady state
         phi = out['phi'][-1].data
@@ -53,7 +52,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
         pi = N + pw
         ff = pw/pi
         ff = ff[node_mask]
-        ff_mean = np.sum(ff*area_nodes)/np.sum(area_nodes)
+        ff_mean = np.sum(ff*area_nodes[node_mask])/np.sum(area_nodes[node_mask])
 
         # Check flux or discharge steady state
         Q = out['Q'][-1].data
@@ -79,7 +78,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
     ax1.grid()
     ax1.set_xlabel('Nodes')
     ax1.set_xlim([75, 2e4])
-    ax1.set_ylim([0.605, 0.615])
+    # ax1.set_ylim([0.605, 0.615])
     ax1.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
     
     ax2 = ax1.twinx()

@@ -17,14 +17,14 @@ g = 9.81
 
 x_bands = np.array([15e3, 30e3, 70e3])
 band_widths = 5e3
-KAN_winter_tindex = [365 + 60, 365 + 120]
-synth_winter_tindex = [365 + 30, 365 + 90]
+KAN_winter_tindex = [365 + 75, 365 + 125]
+synth_winter_tindex = [365 + 50, 365 + 100]
 labels = ['Turbulent 5/4', 'Turbulent 3/2',
           'Laminar',
           'Transition 5/4', 'Transition 3/2']
 labels = [l.ljust(14) for l in labels]
 
-def quantify_floatation(fnames, tslices=None,
+def quantify_floatation(fnames, figname, tslices=None,
     x_bands=None, band_width=None, strfmt='%.4f', labels=None):
     """Docstring..."""
     if x_bands is None:
@@ -42,6 +42,7 @@ def quantify_floatation(fnames, tslices=None,
     
     dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
     area_nodes = np.vstack(dmesh['tri/area_nodes'][:].data.T)
+    fig, axs = plt.subplots(nrows=len(x_bands))
     # ff_strfmt = []
     # winter_strfmt = ''
     # summer_strfmt = ''
@@ -57,6 +58,7 @@ def quantify_floatation(fnames, tslices=None,
         pw = phi - phi_elevation
         ff = pw/(N + pw)
         nodex = np.vstack(out['nodes'][0].data)
+        time = out['time'][:].data.T
         out.close()
 
         
@@ -82,6 +84,10 @@ def quantify_floatation(fnames, tslices=None,
                 ff_summer = np.max(ff_band_avg)
                 ff_winters[i, k] = ff_winter
                 ff_summers[i, k] = ff_summer
+                
+                tt = time/86400 - 100*365
+                ax = axs[k]
+                ax.plot(tt, ff_band_avg)
             # winter_strfmt = winter_strfmt + '\t'.join(ff_winters[i])
             # summer_strfmt = summer_strfmt + '\t'.join(ff_summers[i])
             # ff_strfmt.append(':\t' + winter_strfmt + '\n' + ''.ljust(14) + ':\t' + summer_strfmt)
@@ -89,6 +95,11 @@ def quantify_floatation(fnames, tslices=None,
         # ff_strfmt.append(labels[i] + ':\t' + (strfmt % ff_winter) + '\n' + ''.ljust(14) +  ':\t' + (strfmt % ff_summer))
 
     # ff_strfmt = '\n'.join(ff_strfmt)
+    for k in range(len(x_bands)):
+        ax = axs[k]
+        ax.fill_betweenx([0, 2], [tslices[0], tslices[0]], [tslices[1], tslices[1]], color='gray', alpha=0.5)
+    fig.tight_layout()
+    fig.savefig(figname, dpi=600)
     return (ff_winters, ff_summers)
 
 print('-------------------------------------------------')
@@ -97,7 +108,8 @@ print('-------------------------------------------------')
 cases = [1, 2, 3, 4, 5]
 synth_dir = '../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [synth_dir % caseid for caseid in cases]
-winter, summer = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
+figname = 'stats_synth.png'
+winter, summer = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
     tslices=synth_winter_tindex, labels=labels)
 print('Winter:')
 print(winter.T)
@@ -111,9 +123,12 @@ print('-------------------------------------------------')
 cases = [1, 2, 3, 4, 5]
 kan_dir = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [kan_dir % caseid for caseid in cases]
-winter, summer = quantify_floatation(fnames, x_bands=x_bands, band_width=band_widths,
-    tslices=synth_winter_tindex, labels=labels)
+figname = 'stats_KAN.png'
+winter, summer = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
+    tslices=KAN_winter_tindex, labels=labels)
 print('Winter:')
 print(winter.T)
 print('Summer:')
 print(summer.T)
+
+plt.show()
