@@ -16,7 +16,7 @@ function melt = source_moulin_shmip_diurnal(time, pin, dmesh, ii_moulin, catchma
     ramp = max(0, min(time/86400/365/25 - 1, 1));
     
     if time > (86400*365*100)
-        ra = 0.5;
+        ra = 1;
     else
         ra = 0;
     end
