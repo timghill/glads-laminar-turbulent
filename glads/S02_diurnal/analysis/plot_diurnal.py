@@ -45,11 +45,12 @@ def diurnal(cases, figname):
 
         tt_steady = (tt_steady - tt_steady[-1])/86400
         tt_diurnal = (tt_diurnal - tt_diurnal[0])/86400
-        ax.plot(tt_steady, np.mean(ff_steady[node_mask], axis=0), color=colors[i-1])
-        ax.plot(tt_diurnal, np.mean(ff_diurnal[node_mask], axis=0), color=colors[i-1])
+        ax.plot(tt_steady, np.mean(ff_steady[node_mask], axis=0) - np.mean(ff_steady[node_mask], axis=0)[-1], color=colors[i-1])
+        ax.plot(tt_diurnal, np.mean(ff_diurnal[node_mask], axis=0) -np.mean(ff_steady[node_mask], axis=0)[-1], color=colors[i-1])
 
     ax.grid(linestyle=':', linewidth=0.5)
     ax.set_xlim([-5, 10])
+    ax.set_ylim([-0.025, 0.025])
 
 
 if __name__=='__main__':
