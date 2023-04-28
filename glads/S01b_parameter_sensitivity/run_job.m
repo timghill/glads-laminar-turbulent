@@ -7,7 +7,7 @@ fname_steady = sprintf('output_%03d_steady.nc', id);
 fname_seasonal = sprintf('output_%03d_seasonal.nc', id);
 
 % Fixed parameters
-config.k_s = 0.05;	% Laminar conductivity
+config.k_s = 0.02;	% Laminar conductivity
 config.l_c = 50;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
