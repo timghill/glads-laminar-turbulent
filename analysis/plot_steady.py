@@ -260,4 +260,11 @@ if __name__=='__main__':
     figname = '00_steady.png'
     fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100)
 
+    ## Case S01b: Flat topo, synthetic forcing
+    cases = [1, 2, 3, 4, 5]
+    fnames = ['../glads/S01b_parameter_sensitivity/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
+    figname = 'S01b_steady.png'
+    fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100)
+
+
     plt.show()
