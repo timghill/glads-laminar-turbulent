@@ -56,7 +56,7 @@ def diurnal(cases, figname):
     ax.set_xlabel('Days')
     ax.set_ylabel(r'$\Delta p_{\rm{w}}/p_{\rm{i}}$')
 
-    fig.savefig(figname)
+    fig.savefig(figname, dpi=600)
 
 if __name__=='__main__':
     cases = [101, 102, 103, 104, 105]
