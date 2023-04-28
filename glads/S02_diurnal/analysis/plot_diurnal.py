@@ -28,9 +28,9 @@ def diurnal(cases, figname):
                     [0.929, 0.835, 0.408, 1],
                     [0.859, 0.683, 0.275, 1]])
 
-    for i in cases:
-        fname_steady = '../RUN/output_%03d_steady.nc' % i
-        fname_diurnal = '../RUN/output_%03d_seasonal.nc' % i
+    for j in range(len(cases)):
+        fname_steady = '../RUN/output_%03d_steady.nc' % cases[j]
+        fname_diurnal = '../RUN/output_%03d_seasonal.nc' % cases[j]
         out_steady = nc.Dataset(fname_steady, 'r')
         out_diurnal = nc.Dataset(fname_diurnal, 'r')
 
@@ -45,16 +45,21 @@ def diurnal(cases, figname):
 
         tt_steady = (tt_steady - tt_steady[-1])/86400
         tt_diurnal = (tt_diurnal - tt_diurnal[0])/86400
-        ax.plot(tt_steady, np.mean(ff_steady[node_mask], axis=0) - np.mean(ff_steady[node_mask], axis=0)[-1], color=colors[i-1])
-        ax.plot(tt_diurnal, np.mean(ff_diurnal[node_mask], axis=0) -np.mean(ff_steady[node_mask], axis=0)[-1], color=colors[i-1])
+        ax.plot(tt_steady, np.mean(ff_steady[node_mask], axis=0) - np.mean(ff_steady[node_mask], axis=0)[-1], color=colors[j])
+        ax.plot(tt_diurnal, np.mean(ff_diurnal[node_mask], axis=0) -np.mean(ff_steady[node_mask], axis=0)[-1], color=colors[j])
 
     ax.grid(linestyle=':', linewidth=0.5)
-    ax.set_xlim([-5, 10])
-    ax.set_ylim([-0.025, 0.025])
+    ax.set_xlim([-0.5, 5.5])
+    ax.set_ylim([-0.15, 0.15])
+    ax.legend(['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2'],
+        bbox_to_anchor=(-0.1, 1.02, 1.2, 0.1), mode='expand', ncol=5, frameon=False)
+    ax.set_xlabel('Days')
+    ax.set_ylabel(r'$\Delta p_{\rm{w}}/p_{\rm{i}}$')
 
+    fig.savefig(figname)
 
 if __name__=='__main__':
-    cases = [1, 2, 3, 4, 5]
+    cases = [101, 102, 103, 104, 105]
 
     figname = 'diurnals.png'
 
