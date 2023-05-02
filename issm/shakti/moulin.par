@@ -24,21 +24,21 @@ md.calving.calvingrate=zeros(md.mesh.numberofvertices,1);
 %md.calving.spclevelset=NaN(md.mesh.numberofvertices,1);
 
 % Friction law and coefficient
-md.friction=frictionshakti(md.friction);
-md.friction.coefficient=20.*ones(md.mesh.numberofvertices,1);
+% md.friction=frictionshakti(md.friction);
+% md.friction.coefficient=20.*ones(md.mesh.numberofvertices,1);
 
 %Numerical parameters
 %md.stressbalance.viscosity_overshoot=0.0;
-md.masstransport.stabilization=1.;
-md.thermal.stabilization=1.;
-md.verbose=verbose(0);
-md.settings.waitonlock=30;
-md.stressbalance.restol=0.05;
-md.steadystate.reltol=0.05;
-md.stressbalance.reltol=0.05;
-md.stressbalance.abstol=NaN;
-md.timestepping.time_step=1.;
-md.timestepping.final_time=3.;
+%md.masstransport.stabilization=1.;
+%md.thermal.stabilization=1.;
+%md.verbose=verbose(0);
+%md.settings.waitonlock=30;
+%md.stressbalance.restol=0.05;
+%md.steadystate.reltol=0.05;
+%md.stressbalance.reltol=0.05;
+%md.stressbalance.abstol=NaN;
+%md.timestepping.time_step=1.;
+%md.timestepping.final_time=3.;
 
 %Boundary conditions:
-md=SetIceSheetBC(md);
+%md=SetIceSheetBC(md);

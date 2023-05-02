@@ -63,11 +63,15 @@ if any(steps==2)
 	pos=find(md.mesh.vertexonboundary & md.mesh.x==min(md.mesh.x));
 	md.hydrology.spcphi(pos)=1000*9.81*md.geometry.base(pos);
     
-    ic_head = 0.5*md.materials.rho_ice/md.materials.rho_freshwater*md.geometry.thickness + md.geometry.base;
-	md.initialization.watercolumn = 0.5*md.hydrology.bump_height;
-    md.initialization.hydraulic_potential = 1000*0.81*ic_head;
+    ic_head = md.materials.rho_ice/md.materials.rho_freshwater*md.geometry.thickness + md.geometry.base;
+	md.initialization.watercolumn = 0.05*md.hydrology.bump_height.*ones(md.mesh.numberofvertices, 1);
+    md.initialization.hydraulic_potential = 1000*9.81*md.geometry.base;
+    md.initialization.channelarea = zeros(md.mesh.numberofedges, 1);
+% 	md.hydrology.head = 0.5*md.materials.rho_ice/md.materials.rho_freshwater*md.geometry.thickness + md.geometry.base;
+
 
     md.basalforcings.groundedice_melting_rate = 0.05*ones(md.mesh.numberofvertices, 1);
+    md.basalforcings.geothermalflux = 50;
 %     md.hydro
 
 
@@ -87,19 +91,30 @@ if any(steps==3)
 
 	% Define the time stepping scheme: run for 90 days with a time step of 1 hr
 	md.timestepping.time_step=30/md.constants.yts; % Time step (in years)
-	md.timestepping.final_time=30/365;
+	md.timestepping.final_time=100*md.timestepping.time_step;
 
-	%Add one moulin with steady input at x=500, y=500
-	[a,pos] = min(sqrt((md.mesh.x-500).^2+(md.mesh.y-500).^2));
+	% %Add one moulin with steady input at x=500, y=500
+	% [a,pos] = min(sqrt((md.mesh.x-500).^2+(md.mesh.y-500).^2));
 	time=0:md.timestepping.time_step:md.timestepping.final_time;
-	md.hydrology.moulin_input = zeros(md.mesh.numberofvertices+1,numel(time));
-	md.hydrology.moulin_input(end,:)=time;
-	md.hydrology.moulin_input(pos,:)=4;
+	md.hydrology.moulin_input = zeros(md.mesh.numberofvertices, 1);
+	% md.hydrology.moulin_input(pos,:)=4;
 
 	% Specify no-flux Type 2 boundary conditions on all edges (except
 	% the Type 1 condition set at the outflow above)
 	md.hydrology.neumannflux=zeros(md.mesh.numberofelements+1,numel(time));
 	md.hydrology.neumannflux(end,:)=time;
+
+    md.friction.coefficient = zeros(md.mesh.numberofelements, 1);
+    md.friction.p = 1;
+    md.friction.q = 1;
+
+    md.initialization.vel = zeros(md.mesh.numberofvertices, 1);
+    md.initialization.vx = zeros(md.mesh.numberofvertices, 1);
+    md.initialization.vy = zeros(md.mesh.numberofvertices, 1);
+    md.miscellaneous.name = 'projectname_ISSM_run_01';
+    md = setmask(md,'','');
+
+%     md.friction.coeffient
 
 	md.verbose.solution=1;
 	md=solve(md,'Transient');
