@@ -3,6 +3,9 @@
 *.mat
 *.swp
 *.asv
+*.lock
+*.bin
+*.mat
 
 MISC/
 STATUSES/
