@@ -111,5 +111,5 @@ fnames = [pattern % caseid for caseid in cases]
 figname = 'S01b_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
-     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], tslice=365+190)
+     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 plt.show()
