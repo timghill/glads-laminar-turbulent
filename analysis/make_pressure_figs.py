@@ -105,7 +105,7 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 """
 ## Case S01: Parameter sensitivity
-cases = [1, 1, 2, 2, 2]
+cases = [1, 1, 3, 2, 2]
 pattern = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'S01b_pressure_seasonal_params.png'
