@@ -1,9 +1,9 @@
 %Start defining model parameters here
 
 % Set up bed topography and ice geometry for a tilted 500m thick slab
-md.geometry.base = .02*md.mesh.x;
+md.geometry.base = 0.0*md.mesh.x;
 md.geometry.bed = md.geometry.base;
-md.geometry.surface = .02*md.mesh.x + 500;
+md.geometry.surface = 6*( sqrt(md.mesh.x + 5e3) - sqrt(5e3)) + 50;
 md.geometry.thickness = md.geometry.surface - md.geometry.bed;
 
 % Define ice sliding velocity (m/yr) 
