@@ -78,11 +78,11 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '03b_Re_seasonal_valley.png'
 fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
 """
-## Case S01: Parameter sensitivity
+## Case S01b: Parameter sensitivity
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/S01_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+pattern = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
-figname = 'S01_Re_parameter.png'
+figname = 'S01b_Re_parameter.png'
 fig_S01 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3), tslice=365+174)
 
 plt.show()
