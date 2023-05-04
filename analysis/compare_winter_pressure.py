@@ -131,4 +131,18 @@ print(winter.T)
 print('Summer:')
 print(summer.T)
 
+print('-------------------------------------------------')
+print('    SENSITIVITY')
+print('-------------------------------------------------')
+cases = [1, 2, 3, 4, 5]
+kan_dir = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+fnames = [kan_dir % caseid for caseid in cases]
+figname = 'stats_KAN_sensitivity.png'
+winter, summer = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
+    tslices=KAN_winter_tindex, labels=labels)
+print('Winter:')
+print(winter.T)
+print('Summer:')
+print(summer.T)
+
 plt.show()

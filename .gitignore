@@ -7,6 +7,8 @@
 *.bin
 *.mat
 
+set_paths.m
+
 MISC/
 STATUSES/
 TMP/
