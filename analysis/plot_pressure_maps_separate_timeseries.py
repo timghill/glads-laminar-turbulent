@@ -152,6 +152,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     time_alphabet = ['g', 'h', 'i', 'j']
     map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
     text_args = {'fontweight':'bold'}
+    lws = [1, 1, 1.5, 1.25, 1]
+    jitter = [0, 0, -1e-2, 1e-2, 0]
 
     # Start reading the data
     for ii in range(n_cases):
@@ -237,7 +239,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             if fill_between:
                 timeax.fill_between(tt, f_lower, f_upper, facecolor=colors[ii], alpha=0.3)
 
-            timeax.plot(tt, f_mean, label=labels[ii], color=colors[ii], linewidth=1)
+            timeax.plot(tt, f_mean + jitter[ii], label=labels[ii], color=colors[ii], linewidth=lws[ii])
 
             mapax.axvline(xb, color='w', linewidth=0.5)
             timeax.axvline(tslice/365, color='k', linewidth=0.5)
@@ -314,3 +316,23 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
     fig.savefig(figname, dpi=600)
     return fig
+
+if __name__=='__main__':
+    t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
+    # t_ticklabels = ['4', '6', '8', '10']
+    t_ticklabels = ['May', 'July', 'Sep', 'Nov']
+    t_lim = [t_ticks[0], t_ticks[-1]]
+    t_xlabel = 'Month'
+    cases = [1, 2, 3, 4, 5]
+    fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+    figname = 'dev.png'
+    fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
+        t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
+
+    cases = [1, 2, 3, 4, 5]
+    pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+    fnames = [pattern % caseid for caseid in cases]
+    figname = 'dev2.png'
+    fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
+        t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
+        ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
