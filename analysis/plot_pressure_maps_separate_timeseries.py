@@ -152,8 +152,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     time_alphabet = ['g', 'h', 'i', 'j']
     map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
     text_args = {'fontweight':'bold'}
-    lws = [1, 1, 1.5, 1.25, 1]
-    jitter = [0, 0, -1e-2, 1e-2, 0]
+    lws = [1, 1, 2.5, 1.5, 2/3]
+    jitter = [0, 0, 0, 0, 0]
 
     # Start reading the data
     for ii in range(n_cases):
@@ -336,3 +336,5 @@ if __name__=='__main__':
     fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
         t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
         ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+
+    plt.show()
