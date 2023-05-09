@@ -152,9 +152,12 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     time_alphabet = ['g', 'h', 'i', 'j']
     map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
     text_args = {'fontweight':'bold'}
-    lws = [1, 1, 2.5, 1.5, 2/3]
+    lws = [1, 1, 0.5, 2.5, 1.25]
+    zorders = [2, 2, 3, 2, 2]
     jitter = [0, 0, 0, 0, 0]
-
+    colors[2] = [0.25, 0.25, 0.25, 1]
+    colors[-1] = np.array([214, 151, 41, 256])/256
+    linestyles = ['solid', 'solid', 'dashed', 'solid', 'solid']
     # Start reading the data
     for ii in range(n_cases):
         fname = fnames[ii]
@@ -239,7 +242,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             if fill_between:
                 timeax.fill_between(tt, f_lower, f_upper, facecolor=colors[ii], alpha=0.3)
 
-            timeax.plot(tt, f_mean + jitter[ii], label=labels[ii], color=colors[ii], linewidth=lws[ii])
+            timeax.plot(tt, f_mean + jitter[ii], label=labels[ii],
+                color=colors[ii], linewidth=lws[ii], zorder=zorders[ii],
+                linestyle=linestyles[ii])
 
             mapax.axvline(xb, color='w', linewidth=0.5)
             timeax.axvline(tslice/365, color='k', linewidth=0.5)
@@ -337,4 +342,4 @@ if __name__=='__main__':
         t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
         ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
-    plt.show()
+#    plt.show()

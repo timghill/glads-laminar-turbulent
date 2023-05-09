@@ -22,7 +22,16 @@ figname = '00_Re_seasonal.png'
 fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=530)
 
 plt.show()
+"""
 
+## Case 00a: Flat topo, SHMIP forcing
+cases = [1, 2, 3, 4, 5]
+fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+figname = '00a_Re_seasonal_SHMIP_day510.png'
+fig_00 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3), tslice=510)
+
+
+"""
 ## Case 00a: Flat topo, SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -77,13 +86,13 @@ pattern = '../glads/03b_kan_forcing_valley/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '03b_Re_seasonal_valley.png'
 fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
-"""
 ## Case S01b: Parameter sensitivity
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'S01b_Re_parameter.png'
 fig_S01 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3), tslice=365+174)
+"""
 
 plt.show()
 
