@@ -27,8 +27,8 @@ plt.show()
 ## Case 00a: Flat topo, SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-figname = '00a_Re_seasonal_SHMIP_day510.png'
-fig_00 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3), tslice=510)
+figname = '00a_Re_seasonal_SHMIP_day515.png'
+fig_00 = plot_Re(fnames, figname, Qmin=10, Qmax=200, Re_ylim=(0, 8e3), tslice=515)
 
 
 """
