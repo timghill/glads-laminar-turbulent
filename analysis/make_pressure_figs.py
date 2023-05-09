@@ -15,7 +15,6 @@ t_ticklabels = ['May', 'July', 'Sep', 'Nov']
 t_lim = [t_ticks[0], t_ticks[-1]]
 t_xlabel = 'Month'
 
-"""
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -103,7 +102,7 @@ figname = 'S01_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
-"""
+
 ## Case S01: Parameter sensitivity
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
@@ -112,4 +111,4 @@ figname = 'S01b_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
-plt.show()
+# plt.show()
