@@ -32,7 +32,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=-1,
     colors=defaults.colors, map_cmap=defaults.cmaps['floatation'],
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
     ff_ylim=[0, 1], ff_yticks=[0, 0.25, 0.5, 0.75, 1],
-    Re_ylim=[0, 4000]):
+    Re_ylim=[0, 4000], lws=defaults.linewidths,
+    linestyles=defaults.linestyles, zorders=defaults.zorders):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -197,14 +198,16 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=-1,
         xmid, Re_avg = helpers.width_average(elements, Re[:, tslice])
 
         ax_scatter = axs_scatter[0]
-        ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii])
+        ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii],
+            linewidth=lws[ii], linestyle=linestyles[ii], zorder=zorders[ii])
         ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_yticks(ff_yticks)
         ax_scatter.set_xlim([0, 100])
         ax_scatter.grid(linestyle=':', linewidth=0.5)
 
         ax_scatter2 = axs_scatter[1]
-        ax_scatter2.plot(xmid/1e3, Re_avg, color=colors[ii], label=labels[ii])
+        ax_scatter2.plot(xmid/1e3, Re_avg, color=colors[ii], label=labels[ii],
+            linewidth=lws[ii], linestyle=linestyles[ii], zorder=zorders[ii])
         ax_scatter2.set_ylim(Re_ylim)
         # ax_scatter2.set_yticks(ff_yticks)
         ax_scatter2.set_xlim([0, 100])

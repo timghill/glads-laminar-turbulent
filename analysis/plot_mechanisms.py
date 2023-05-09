@@ -22,7 +22,9 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
     figsize=figsize, labels=defaults.labels, 
     colors=defaults.colors, tlim=[3, 9], t_ticks=[4, 5, 6, 7, 8, 9],
     t_ticklabels=['May', '', 'July', '', 'Sep', ''],
-    k_turb=1, rhow=1000, g=9.81, nu=1.79e-6, omega=1/1000):
+    k_turb=1, rhow=1000, g=9.81, nu=1.79e-6, omega=1/1000,
+    lws=defaults.linewidths, linestyles=defaults.linestyles,
+    zorders=defaults.zorders):
     """Plot components of discharge parameterization to attribute differences.
 
     Inputs:
@@ -126,9 +128,11 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ax2 = axs[0, 1]
 
         ## omega * Re
+        lineargs = dict(linewidth=lws[ii], linestyle=linestyles[ii],
+                        zorder=zorders[ii], color=colors[ii])
         xgrid, q_mean = width_average(elements, qs[:, tslice])
         Re_mean = q_mean/nu
-        ax1.plot(xgrid/1e3, omega*Re_mean, color=colors[ii])
+        ax1.plot(xgrid/1e3, omega*Re_mean, **lineargs)
         ax1.grid()
         ax1.set_xlim([0, 100])
         # ax1.set_ylim([0, 12])
@@ -144,7 +148,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
             ax1.plot([-1, 0], [-1, 0], color=(1, 1, 1, 0))
 
         Re = qs/nu
-        ax2.plot(tt, omega * np.mean(Re[band_mask, :], axis=0), color=colors[ii])
+        ax2.plot(tt, omega * np.mean(Re[band_mask, :], axis=0), **lineargs)
         ax2.grid()
         ax2.set_ylim([1e-4, 50])
         # ax2.set_yticks([0, 1, 5, 10])
@@ -175,7 +179,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ## Transmissivity
         x_mean, T_mean = width_average(elements, T[:, tslice])
         ax1 = axs[1, 0]
-        ax1.plot(x_mean/1e3, T_mean, color=colors[ii])
+        ax1.plot(x_mean/1e3, T_mean, **lineargs)
         # ax1.set_ylim([0, 2.5])
         ax1.set_ylabel(r'T (m$^2$ s$^{-1}$)', labelpad=4)
         ax1.text(textx, texty, 'c', transform=ax1.transAxes, **textfmt)
@@ -185,7 +189,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
 
         T[elements[:, 0]<10e3, :] = np.nan
         ax2 = axs[1, 1]
-        ax2.plot(tt, np.nanmean(T[band_mask, :], axis=0), color=colors[ii])
+        ax2.plot(tt, np.nanmean(T[band_mask, :], axis=0), **lineargs)
         ax2.text(textx, texty, 'd', transform=ax2.transAxes, **textfmt)
         ax2.set_yscale('log')
         ax2.set_ylim([1e-4, 1e1])
@@ -194,14 +198,14 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         ## Water thickness
         ax1 = axs[2, 0]
         x_mean, hs_mean = width_average(elements, hs_element[:, tslice])
-        ax1.plot(x_mean/1e3, hs_mean, color=colors[ii])
+        ax1.plot(x_mean/1e3, hs_mean, **lineargs)
         ax1.set_ylabel(r'$h$ (m)', labelpad=4)
         ax1.text(textx, texty, 'e', transform=ax1.transAxes, **textfmt)
         ax1.set_yscale('log')
         ax1.set_ylim([1e-4, 1e1])
         
         ax2 = axs[2, 1]
-        ax2.plot(tt, np.nanmean(hs_element[band_mask, :], axis=0), color=colors[ii])
+        ax2.plot(tt, np.nanmean(hs_element[band_mask, :], axis=0), **lineargs)
         ax2.set_yscale('log')
         ax2.text(textx, texty, 'f', transform=ax2.transAxes, **textfmt)
         ax2.set_ylim([1e-4, 1e1])
@@ -209,13 +213,13 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         # Potential gradient
         ax1 = axs[3, 0]
         x_mean, gradphi_mean = width_average(elements, gradphi[:, tslice], dx=2e3)
-        ax1.plot(x_mean/1e3, gradphi_mean, color=colors[ii])
+        ax1.plot(x_mean/1e3, gradphi_mean, **lineargs)
         ax1.set_ylabel(r'$|\nabla \phi|$ (Pa m$^{-1}$)')
         ax1.text(textx, texty, 'g', transform=ax1.transAxes, **textfmt)
         ax1.set_ylim([0, 500])
 
         ax2 = axs[3, 1]
-        ax2.plot(tt, np.nanmean(gradphi[band_mask, :], axis=0), color=colors[ii])
+        ax2.plot(tt, np.nanmean(gradphi[band_mask, :], axis=0), **lineargs)
         ax2.set_ylim([0, 500])
         ax2.text(textx, texty, 'h', transform=ax2.transAxes, **textfmt)
 
@@ -230,7 +234,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         x_mean, k_eff_mean = width_average(elements, k_eff[:, tslice])
 
         print('Spatial variation:', k_eff_mean.max()/k_eff_mean.min())
-        ax1.plot(x_mean/1e3, k_eff_mean/k_turb, color=colors[ii])
+        ax1.plot(x_mean/1e3, k_eff_mean/k_turb, **lineargs)
         ax1.set_ylabel(r'$k_{\rm{eff}}/k_{\rm{turb}}$', labelpad=4)
         ax1.text(textx, texty, 'i', transform=ax1.transAxes, **textfmt)
         ax1.set_yscale('log')
@@ -240,7 +244,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         k_eff_timeseries = np.mean(k_eff[band_mask, :], axis=0)/k_turb
         print('Temporal variation:', k_eff_timeseries.max()/k_eff_timeseries.min())
         ax2 = axs[4, 1]
-        ax2.plot(tt, k_eff_timeseries, color=colors[ii])
+        ax2.plot(tt, k_eff_timeseries, **lineargs)
         ax2.grid()
         ax2.text(textx, texty, 'j', transform=ax2.transAxes, **textfmt)
         ax2.set_yscale('log')

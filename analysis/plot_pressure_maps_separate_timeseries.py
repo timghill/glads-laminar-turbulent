@@ -35,7 +35,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
     t_lim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
     t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.5, 1, 1.5],
-    melt_forcing='SHMIP', fill_between=False):
+    melt_forcing='SHMIP', fill_between=False,
+    lws=defaults.linewidths, linestyles=defaults.linestyles,
+    zorders=defaults.zorders):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -152,12 +154,6 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     time_alphabet = ['g', 'h', 'i', 'j']
     map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
     text_args = {'fontweight':'bold'}
-    lws = [1, 1, 0.5, 2.5, 1.25]
-    zorders = [2, 2, 3, 2, 2]
-    jitter = [0, 0, 0, 0, 0]
-    colors[2] = [0.25, 0.25, 0.25, 1]
-    colors[-1] = np.array([214, 151, 41, 256])/256
-    linestyles = ['solid', 'solid', 'dashed', 'solid', 'solid']
     # Start reading the data
     for ii in range(n_cases):
         fname = fnames[ii]
@@ -219,8 +215,11 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
         if fill_between:
             ax_scatter.fill_between(xmid/1e3, ff_lower, ff_upper, facecolor=colors[ii], alpha=0.33,
-                edgecolor=None)
-        ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii])
+                edgecolor=None, linewidth=linewidths[ii], zorder=zorders[ii],
+                linestyle=linestyles[ii])
+        ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii],
+            linewidth=lws[ii], linestyle=linestyles[ii],
+            zorder=zorders[ii])
         ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_yticks(ff_yticks)
         ax_scatter.set_xlim([0, 100])
@@ -242,7 +241,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             if fill_between:
                 timeax.fill_between(tt, f_lower, f_upper, facecolor=colors[ii], alpha=0.3)
 
-            timeax.plot(tt, f_mean + jitter[ii], label=labels[ii],
+            timeax.plot(tt, f_mean, label=labels[ii],
                 color=colors[ii], linewidth=lws[ii], zorder=zorders[ii],
                 linestyle=linestyles[ii])
 
