@@ -35,7 +35,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
     t_lim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
     t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.5, 1, 1.5],
-    melt_forcing='SHMIP', fill_between=False):
+    melt_forcing='SHMIP', fill_between=False,
+    lws=defaults.linewidths, linestyles=defaults.linestyles,
+    zorders=defaults.zorders):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -152,9 +154,6 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     time_alphabet = ['g', 'h', 'i', 'j']
     map_alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
     text_args = {'fontweight':'bold'}
-    lws = [1, 1, 1.5, 1.25, 1]
-    jitter = [0, 0, -1e-2, 1e-2, 0]
-
     # Start reading the data
     for ii in range(n_cases):
         fname = fnames[ii]
@@ -216,8 +215,11 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
         if fill_between:
             ax_scatter.fill_between(xmid/1e3, ff_lower, ff_upper, facecolor=colors[ii], alpha=0.33,
-                edgecolor=None)
-        ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii])
+                edgecolor=None, linewidth=linewidths[ii], zorder=zorders[ii],
+                linestyle=linestyles[ii])
+        ax_scatter.plot(xmid/1e3, ff_avg, color=colors[ii], label=labels[ii],
+            linewidth=lws[ii], linestyle=linestyles[ii],
+            zorder=zorders[ii])
         ax_scatter.set_ylim(ff_ylim)
         ax_scatter.set_yticks(ff_yticks)
         ax_scatter.set_xlim([0, 100])
@@ -239,7 +241,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             if fill_between:
                 timeax.fill_between(tt, f_lower, f_upper, facecolor=colors[ii], alpha=0.3)
 
-            timeax.plot(tt, f_mean + jitter[ii], label=labels[ii], color=colors[ii], linewidth=lws[ii])
+            timeax.plot(tt, f_mean, label=labels[ii],
+                color=colors[ii], linewidth=lws[ii], zorder=zorders[ii],
+                linestyle=linestyles[ii])
 
             mapax.axvline(xb, color='w', linewidth=0.5)
             timeax.axvline(tslice/365, color='k', linewidth=0.5)
@@ -336,3 +340,5 @@ if __name__=='__main__':
     fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
         t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
         ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+
+#    plt.show()
