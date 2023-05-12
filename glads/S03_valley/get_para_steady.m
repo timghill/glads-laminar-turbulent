@@ -10,11 +10,11 @@ para = get_para(config);
 
 %% Time
 % pt.end = 20*pp.year;
-% pt.end   = 100*pp.year;  % end time
-% pt.out_t = pt.start:5*pp.year:pt.end;
+pt.end   = 100*pp.year;  % end time
+pt.out_t = pt.start:5*pp.year:pt.end;
 
-pt.end = 4*pp.day;
-pt.out_t = pt.start:pp.day:pt.end;
+% pt.end = 4*pp.day;
+% pt.out_t = pt.start:pp.day:pt.end;
 
 %% Synthetic bed topo
 addpath('../data/topo_x_squared_para/')

@@ -1,4 +1,4 @@
-function melt = KAN_dist_seasonal(t, pin, dmesh, ii_moulin, catchmap)
+function melt = KAN_dist_seasonal(xy, t, pin)
     % KAN_dist_seasonal
     %
     % melt = KAN_moulin_seasonal(time, pin, dmesh, ii_moulin, catchmap, ra)

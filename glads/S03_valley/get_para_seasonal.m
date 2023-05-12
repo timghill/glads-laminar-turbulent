@@ -32,8 +32,9 @@ addpath('../data/kan_l_melt/')
 % catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
 % ii_moulin = moulindata(:, 1) + 1;
 
-pin.source_term_s = make_anon_fn('@(xy, time) double(KAN_dist_steady(time, pin, dmesh));', pin, dmesh);
-pin.source_term_c = make_anon_fn('@(xy, time) double(0*xy(:, 1));');
+pin.source_term_s = make_anon_fn('@(xy, time) double(KAN_dist_seasonal(time, pin, dmesh));', pin, dmesh);
+xy = dmesh.tri.nodes;
+pin.source_term_c = make_anon_fn('@(time) double(0*xy(:, 1));', xy);
 
 
 % Distributed basal melt
