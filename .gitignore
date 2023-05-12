@@ -6,6 +6,7 @@
 *.lock
 *.bin
 *.mat
+*.tar.gz
 
 set_paths.m
 
