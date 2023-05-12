@@ -3,7 +3,7 @@
 ra = 0;         % Diurnal amplitude (0 for no diurnal amplitude)
 lr = -0.005;
 pa_bench = 0.05;
-mesh_nr = 3;    % Mesh index
+mesh_nr = 4;    % Mesh index
 output_fname = 'KAN_mountain_glacier_mean_melt.txt';  
 
 % Get topo functions

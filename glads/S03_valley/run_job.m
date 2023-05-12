@@ -8,11 +8,11 @@ fname_seasonal = sprintf('output_%03d_seasonal.nc', id);
 
 % Fixed parameters
 % config.k_s = 0.1;	% Laminar conductivity
-config.k_s = 0.05;
+config.k_s = 0.001;
 config.l_c = 2;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
-config.mesh_nr = 3;
+config.mesh_nr = 4;
 
 % Tuning parameters
 config.k_c = k_c;
@@ -25,9 +25,9 @@ config.e_v = 1e-4;
 
 if config.alpha<3 && config.omega==0
     % Compute potential gradient for turbulent conductivity scaling
-    p_w_min = 40*910*9.81;
-    p_w_max = 1520*910*9.81;
-    gradphi = (p_w_max - p_w_min)/100e3;
+    phi_min = 1000*9.8*900 + 0;
+    phi_max = 1000*9.8*1500 + 0;
+    gradphi = (phi_max - phi_min)/6e3;
     omega = 1/2000;
     nu = 1.79e-6;
     h3 = nu/(omega)/config.k_s/gradphi;

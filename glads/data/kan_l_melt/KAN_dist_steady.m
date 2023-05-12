@@ -9,7 +9,8 @@ function melt=KAN_dist_steady(time, pin, dmesh)
     ramp = max(0, min(time/86400/365/25 - 1, 1));
 
     steady_melt = readmatrix('KAN_mountain_glacier_mean_melt.txt');
+    % steady_melt = 1.158e-6 + 0*dmesh.tri.nodes(:, 1);
 
-    melt = ramp.*steady_melt;
+    melt = ramp.*steady_melt + 0.1/86400/365;
 end
 

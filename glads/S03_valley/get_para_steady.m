@@ -23,8 +23,8 @@ pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_mountain_glac
 pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_mountain_glacier(xy, time, bed_para))', bed_para);
 
 addpath(genpath('../data/kan_l_melt/'))
-% pin.source_term_s = make_anon_fn('@(xy, time) double(KAN_dist_steady(time, pin, dmesh));', pin, dmesh);
-pin.source_term_s = make_anon_fn('@(xy, time) double(0*xy(:, 1) + 1.158e-6);');
+pin.source_term_s = make_anon_fn('@(xy, time) double(KAN_dist_steady(time, pin, dmesh));', pin, dmesh);
+% pin.source_term_s = make_anon_fn('@(xy, time) double(0*xy(:, 1) + 1.158e-6);');
 xy = dmesh.tri.nodes;
 pin.source_term_c = make_anon_fn('@(time) double(0*xy(:, 1));', xy);
 

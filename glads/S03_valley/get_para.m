@@ -88,8 +88,9 @@ pin.bc_flux = make_anon_fn('@(xy, time, bmark_edge) double(zeros(sum(~logical(mo
 
 % Initial conditions
 hr = pp.h_bed;
-pin.ic_h = make_anon_fn('@(xy, time) double(hr/5 - 0.0*xy(:, 1))', hr);
-pin.ic_S =  make_anon_fn('@(xy, time) double(0 + 0*xy(:,1))');
+% pin.ic_h = make_anon_fn('@(xy, time) double(hr/2 - hr/2/6e3/2*xy(:, 1))', hr);
+pin.ic_h = make_anon_fn('@(xy, time) double(hr/10 + 0*xy(:, 1))', hr);
+pin.ic_S =  make_anon_fn('@(xy, time) double(1e-4 + 0*xy(:,1))');
 
 %% Nondimensionalize and wrap
 ps = set_default_scales(ps, pp, dmesh);
