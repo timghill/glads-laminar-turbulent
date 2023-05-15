@@ -27,6 +27,7 @@ def plot_activation(fname, figname, tlim=[3, 9]):
     connect = dmesh['tri/connect'][:].data.T
     # elements = dmesh['tri/elements'][:].data.T
     area = dmesh['tri/area'][:].data.T
+    edges = dmesh['tri/edge_midpoints'][:].data.T
 
     with nc.Dataset(fname, 'r') as out:
         # h = out['h_sheet'][:].data.T
@@ -38,6 +39,19 @@ def plot_activation(fname, figname, tlim=[3, 9]):
         nu = out['para/nu'][:].data
         elements = out['elements'][:].data.T
         time = out['time'][:].data.T
+        Q = np.abs(out['Q'][:].data.T)
+    
+    # Qlimit = np.max(edges[Q>1, 0], axis=0)
+    # Qmask = Q>1
+    # xvals = edges[:, 0][Qmask]
+    xrep = np.zeros(Q.shape)
+    print(xrep.shape)
+    xrep[:, :] = np.vstack(edges[:, 0])
+    xrep[Q<1] = np.nan
+    Qlimit = np.nanmax(xrep, axis=0)
+    xrep[Q<10] = np.nan
+    Qlimit2 = np.nanmax(xrep, axis=0)
+
     
     term_laminar = qs
     term_turbulent = omega*(qs/nu)*qs
@@ -53,6 +67,9 @@ def plot_activation(fname, figname, tlim=[3, 9]):
     t_month = 12*(time - time[0])/365/86400 - 12
     [xx, tt] = np.meshgrid(x, t_month)
     pc = ax0.pcolormesh(xx/1e3, tt, norm_turbulent_avg.T, cmap=cmocean.cm.rain, vmin=0, vmax=1)
+    Qlimit[np.isnan(Qlimit)] = 0
+    ax0.plot(Qlimit/1e3, tt, color=(0.12, 0.15, 0.15), linestyle='solid', linewidth=0.2, alpha=1.)
+    # ax0.plot(Qlimit2/1e3, tt, color=(0.12, 0.15, 0.15), linestyle='solid', linewidth=0.2, alpha=1.)
 
     fig.colorbar(pc, cax=cax, orientation='horizontal')
 
