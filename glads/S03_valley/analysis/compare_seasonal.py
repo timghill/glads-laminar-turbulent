@@ -25,8 +25,8 @@ rhow = 1000
 g = 9.8
 nu = 1.79e-6
 
-def compare_steady(fnames, figname, labels, vmin=-1e6, vmax=1e6,
-    Qmin=1e-1, Qmax=10, tslice=365+190, colors=colors):
+def compare_seasonal(fnames, figname, labels, vmin=-1e6, vmax=1e6,
+    Qmin=1e-3, Qmax=10, tslice=365+190+1, colors=colors):
     """Compare steady simulations"""
 
     n_cases = len(fnames)
@@ -40,7 +40,7 @@ def compare_steady(fnames, figname, labels, vmin=-1e6, vmax=1e6,
         top=0.9, bottom=0.1,
         wspace=0.05)
     axs = [fig.add_subplot(gs[i+1, 0]) for i in range(n_cases)]
-    taxs = [fig.add_subplot(gs[i+1, 2]) for i in range(n_cases)]
+    tax = fig.add_subplot(gs[1:, 3])
     cax_top = fig.add_subplot(gs[0, 0])
     cax_right = fig.add_subplot(gs[1:, 1])
 
@@ -65,6 +65,7 @@ def compare_steady(fnames, figname, labels, vmin=-1e6, vmax=1e6,
             ff = pw/pi
 
             Q = np.abs(out['Q'][:].data.T)
+            S = out['S_channel'][:].data.T
 
             qxy = out['qs'][:].data.T
             qs = np.sqrt(qxy[:, 0]**2 + qxy[:, 1]**2)
@@ -97,7 +98,11 @@ def compare_steady(fnames, figname, labels, vmin=-1e6, vmax=1e6,
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
 
-        taxs[ii].plot(tt-101, np.mean(ff, axis=0), color=colors[ii])
+        tax.plot(tt-101, np.mean(ff, axis=0), color=colors[ii])
+        tax.axvline((tt-101)[tslice], color='k')
+
+    fig2, ax2 = plt.subplots()
+    ax2.plot(tt-101, np.max(h_sheet, axis=0))
 
     cbar_top = fig.colorbar(pc, cax=cax_top, orientation='horizontal')
     cbar_right = fig.colorbar(lc, cax=cax_right)
@@ -108,19 +113,20 @@ def compare_steady(fnames, figname, labels, vmin=-1e6, vmax=1e6,
     cbar_top.set_label(r'$p_{\rm{w}}$ (Pa)')
     cbar_right.set_label(r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$')
 
+    tax.set_xlim([0.25, 10/12])
+
     for ax in axs[:-1]:
         ax.set_xticklabels([])
 
     fig.savefig(figname)
 
 if __name__=='__main__':
-    cases = [501, 503, 505]
-    cindex = [0, 2, 4]
-    labels = ['Turbulent 5/4', 'Laminar', 'Transition 3/2']
+    cases = [3, 4, 5]
+    labels = ['Laminar', 'Transition 5/4', 'Transition 3/2']
     fpattern = '../RUN/output_%03d_seasonal.nc'
     fnames = [fpattern % caseid for caseid in cases]
-    figname = 'seasonal_valley_500.png'
-    compare_steady(fnames, figname, labels,
-        colors=colors[np.array([0, 2, 4]), :])
+    figname = 'seasonal_valley.png'
+    compare_seasonal(fnames, figname, labels,
+        colors=colors[np.array([2, 3, 4]), :])
 
 plt.show()

@@ -34,10 +34,11 @@ dmesh = meshes{mesh_nr};
 %%  Physical parameters
 
 pp.cond_c = config.k_c;
-pp.flags.max_S = 500;	% Arbitrary large max channel cross section
+pp.flags.max_S = 50;	% Arbitrary large max channel cross section
 
 op = {'freeze-on', 'freeze-melt', 'none'};;
 pp.flags.include_sheet_diss_press = op{1}; % if true, allows freezing shut of the sheet on reverse slopes
+pp.flags.no_sucking_closed_hack = 1;
 
 pp.cond_s = config.k_s;
 pp.alpha_s = config.alpha;
