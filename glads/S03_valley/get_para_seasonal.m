@@ -21,8 +21,9 @@ pt.out_t = pt.start : 1*pp.day : pt.end;
 
 %% Synthetic bed topo
 addpath('../data/topo_x_squared_para/')
-pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_mountain_glacier(xy, time))');
-pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_mountain_glacier(xy, time, pin))', pin);
+bed_para = 0.05;
+pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_mountain_glacier(xy, time, bed_para))', bed_para);
+pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_mountain_glacier(xy, time, bed_para))', bed_para);
 
 
 %% Source functions
