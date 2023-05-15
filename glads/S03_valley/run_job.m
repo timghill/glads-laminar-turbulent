@@ -44,9 +44,9 @@ config.fname_seasonal = fname_seasonal;
 
 % Call GlaDS for each parameter set
 para_steady = get_para_steady(config);
-run_model(para_steady);
+% run_model(para_steady);
 
-% para_seasonal = get_para_seasonal(config);
-% run_model(para_seasonal);
+para_seasonal = get_para_seasonal(config);
+run_model(para_seasonal);
 
 
