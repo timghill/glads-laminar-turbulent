@@ -117,7 +117,7 @@ if __name__=='__main__':
     cases = [501, 503, 505]
     cindex = [0, 2, 4]
     labels = ['Turbulent 5/4', 'Laminar', 'Transition 3/2']
-    fpattern = '../RUN/output_%03d_steady.nc'
+    fpattern = '../RUN/output_%03d_seasonal.nc'
     fnames = [fpattern % caseid for caseid in cases]
     figname = 'seasonal_valley_500.png'
     compare_steady(fnames, figname, labels,
