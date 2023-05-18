@@ -6,5 +6,5 @@
 #SBATCH --mail-user=tha111@sfu.ca
 #SBATCH --mail-type=FAIL,END
 
-run_job(0.2, 10, 4,   2,   0,      6)
+module load matlab/2022a; matlab -nodisplay -r 'try; run_job(0.2, 10, 4, 2, 0, 6); quit; catch ME; throw(ME); quit(1); end;'
 

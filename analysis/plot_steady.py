@@ -263,6 +263,23 @@ if __name__=='__main__':
     figname = '00_steady.png'
     fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100)
 
+    ## Case 01: Alpha=4
+    cases = [2, 3, 4, 5, 6]
+    fnames = ['../glads/01_kan_forcing/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
+    figname = '01_steady_alpha.png'
+    cols = np.zeros((5, 4))
+    cols[0:4] = defaults.colors[1:5]
+    cols[-1] = [0, 0, 0, 1]
+
+    lws = np.zeros(5)
+    lws[:4] = defaults.linewidths[1:]
+    lws[-1] = 1
+    linestyles = ['solid', 'dashed', 'solid', 'solid', 'solid']
+    zorders = [2, 5, 2, 2, 3]
+    fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100,
+        labels=['Turbulent 3/2', 'Laminar 3', 'Transition 5/4', 'Transition 3/2', 'Laminar 4'],
+        lws=lws, linestyles=linestyles, zorders=zorders, colors=cols)
+
     ## Case S01b: Flat topo, synthetic forcing
     cases = [1, 2, 3, 4, 5]
     fnames = ['../glads/S01b_parameter_sensitivity/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
