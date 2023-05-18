@@ -34,11 +34,11 @@ def compare_seasonal(fnames, figname, labels, vmin=-1e6, vmax=1e6,
     hratios = 100*np.ones(n_cases+1)
     hratios[0] = 8
     gs = gridspec.GridSpec(n_cases+1, 4,
-        width_ratios=[100, 2, 4, 100],
+        width_ratios=[100, 2, 20, 100],
         height_ratios=hratios,
         left=0.1, right=0.9,
         top=0.9, bottom=0.1,
-        wspace=0.05)
+        wspace=0.1)
     axs = [fig.add_subplot(gs[i+1, 0]) for i in range(n_cases)]
     tax = fig.add_subplot(gs[1:, 3])
     cax_top = fig.add_subplot(gs[0, 0])
@@ -121,12 +121,12 @@ def compare_seasonal(fnames, figname, labels, vmin=-1e6, vmax=1e6,
     fig.savefig(figname)
 
 if __name__=='__main__':
-    cases = [3, 4, 5]
-    labels = ['Laminar', 'Transition 5/4', 'Transition 3/2']
+    cases = [101, 103, 105]
+    labels = ['Turbulent 5/4', 'Laminar', 'Transition 3/2']
     fpattern = '../RUN/output_%03d_seasonal.nc'
     fnames = [fpattern % caseid for caseid in cases]
-    figname = 'seasonal_valley.png'
+    figname = 'seasonal_valley_100.png'
     compare_seasonal(fnames, figname, labels,
-        colors=colors[np.array([2, 3, 4]), :])
+        colors=colors[np.array([0, 2, 4]), :])
 
 plt.show()

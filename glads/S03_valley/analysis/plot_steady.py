@@ -7,8 +7,8 @@ import cmocean
 
 import GladsPlot as gplt
 
-case = 103
-out = nc.Dataset('../RUN/output_%d_steady.nc' % (case))
+case = 3
+out = nc.Dataset('../RUN/output_03%d_steady.nc' % (case))
 
 connect = out['connect'][:].data.T - 1
 nodes = out['nodes'][:].data.T
