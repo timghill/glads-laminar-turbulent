@@ -43,24 +43,33 @@ q_tran_32 = nu/omega * (h_bed/h)**(3 - 2*3/2) * ( -1 + np.sqrt(1 + 4*omega/nu * 
 
 fig, ax = plt.subplots()
 
-ax.loglog(h/hcrit, omega/nu * q_turb_54, color=colors[0], linewidth=2, label='Turbulent 5/4')
-ax.loglog(h/hcrit, omega/nu * q_turb_32, color=colors[1], linewidth=1, label='Turbulent 3/2')
-ax.loglog(h/hcrit, omega/nu * q_lam, color=colors[2], linewidth=0.75, linestyle='dashed', zorder=5, label='Laminar')
-ax.loglog(h/hcrit, omega/nu * q_tran_54, color=colors[3], linewidth=2.5, label='Transition 5/4')
-ax.loglog(h/hcrit, omega/nu * q_tran_32, color=colors[4], linewidth=1.25, label='Transition 3/2')
+# ax.loglog(h/hcrit, omega/nu * q_turb_54, color=colors[0], linewidth=2, label='Turbulent 5/4')
+# ax.loglog(h/hcrit, omega/nu * q_turb_32, color=colors[1], linewidth=1, label='Turbulent 3/2')
+# ax.loglog(h/hcrit, omega/nu * q_lam, color=colors[2], linewidth=0.75, linestyle='dashed', zorder=5, label='Laminar')
+# ax.loglog(h/hcrit, omega/nu * q_tran_54, color=colors[3], linewidth=2.5, label='Transition 5/4')
+# ax.loglog(h/hcrit, omega/nu * q_tran_32, color=colors[4], linewidth=1.25, label='Transition 3/2')
+
+ax.plot(h/hcrit, omega/nu * q_turb_54, color=colors[0], linewidth=2, label='Turbulent 5/4')
+ax.plot(h/hcrit, omega/nu * q_turb_32, color=colors[1], linewidth=1, label='Turbulent 3/2')
+ax.plot(h/hcrit, omega/nu * q_lam, color=colors[2], linewidth=0.75, linestyle='dashed', zorder=5, label='Laminar')
+ax.plot(h/hcrit, omega/nu * q_tran_54, color=colors[3], linewidth=2.5, label='Transition 5/4')
+ax.plot(h/hcrit, omega/nu * q_tran_32, color=colors[4], linewidth=1.25, label='Transition 3/2')
 ax.legend()
 
 fig.subplots_adjust(right=0.95)
 fig.subplots_adjust(top=0.95)
 
-ax.set_ylim([1e-2, 1e2])
-ax.set_xlim([1e-1, 1e1])
+# ax.set_ylim([1e-2, 1e2])
+# ax.set_xlim([1e-1, 1e1])
+
+ax.set_xlim([0, 2])
+ax.set_ylim([0, 5])
 
 ax.set_xlabel(r'$\tilde h$')
 ax.set_ylabel(r'$\omega {\rm{Re}} = \frac{\omega q}{\nu}$')
 ax.grid()
 
-fig.savefig('flux_parameterizations.png', dpi=600)
+fig.savefig('flux_parameterizations_linear.png', dpi=600)
 
 plt.show()
 
