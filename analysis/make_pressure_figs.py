@@ -58,6 +58,15 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
 
+## Case 01c: KAN with diurnals
+cases = [1, 1, 2, 2, 2]
+pattern = '../glads/01c_kan_diurnal/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '01c_pressure_diurnal.png'
+fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
+     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
+     ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
+
 ## Case 02a: Trough topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/02a_synth_forcing_trough/RUN/output_%03d_seasonal.nc'
