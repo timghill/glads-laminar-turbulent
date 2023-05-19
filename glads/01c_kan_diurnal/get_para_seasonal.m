@@ -17,7 +17,21 @@ pm.save_filename = [pm.dir.model_save, filename];
 %% Time
 pt.start = 100*pp.year;
 pt.end   = pt.start + 2*pp.year;  % end time
-pt.out_t = pt.start : 1*pp.day : pt.end;
+
+
+t_winter1 = 0 : pp.day : 160*pp.day;
+t_summer = 160*pp.day : pp.day/6 : pp.year - 45*pp.day;
+t_winter2 = pp.year - 45*pp.day : pp.day : pp.year;
+t_year = [t_winter1(1:end-1), t_summer(1:end-1), t_winter2];
+
+out_t = pt.start + [t_year(1:end-1), t_year + t_year(end)];
+
+% figure
+% dt = out_t(2:end) - out_t(1:end-1)
+% plot(out_t(1:end-1)/pp.day, dt)
+% grid on
+
+pt.out_t = out_t;
 
 %% Source functions
 addpath('../data/kan_l_melt/')
