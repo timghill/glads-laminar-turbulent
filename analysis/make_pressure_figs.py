@@ -14,7 +14,7 @@ t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
 t_ticklabels = ['May', 'July', 'Sep', 'Nov']
 t_lim = [t_ticks[0], t_ticks[-1]]
 t_xlabel = 'Month'
-
+"""
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -39,7 +39,18 @@ figname = '01_pressure_seasonal.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+"""
+## Case 01: Flat topo, higher alpha
+cases = [3, 6, 2, 4, 5]
+pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '01_pressure_seasonal_alpha.png'
+labels = ['Laminar 3', 'Laminar 4', 'Turbulent 3/2', 'Transition 5/4', 'Transition 3/2']
+fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
+     t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
+     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+"""
 ## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/01a_kan_adj_forcing/RUN/output_%03d_seasonal.nc'
@@ -121,3 +132,4 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 # plt.show()
+"""

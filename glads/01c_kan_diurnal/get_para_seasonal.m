@@ -19,8 +19,8 @@ pt.start = 100*pp.year;
 pt.end   = pt.start + 2*pp.year;  % end time
 
 
-t_winter1 = 0 : pp.day : 160*pp.day;
-t_summer = 160*pp.day : pp.day/6 : pp.year - 45*pp.day;
+t_winter1 = 0 : pp.day : 145*pp.day;
+t_summer = 145*pp.day : pp.day/6 : pp.year - 45*pp.day;
 t_winter2 = pp.year - 45*pp.day : pp.day : pp.year;
 t_year = [t_winter1(1:end-1), t_summer(1:end-1), t_winter2];
 
