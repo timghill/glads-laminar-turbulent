@@ -52,7 +52,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
     figsize : (width, height) in inches
     
     labels : list of str
-        list of labels for legend
+            list of labels for legend
     
     colors : (M, 3) or (M, 4) array of rgb or rgba
 
@@ -168,6 +168,8 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
             gradphi = (qs/k/hs_element**(3/2))**2
         elif models[ii]=='Laminar':
             gradphi = (qs/k/hs_element**(3))**1
+        elif models[ii]=='Laminar 4':
+            gradphi = (qs/k/hs_element**4)**1
         elif models[ii]=='Transition 5/4':
             h_bed = float(out['para/h_bed'][:].data)
             gradphi = ((qs + omega/nu * (hs_element/h_bed)**(1/2) * qs**2)/k/hs_element**(3))**1
@@ -254,7 +256,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
 
     ax1 = axs[0, 0]
     # ax1.plot([-1, 0], [-1, 0], color='k')
-    ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2, 0.2], ncol=3,
+    ax1.legend(labels=models, bbox_to_anchor=[0., 1, 2, 0.2], ncol=3,
         loc='lower center', frameon=False, mode='expand')
 
     
