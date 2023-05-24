@@ -256,7 +256,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
 
     ax1 = axs[0, 0]
     # ax1.plot([-1, 0], [-1, 0], color='k')
-    ax1.legend(labels=models, bbox_to_anchor=[0., 1, 2, 0.2], ncol=3,
+    ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2, 0.2], ncol=3,
         loc='lower center', frameon=False, mode='expand')
 
     

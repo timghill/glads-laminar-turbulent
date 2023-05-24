@@ -130,7 +130,7 @@ def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
             xvals = Re.flatten()
             yvals = f_D.flatten()
             iisort = np.argsort(xvals)
-            ax.plot(xvals(iisort), yvals(iisort), color=colors[ii],
+            ax_scatter.plot(xvals[iisort], yvals[iisort], color=colors[ii],
                 label=models[ii], zorder=20, linestyle='dashed')
         else:
             ax_scatter.scatter(Re.flatten(), f_D.flatten(), color=colors[ii], label=models[ii], s=2, alpha=1, zorder=10, edgecolor='none')
