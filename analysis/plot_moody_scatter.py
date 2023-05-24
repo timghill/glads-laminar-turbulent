@@ -183,7 +183,7 @@ def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
 
     ax_scatter.legend(bbox_to_anchor=[0.1, 1.02, 0.8, 0.2],
         ncol=2, mode='expand', borderaxespad=0.05, frameon=True, borderpad=0,
-        markerscale=2,
+        markerscale=3,
         facecolor=(1, 1, 1, 0.5), edgecolor='none', fancybox=False, fontsize=8,
         loc='lower left')
 
