@@ -15,7 +15,7 @@ t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
 t_ticklabels = ['May', 'July', 'Sep', 'Nov']
 t_lim = [t_ticks[0], t_ticks[-1]]
 t_xlabel = 'Month'
-
+"""
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -40,18 +40,28 @@ figname = '01_pressure_seasonal.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
-
+"""
 ## Case 01: Flat topo, higher alpha
 cases = [3, 6, 2, 4, 5]
 pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '01_pressure_seasonal_alpha.png'
 labels = ['Laminar 3', 'Laminar 4', 'Turbulent 3/2', 'Transition 5/4', 'Transition 3/2']
+colors = np.zeros((5, 4))
+colors[0] = np.array([0.6, 0.6, 0.6, 1])
+colors[1] = defaults.colors[2]
+colors[2] = defaults.colors[1]
+colors[3:] = defaults.colors[3:]
+lws = [2, 1, 1, 2, 1]
+lss = ['solid', 'solid', 'solid', 'solid', 'solid']
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
-     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], labels=labels)
+     ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], labels=labels,
+     lws=lws, linestyles=lss, colors=colors)
 
+plt.show()
 
+"""
 ## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/01a_kan_adj_forcing/RUN/output_%03d_seasonal.nc'
@@ -69,6 +79,7 @@ figname = '01b_pressure_seasonal_ev.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
+"""
 
 """
 ## Case 01c: KAN with diurnals
@@ -83,6 +94,7 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
 """
 
+"""
 ## Case 02a: Trough topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/02a_synth_forcing_trough/RUN/output_%03d_seasonal.nc'
@@ -136,3 +148,4 @@ figname = 'S01b_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+"""
