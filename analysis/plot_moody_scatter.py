@@ -126,7 +126,14 @@ def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
         elif models[ii]=='Laminar':
             f_lam = f_D[0]
 
-        ax_scatter.scatter(Re.flatten(), f_D.flatten(), color=colors[ii], label=models[ii], s=2, alpha=1, zorder=10, edgecolor='none')
+        if models[ii]=='Laminar':
+            xvals = Re.flatten()
+            yvals = f_D.flatten()
+            iisort = np.argsort(xvals)
+            ax.plot(xvals(iisort), yvals(iisort), color=colors[ii],
+                label=models[ii], zorder=20, linestyle='dashed')
+        else:
+            ax_scatter.scatter(Re.flatten(), f_D.flatten(), color=colors[ii], label=models[ii], s=2, alpha=1, zorder=10, edgecolor='none')
 
     ax_scatter.set_xscale('log')
     ax_scatter.set_yscale('log')

@@ -21,7 +21,7 @@ colors = np.array([[0.579, 0.677, 0.781, 1],
                    [0.929, 0.835, 0.408, 1],
                    [0.836, 0.590, 0.160, 1]])
 
-linewidths = np.array([1.75, 1, 0.5, 2.5, 1.25])
+linewidths = np.array([2.5, 1.25, 0.5, 2.5, 1.25])
 linestyles = ['solid', 'solid', 'dashed', 'solid', 'solid']
 zorders = [2, 2, 3, 2, 2]
 
