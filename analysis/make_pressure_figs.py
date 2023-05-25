@@ -49,15 +49,17 @@ figname = '01_pressure_seasonal_alpha.png'
 labels = ['Laminar 3', 'Laminar 4', 'Turbulent 3/2', 'Transition 5/4', 'Transition 3/2']
 colors = np.zeros((5, 4))
 colors[0] = defaults.colors[2]
-colors[1] = np.array([0.51, 0.21, 0.71])
+# colors[1] = np.array([0.51, 0.21, 0.71, 1])
+colors[1] = np.array([0.2, 0.15, 0.8, 1])
 colors[2] = defaults.colors[1]
 colors[3:] = defaults.colors[3:]
-lws = [1, 1, 1, 2, 1]
-lss = ['solid', 'solid', 'solid', 'solid', 'solid']
+lws = [0.75, 1.25, 1.25, 2.5, 1.25]
+zorders = [5, 2, 2, 2, 2]
+lss = ['dashed', 'solid', 'solid', 'solid', 'solid']
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], labels=labels,
-     lws=lws, linestyles=lss, colors=colors)
+     lws=lws, linestyles=lss, colors=colors, zorders=zorders)
 
 plt.show()
 

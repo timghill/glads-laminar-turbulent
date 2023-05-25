@@ -43,6 +43,13 @@ fnames = [pattern % caseid for caseid in cases]
 figname = '01_Re_seasonal.png'
 fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365+174)
 
+## Case 01: Flat topo, KAN_L forcing
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '01_Re_seasonal_1Sept.png'
+fig_01 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=365+244)
+
 ## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/01a_kan_adj_forcing/RUN/output_%03d_seasonal.nc'
