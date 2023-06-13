@@ -8,6 +8,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.tri import Triangulation
 from matplotlib import gridspec
+import scipy.interpolate
 import netCDF4 as nc
 import cmocean
 import GladsPlot as gplt
@@ -33,6 +34,8 @@ map_axs = np.array([map_fig.add_subplot(map_gs[i+1, 0]) for i in range(len(cases
 map_caxs = np.array([map_fig.add_subplot(map_gs[0, 0]),
                      map_fig.add_subplot(map_gs[1:, 1])])
 
+fig2, ax2 = plt.subplots()
+
 for i,caseid in enumerate(cases):
     fname = '../RUN/output_%03d_seasonal.nc' % caseid
     print(fname)
@@ -45,8 +48,13 @@ for i,caseid in enumerate(cases):
         
         connect = out['connect'][:].data.T.astype(int) - 1
         nodes = out['nodes'][:].data.T
+        elements = out['elements'][:].data.T
         connect_edge = out['connect_edge'][:].data.T.astype(int) - 1
         times = out['time'][:].data.T/86400/365 - 101
+        qxy = out['qs'][:].data.T
+        qs = np.sqrt(qxy[:, 0]**2 + qxy[:, 1]**2)
+        hs = out['h_sheet'][:].data.T
+        ks = out['para/cond_s'][:].data.T
     
     phi_bed = 1000*9.8*bed
     pw = phi - phi_bed
@@ -75,12 +83,34 @@ for i,caseid in enumerate(cases):
             palettes.get_cmap('BrownYellow'), vmin=Qmin, vmax=Qmax)
     map_ax.add_collection(lc)
 
+    interpo = scipy.interpolate.LinearNDInterpolator(nodes, hs)
+    h_el = interpo(elements)
+    if caseid==2:
+        gradphi = (qs/ks/h_el**(3./2.))**2
+    elif caseid==3:
+        gradphi = qs/ks/h_el**3
+    elif caseid==6:
+        gradphi = qs/ks/h_el**4
+    
+    k_eff = (qs/h_el**(5./4.)/gradphi**0.5)
+
+    el_mask = np.logical_and(elements[:, 0]<=(band + band_width/2),
+                             elements[:, 0]>(band - band_width/2))
+    k_eff_mean = np.nanmean(k_eff[el_mask, :], axis=0)
+    ax2.plot(times*12, k_eff_mean, color=colors[i], label=labels[i])
+
 ts_ax.grid(linestyle=':', linewidth=0.5)
 ts_ax.set_xlabel('Month')
 ts_ax.set_ylabel('Flotation fraction')
 ts_ax.set_xlim([4, 11])
 ts_ax.legend()
 ts_ax.axvline((tslice - 365)/365 * 12, color='k', linewidth=0.5)
+
+ax2.grid(linestyle=':', linewidth=0.5)
+ax2.set_xlabel('Month')
+ax2.set_ylabel(r'$k_{\rm{eff}}$')
+ax2.set_xlim([4, 11])
+ax2.legend()
 
 cbar_top = map_fig.colorbar(lc, cax=map_caxs[0], orientation='horizontal')
 cbar_right = map_fig.colorbar(pc, cax=map_caxs[1])
@@ -96,8 +126,10 @@ cbar_top.set_label(r'$Q~({\rm{m}}^3~{\rm{s}}^{-1})$')
 cbar_right.set_label('Flotation fraction')
 
 ts_fig.subplots_adjust(top=0.95, right=0.95)
+fig2.subplots_adjust(top=0.95, right=0.95)
 
 map_fig.savefig('laminar_alpha_4_map.png', dpi=600)
 ts_fig.savefig('laminar_alpha_4_ts.png', dpi=600)
+fig2.savefig('laminar_alpha_4_cond.png', dpi=600)
 
 plt.show()
