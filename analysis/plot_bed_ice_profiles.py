@@ -26,7 +26,7 @@ line_color = 'k'
 # band_color = 'lightslategrey'
 band_color = 'steelblue'
 figname = 'domain_profile.png'
-figsize=(5, 5)
+figsize=(5, 4.5)
 
 bands = [15, 30, 70]
 band_width = 5
@@ -110,7 +110,7 @@ ax.view_init(elev=24, azim=-125) #Works!
 ax.set_box_aspect((4, 1, 1))
 ax.set_aspect('equalxy')
 
-ax.set_position(Bbox.from_extents(-0.1, 0.415, 1.25, 1.15))
+ax.set_position(Bbox.from_extents(0.1, 0.315, 1., 1.2))
 # ax.text(0.05, 0.95, 'a', fontweight='bold')
 
 ## Compute moulin density
@@ -131,17 +131,17 @@ yang_2016_density = np.loadtxt('../glads/data/yang2016_moulins/yang2016_density.
 
 z_bin_center = 0.5*(z_bins[:-1] + z_bins[1:])
 ax2 = fig.add_subplot()
-ax2.set_position(Bbox.from_bounds(0.15, 0.1, 0.8, 0.35))
+ax2.set_position(Bbox.from_bounds(0.25, 0.125, 0.5, 0.25))
 ax2.plot(yang_2016_density[:, 0], yang_2016_density[:, 1], label='Target density', color='k')
 ax2.plot(z_bin_center, density_bins, label='Synthetic density', color='k', linestyle='dashed')
 ax2.spines['right'].set_visible(False)
 ax2.spines['top'].set_visible(False)
 ax2.set_xlim([200, 2000])
 ax2.set_ylim([0, 0.07])
-ax2.text(-0.125, 2.35, 'a', transform=ax2.transAxes, fontweight='bold')
-ax2.text(-0.125, 1, 'b', transform=ax2.transAxes, fontweight='bold')
+ax2.text(-0.25, 2.75, 'a', transform=ax2.transAxes, fontweight='bold')
+ax2.text(-0.25, 1, 'b', transform=ax2.transAxes, fontweight='bold')
 
-ax2.legend(bbox_to_anchor=(0.075, 0.95, 0.85, 0.2), ncol=2, mode='expand', frameon=False)
+ax2.legend(bbox_to_anchor=(-0.15, 0.9, 1.3, 0.2), ncol=2, mode='expand', frameon=False)
 
 ax2.set_xlabel('Elevation (m)')
 ax2.set_ylabel(r'Density (km$^{-2}$)')
