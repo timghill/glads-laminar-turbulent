@@ -264,16 +264,17 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
     axs[-1, 1].set_xlabel('Month')
 
     for ax in axs[:, 0]:
-        ax.grid(True)
+        ax.grid(True, linewidth=0.5, linestyle=':')
 
         ax.set_xlim([0, 100])
         ax.set_xticks([0, 20, 40, 60, 80, 100])
         ax.set_xticklabels([])
+        ax.axvline(30, color='k', linewidth=0.5)
 
     ax.set_xticklabels(['0', '20', '40', '60', '80', '100'])
 
     for ax in axs[:, 1]:
-        ax.grid(True)
+        ax.grid(True, linewidth=0.5, linestyle=':')
         ax.set_xlim(tlim)
         ax.set_xticks(t_ticks)
         ax.set_xticklabels([])
