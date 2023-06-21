@@ -2,8 +2,8 @@
 
 ## Structure
 
-### '/'
-`analysis/`: top-level analysis
+### 'analysis/'
+Top-level analysis
 
 ### `glads/`:
 
