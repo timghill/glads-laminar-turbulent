@@ -20,7 +20,8 @@ config.l_bed = bump_scale;
 config.alpha = alpha;
 config.beta = beta;
 config.omega = omega;
-config.e_v = 1e-4;
+% config.e_v = 1e-4;
+config.e_v = 2e-5;
 
 if config.alpha<3 && config.omega==0
     % Compute potential gradient for turbulent conductivity scaling

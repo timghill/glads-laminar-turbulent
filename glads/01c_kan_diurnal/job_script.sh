@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name="Seas farm"
-#SBATCH --time=00-48:0:00
+#SBATCH --time=03-0:0:00
 #SBATCH --mem=8G
 #SBATCH --account=def-gflowers
 #SBATCH --mail-user=tha111@sfu.ca

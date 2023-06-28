@@ -8,6 +8,8 @@
 *.mat
 *.tar.gz
 
+sl*.out
+
 set_paths.m
 
 MISC/
