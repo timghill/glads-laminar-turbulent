@@ -65,6 +65,13 @@ ax.set_xlabel(r'$\tilde h$')
 ax.set_ylabel(r'$\frac{q \omega}{\nu}$', labelpad=0)
 ax.grid()
 
+ax2 = ax.twinx()
+ax2.set_ylim([1e-2, 1e2])
+ax2.set_yscale('log')
+ax2.set_yticks([1e-2, 1e-1, 1e0, 1e1, 1e2])
+ax2.set_yticklabels(['', 'Laminar', '', 'Turbulent', ''], fontweight='bold', color=(0.5, 0.5, 0.5), rotation=-90, ha='center', va='center')
+ax2.tick_params(axis='y', which='major', pad=4)
+
 fig.subplots_adjust(left=0.16, bottom=0.15, right=0.95, top=0.95)
 fig.savefig('flux_parameterizations.png', dpi=600)
 
