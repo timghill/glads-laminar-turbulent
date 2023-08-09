@@ -32,6 +32,15 @@ figname = '00_pressure_seasonal_shmip_forcing.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='SHMIP',
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
 
+"""
+## Case 00b: Flat topo, higher basal melt rate
+cases = [1, 2, 3, 4, 5]
+fnames = ['../glads/00b_synth_forcing_winter/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+figname = '00b_pressure_seasonal.png'
+fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
+    t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
+
+"""
 ## Case 01: Flat topo, KAN_L forcing
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
@@ -40,6 +49,8 @@ figname = '01_pressure_seasonal.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
      ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+"""
+
 """
 ## Case 01: Flat topo, higher alpha
 cases = [3, 6, 2, 4, 5]
@@ -62,7 +73,7 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      lws=lws, linestyles=lss, colors=colors, zorders=zorders)
 
 plt.show()
-
+"""
 """
 ## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
