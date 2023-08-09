@@ -9,7 +9,7 @@ import cmocean
 import GladsPlot as gplt
 from palettes.code import palettes, tools
 
-fname = '../RUN/output_001_seasonal.nc'
+fname = '../RUN/output_002_seasonal.nc'
 tslice = 365 + 190
 
 cmap1 = palettes.get_cmap('BrownGray').reversed()
