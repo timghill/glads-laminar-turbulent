@@ -149,7 +149,7 @@ cases = [1, 2, 3, 4, 5]
 pattern = '../glads/_dev_03c_kan_forcing_trough2/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '03c_pressure_seasonal_trough2.png'
-fig_03c = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='SHMIPadj',
+fig_03c = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='KANadj',
     t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1+3/12, 1+9/12],
     ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
