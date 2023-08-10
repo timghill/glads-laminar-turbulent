@@ -12,8 +12,8 @@ import scipy.interpolate
 
 
 cases = [1, 2, 3, 4]
-no_diurnal_base = '../../01_kan_forcing/RUN/output_%03d_seasonal.nc'
-yes_diurnal_base = '../RUN/output_%03d_seasonal.nc'
+slow_base = '../../00_synth_forcing/RUN/output_%03d_seasonal.nc'
+fast_base = '../RUN/output_%03d_seasonal.nc'
 labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
     'Transition 5/4', 'Transition 3/2']
 
@@ -29,10 +29,10 @@ zorders = [1, 2, 4, 3]
 fig, ax = plt.subplots()
 
 for i,caseid in enumerate(cases):
-    figname_no_diurnal = no_diurnal_base % caseid
-    figname_yes_diurnal = yes_diurnal_base % caseid
+    figname_slow = slow_base % caseid
+    figname_fast = fast_base % caseid
 
-    fnames = [figname_yes_diurnal, figname_no_diurnal]
+    fnames = [figname_fast, figname_slow]
     ffs = [[], []]
     tts = [[], []]
     figi, axi = plt.subplots()
@@ -65,35 +65,36 @@ for i,caseid in enumerate(cases):
         ffs[j] = ff_mean
         tts[j] = time*12
 
-    ff_no_diurnal = ffs[1]
-    ff_yes_diurnal = ffs[0]
-    ff_no_diurnal_interp_fun = scipy.interpolate.interp1d(tts[1], ffs[1], kind='linear')
-    ff_no_diurnal_interp = ff_no_diurnal_interp_fun(tts[0])
-    ff_diff = ff_yes_diurnal - ff_no_diurnal_interp
+    ff_slow = ffs[1]
+    ff_fast = ffs[0]
+    # ff_slow_interp_fun = scipy.interpolate.interp1d(tts[1], ff_flow, kind='linear')
+    # ff_slow_interp = ff_slow_interp_fun(tts[0])
+    ff_diff = ff_fast - ff_slow
     axj.plot(tts[0], ff_diff, color=colors[i])
     axj.grid()
     axj.set_title(labels[i])
     axj.set_xlabel('Month')
     axj.set_ylabel(r'$\Delta$ flotation fraction')
-    axj.set_xlim([5, 10])
-    axj.set_ylim([-0.06, 0.06])
+    axj.set_xlim([3, 9])
+    # axj.set_ylim([-0.06, 0.06])
 
     axi.set_title(labels[i])
     axi.set_xlabel('Month')
     axi.set_ylabel('Flotation fraction')
     axi.grid()
     # axi.set_ylim([0, 1])
-    axi.set_xlim([5, 10])
+    axi.set_xlim([3, 9])
 
-    figi.savefig('fig_diurnal_seasonal_%03d.png' % caseid, dpi=600)
+    figi.savefig('fig_basalmelt_seasonal_%03d.png' % caseid, dpi=600)
 
-    figj.savefig('fig_diurnal_seasonal_diff_%03d.png' % caseid, dpi=600)
+    figj.savefig('fig_basalmelt_seasonal_diff_%03d.png' % caseid, dpi=600)
 
 ax.grid()
 ax.set_xlabel('Month')
 ax.set_ylabel('Flotation fraction')
-ax.set_xlim([5, 6])
+# ax.set_xlim([5, 6])
+ax.set_xlim([3, 9])
 ax.legend()
-fig.savefig('compare_diurnal_seasonal.png', dpi=600)
+fig.savefig('compare_basalmelt.png', dpi=600)
 
-# plt.show()
+plt.show()
