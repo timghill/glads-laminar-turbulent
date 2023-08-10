@@ -91,6 +91,15 @@ pattern = '../glads/03b_kan_forcing_valley/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = '03b_Re_seasonal_valley.png'
 fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
+
+## Case 03c: KAN forcing, trough topo
+cases = [1, 2, 3, 4, 5]
+pattern = '../glads/_dev_03c_kan_forcing_trough2/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = '03c_Re_seasonal_trough.png'
+fig_03 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3))
+
+
 ## Case S01b: Parameter sensitivity
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
