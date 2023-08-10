@@ -15,7 +15,8 @@ dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
 nodes = dmesh['tri/nodes'][:].data.T
 connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
 
-out_trough = nc.Dataset('../glads/02a_synth_forcing_trough/RUN/output_003_seasonal.nc')
+# out_trough = nc.Dataset('../glads/02a_synth_forcing_trough/RUN/output_003_seasonal.nc')
+out_trough = nc.Dataset('../glads/_dev_03c_kan_forcing_trough2/RUN/output_003_seasonal.nc')
 
 out_valley = nc.Dataset('../glads/02b_synth_forcing_valley/RUN/output_003_seasonal.nc')
 
@@ -100,6 +101,6 @@ cax2.xaxis.set_label_position('top')
 
 cbar1.set_label('Bed Elevation (m)')
 cbar2.set_label('Thickness (m)')
-fig2.savefig('bed_thickness.png', dpi=600)
+fig2.savefig('bed_thickness_v2.png', dpi=600)
 
 plt.show()
