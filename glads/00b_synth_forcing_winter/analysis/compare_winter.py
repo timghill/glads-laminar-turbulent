@@ -11,7 +11,7 @@ import netCDF4 as nc
 import scipy.interpolate
 
 
-cases = [1, 2, 3, 4]
+cases = [1, 2, 3, 4, 5]
 slow_base = '../../00_synth_forcing/RUN/output_%03d_seasonal.nc'
 fast_base = '../RUN/output_%03d_seasonal.nc'
 labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
@@ -23,8 +23,8 @@ colors = np.array([[0.579, 0.677, 0.781, 1],
                    [0.929, 0.835, 0.408, 1],
                    [0.836, 0.590, 0.160, 1]])
 linestyles = ['solid', 'dotted']
-lws = [1.5, 1, 0.75, 1.5]
-zorders = [1, 2, 4, 3]
+lws = [1.5, 1, 0.75, 1.5, 1]
+zorders = [1, 2, 5, 3, 4]
 
 fig, ax = plt.subplots()
 
