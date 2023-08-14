@@ -95,6 +95,8 @@ ax.set_ylabel('Flotation fraction')
 # ax.set_xlim([5, 6])
 ax.set_xlim([3, 9])
 ax.legend()
+
+fig.subplots_adjust(left=0.1, bottom=0.12, right=0.95, top=0.95)
 fig.savefig('compare_basalmelt.png', dpi=600)
 
 plt.show()
