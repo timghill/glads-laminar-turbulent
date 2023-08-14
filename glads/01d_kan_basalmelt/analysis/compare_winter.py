@@ -26,7 +26,7 @@ linestyles = ['solid', 'dotted']
 lws = [1.5, 1, 0.75, 1.5, 1]
 zorders = [1, 2, 5, 3, 4]
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(7, 4))
 
 for i,caseid in enumerate(cases):
     figname_slow = slow_base % caseid
@@ -80,10 +80,12 @@ for i,caseid in enumerate(cases):
 
     axi.set_title(labels[i])
     axi.set_xlabel('Month')
-    axi.set_ylabel('Flotation fraction')
+    axi.set_ylabel(r'Floatation fraction ($p_{\rm{w}}/p_{\rm{i}}$)')
     axi.grid()
-    # axi.set_ylim([0, 1])
-    axi.set_xlim([3, 9])
+    axi.set_ylim([0, 1.5])
+    axi.set_xlim([4, 10])
+    axi.set_xticks([4, 6, 8, 10])
+    axi.set_xticklabels(['May', 'July', 'Sep', 'Nov'])
 
     figi.savefig('fig_basalmelt_seasonal_%03d.png' % caseid, dpi=600)
 
@@ -91,12 +93,15 @@ for i,caseid in enumerate(cases):
 
 ax.grid()
 ax.set_xlabel('Month')
-ax.set_ylabel('Flotation fraction')
+ax.set_ylabel(r'Floatation fraction ($p_{\rm{w}}/p_{\rm{i}}$)')
 # ax.set_xlim([5, 6])
-ax.set_xlim([3, 9])
+ax.set_xlim([4, 10])
+ax.set_xticks([4, 5, 6, 7, 8, 9, 10])
+ax.set_xticklabels(['May', '',  'July', '', 'Sep', '', 'Nov'])
+ax.set_ylim([0, 1.5])
 ax.legend()
 
-fig.subplots_adjust(left=0.1, bottom=0.12, right=0.95, top=0.95)
+fig.subplots_adjust(left=0.1, bottom=0.125, right=0.95, top=0.95)
 fig.savefig('compare_basalmelt.png', dpi=600)
 
 plt.show()
