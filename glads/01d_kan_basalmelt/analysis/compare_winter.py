@@ -55,13 +55,18 @@ for i,caseid in enumerate(cases):
         node_mask = np.logical_and(nodes[:, 0]<32.5e3, nodes[:, 0]>=27.5e3)
         ff_mean = np.mean(ff[node_mask, :], axis=0)
         axi.plot(time*12, ff_mean, color=colors[i], linestyle=linestyles[j])
-
+        
+        # Make sure laminar is dashed for visibility
+        if linestyles[j]=='solid' and labels[i]=='Laminar':
+            ls = 'dashed'
+        else:
+            ls = linestyles[j]
         if j==0:
             ax.plot(time*12, ff_mean, color=colors[i], label=labels[i],
-                linewidth=lws[i], zorder=zorders[i], linestyle=linestyles[j])
+                linewidth=lws[i], zorder=zorders[i], linestyle=ls)
         else:
             ax.plot(time*12, ff_mean, color=colors[i],
-                linewidth=lws[i], zorder=zorders[i], linestyle=linestyles[j])
+                linewidth=lws[i], zorder=zorders[i], linestyle=ls)
         ffs[j] = ff_mean
         tts[j] = time*12
 
