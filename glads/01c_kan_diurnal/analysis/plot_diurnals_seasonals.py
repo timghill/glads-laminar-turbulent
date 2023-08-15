@@ -84,7 +84,7 @@ for i,caseid in enumerate(cases):
 
     axi.set_title(labels[i])
     axi.set_xlabel('Month')
-    axi.set_ylabel('Flotation fraction')
+    axi.set_ylabel(r'Floatation fraction ($p_{\rm{w}}/p_{\rm{i}}$)')
     axi.grid()
     # axi.set_ylim([0, 1])
     axi.set_xlim([5, 10])
@@ -95,7 +95,8 @@ for i,caseid in enumerate(cases):
 
 ax.grid()
 ax.set_xlabel('Month')
-ax.set_ylabel('Flotation fraction')
+ax.set_ylabel(r'Floatation fraction ($p_{\rm{w}}/p_{\rm{i}}$)')
+
 ax.set_xlim([5, 6])
 ax.legend()
 fig.subplots_adjust(left=0.1, bottom=0.125, right=0.95, top=0.95)
