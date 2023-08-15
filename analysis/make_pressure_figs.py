@@ -97,17 +97,6 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      **KAN_opts,
      ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
 
-## Case 01c: KAN with diurnals
-cases = [1, 2, 3, 4, 4]
-pattern = '../glads/01c_kan_diurnal/RUN/output_%03d_seasonal.nc'
-fnames = [pattern % caseid for caseid in cases]
-figname = 'figures/aux/01c_pressure_diurnal.png'
-doy = defaults.tslice;
-tstep = 145 + (doy-145)*6 + 4
-fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
-     **KAN_opts, tslice=tstep,
-     ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
-
 ## Case 01d: Basal melt rate
 cases = [1, 2, 3, 4, 5]
 pattern = '../glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
