@@ -22,13 +22,13 @@ import cmocean
 #######################################
 
 # Filepaths
-moulin_file = 'moulins_polarstereo.shp'
-moulin_density_file = 'yang2016_density.txt'
-arcticdem_file = 'arcticdem_mosaic_500m_v3-0_clipped.tif'
-synthetic_moulin_file = '../moulins/moulins_068.txt'
-synthetic_catchment_file = '../moulins/catchment_map_068.txt'
-synthetic_catchment_centers = '../moulins/catchments_068.txt'
-figname = '../../../analysis/figures/supplement/moulin_design.png'
+moulin_file = '../glads/data/yang2016_moulins/moulins_polarstereo.shp'
+moulin_density_file = '../glads/data/yang2016_moulins/yang2016_density.txt'
+arcticdem_file = '../glads/data/yang2016_moulins/arcticdem_mosaic_500m_v3-0_clipped.tif'
+synthetic_moulin_file = '../glads/data/moulins/moulins_068.txt'
+synthetic_catchment_file = '../glads/data/moulins/catchment_map_068.txt'
+synthetic_catchment_centers = '../glads/data/moulins/catchments_068.txt'
+figname = 'figures/supplement/moulin_design.png'
 
 # Plot parameters
 figsize=(7, 6)
