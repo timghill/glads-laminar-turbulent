@@ -25,7 +25,7 @@ sky_color = 'whitesmoke'
 line_color = 'k'
 # band_color = 'lightslategrey'
 band_color = 'steelblue'
-figname = 'domain_profile.png'
+figname = 'figures/main/domain_profile.png'
 figsize=(5, 4.5)
 
 bands = [15, 30, 70]

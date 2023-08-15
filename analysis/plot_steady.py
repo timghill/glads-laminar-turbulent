@@ -260,13 +260,13 @@ if __name__=='__main__':
     ## Case 00: Flat topo, synthetic forcing
     cases = [1, 2, 3, 4, 5]
     fnames = ['../glads/00_synth_forcing/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
-    figname = '00_steady.png'
+    figname = 'figures/supplement/00_steady.png'
     fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100)
 
     ## Case 01: Alpha=4
     cases = [2, 3, 4, 5, 6]
     fnames = ['../glads/01_kan_forcing/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
-    figname = '01_steady_alpha.png'
+    figname = 'figures/aux/01_steady_alpha.png'
     cols = np.zeros((5, 4))
     cols[0:4] = defaults.colors[1:5]
     cols[-1] = [0, 0, 0, 1]

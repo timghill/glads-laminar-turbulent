@@ -73,7 +73,7 @@ ax2.set_yticklabels(['', 'Laminar', '', 'Turbulent', ''], fontweight='bold', col
 ax2.tick_params(axis='y', which='major', pad=4)
 
 fig.subplots_adjust(left=0.16, bottom=0.15, right=0.95, top=0.95)
-fig.savefig('flux_parameterizations.png', dpi=600)
+fig.savefig('figures/main/flux_parameterizations.png', dpi=600)
 
 plt.show()
 

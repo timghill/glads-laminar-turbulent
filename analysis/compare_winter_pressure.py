@@ -1,6 +1,6 @@
 """
 
-Compare summer and winter water pressure for turbulent, transition,
+Compare summer and winter water pressure statistics for turbulent, transition,
 and laminar models
 
 """

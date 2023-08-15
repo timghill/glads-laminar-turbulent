@@ -50,6 +50,6 @@ ax1.set_xlabel('Time (a)')
 ax2.set_xlabel('Time (a)')
 
 fig.tight_layout()
-fig.savefig('melt_forcing.png', dpi=600)
+fig.savefig('figures/aux/melt_forcing.png', dpi=600)
 
 plt.show()

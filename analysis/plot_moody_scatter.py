@@ -214,7 +214,7 @@ if __name__=='__main__':
     cases = [1, 2, 3, 4, 5]
     fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
     models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
-    fignames = ['00_moody_composite_theory.png', '00_moody_composite_scatter.png']
+    fignames = ['figures/main/00_moody_composite_theory.png', 'figures/main/00_moody_composite_scatter.png']
     plot_moody(fnames, fignames, models=models)
 
     # cases = [1, 2, 3, 4, 5]

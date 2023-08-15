@@ -102,7 +102,7 @@ axs[-1].set_xlabel('Distance from terminus (km)')
 
 fig.text(0.015, 0.5, 'Distance across glacier (km)',
     rotation='vertical', va='center')
-fig.savefig('winter_channel_map.png', dpi=600)
+fig.savefig('figures/aux/winter_channel_map.png', dpi=600)
 
 hfig, hax = plt.subplots()
 bins = (1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1, 1e2)
@@ -114,6 +114,6 @@ hax.set_xlabel('Channel area (m$^2$)')
 hax.set_ylabel('Number of channels')
 
 hfig.subplots_adjust(left=0.1, right=0.95, top=0.95, bottom=0.15)
-hfig.savefig('winter_channel_hist.png', dpi=600)
+hfig.savefig('figures/aux/winter_channel_hist.png', dpi=600)
 
 plt.show()

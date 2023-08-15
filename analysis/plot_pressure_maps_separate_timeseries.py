@@ -1,6 +1,9 @@
 """
 
-Plot floatation fraction maps and timeseries
+Plot floatation fraction maps and timeseries.
+
+Function plot_pressure_maps_timeseries does the work,
+this can be called from external scripts
 
 """
 
@@ -159,26 +162,28 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         fname = fnames[ii]
         print(fname)
 
-        out = nc.Dataset(fname, 'r')
-        
-        walltime = float(out['model/wallclock'][:])
-        print('Walltime (hours):', walltime/3600)
+        with nc.Dataset(fname, 'r') as out:
+            walltime = float(out['model/wallclock'][:])
+            print('Walltime (hours):', walltime/3600)
 
-        nodes = out['nodes'][:].data.T
-        connect = out['connect'][:].data.T.astype(int) - 1
-        connect_edge = out['connect_edge'][:].data.T.astype(int) - 1
+            nodes = out['nodes'][:].data.T
+            connect = out['connect'][:].data.T.astype(int) - 1
+            connect_edge = out['connect_edge'][:].data.T.astype(int) - 1
 
-        # Channel fields
-        Q = np.abs(out['Q'][:, :].data.T)
+            # Channel fields
+            Q = np.abs(out['Q'][:, :].data.T)
 
-        # Get floatation fraction.lege
-        phi = out['phi'][:, :].data.T
-        N = out['N'][:, :].data.T
-        phi_0 = 9.81*1000*np.vstack(out['bed'][:].data)
-        pw = phi - phi_0
-        ff = pw/(N + pw)
+            # Get floatation fraction.lege
+            phi = out['phi'][:, :].data.T
+            N = out['N'][:, :].data.T
+            phi_0 = 9.81*1000*np.vstack(out['bed'][:].data)
+            pw = phi - phi_0
+            ff = pw/(N + pw)
 
-        tt = out['time'][:].data/86400/365 - 100
+            tt = out['time'][:].data/86400/365 - 100
+
+        with nc.Dataset('../glads/data/mesh/mesh_04.nc', 'r') as dmesh:
+            node_area = dmesh['tri/area_nodes'][:].data
 
         # Initialize triangulation for faster plotting
         mtri = Triangulation(nodes[:, 0]/1e3, nodes[:, 1]/1e3, connect)
@@ -207,11 +212,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             va='top', ha='right', **text_args)
         mapax.text(0.95, 0.05, labels[ii], transform=mapax.transAxes,
             va='bottom', ha='right', fontsize=8, color='w')
-        xmid, ff_avg = helpers.width_average(nodes, ff[:, tslice])
+        xmid, ff_avg = helpers.weighted_width_average(nodes, ff[:, tslice], node_area)
 
         quantile_95 = lambda x: np.quantile(x, 0.95)
-        _, ff_upper= helpers.width_average(nodes, ff[:, tslice], metric=lambda x: np.quantile(x, 0.975))
-        _, ff_lower = helpers.width_average(nodes, ff[:, tslice], metric=lambda x: np.quantile(x, 0.025))
 
         if fill_between:
             ax_scatter.fill_between(xmid/1e3, ff_lower, ff_upper, facecolor=colors[ii], alpha=0.33,
@@ -233,7 +236,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             xmin = xb - band_width/2
             xmax = xb + band_width/2
             node_mask = np.logical_and(nodes[:, 0]/1e3>=xmin, nodes[:, 0]/1e3<xmax)
-            f_mean = np.mean(ff[node_mask, :], axis=0)
+            f_mean = np.sum(ff[node_mask, :]*np.vstack(node_area[node_mask]), axis=0)/np.sum(node_area[node_mask])
             f_lower = np.quantile(ff[node_mask, :], 0.025, axis=0)
             f_upper = np.quantile(ff[node_mask, :], 0.975, axis=0)
             timeax = axs_timeseries[j]
@@ -253,7 +256,6 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
             timeax.set_xticklabels([])
 
-        out.close()
 
     ax_scatter.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
     ax_scatter.text(0.95, 0.95, map_alphabet[n_cases], transform=ax_scatter.transAxes,
@@ -320,24 +322,3 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
     fig.savefig(figname, dpi=600)
     return fig
-
-if __name__=='__main__':
-    t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
-    # t_ticklabels = ['4', '6', '8', '10']
-    t_ticklabels = ['May', 'July', 'Sep', 'Nov']
-    t_lim = [t_ticks[0], t_ticks[-1]]
-    t_xlabel = 'Month'
-    cases = [1, 2, 3, 4, 5]
-    fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-    figname = 'dev.png'
-    fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
-        t_ticklabels=t_ticklabels[:-1], t_xlabel=t_xlabel, t_ticks=t_ticks[:-1], t_lim=[1 + 3/12, 1 + 9/12])
-
-    cases = [1, 2, 3, 4, 5]
-    pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
-    fnames = [pattern % caseid for caseid in cases]
-    figname = 'dev2.png'
-    fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
-        t_ticklabels=t_ticklabels, t_xlabel=t_xlabel, t_ticks=t_ticks, t_lim=t_lim,
-    ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
-

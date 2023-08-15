@@ -10,8 +10,6 @@ import netCDF4 as nc
 from matplotlib import pyplot as plt
 
 def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
-    """Some string
-    """
 
     fig, ax1 = plt.subplots(figsize=figsize)
 
@@ -119,5 +117,5 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 if __name__=='__main__':
     cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     fnames = ['../glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
-    figname = 'S00_mesh_refinement.png'
+    figname = 'figures/supplement/S00_mesh_refinement.png'
     plot_mesh_refinement(fnames, figname)
