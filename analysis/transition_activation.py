@@ -22,7 +22,7 @@ def plot_activation(fname, figname, tlim=[3, 9]):
     ax1 = fig.add_subplot(gs[1, 1])
     cax = fig.add_subplot(gs[0, 0])
 
-    dmesh = nc.Dataset('../../glads/data/mesh/mesh_04.nc')
+    dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
     nodes = dmesh['tri/nodes'][:].data.T
     connect = dmesh['tri/connect'][:].data.T
     # elements = dmesh['tri/elements'][:].data.T
