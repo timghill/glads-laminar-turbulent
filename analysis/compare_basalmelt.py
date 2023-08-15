@@ -107,6 +107,6 @@ ax.set_ylim([0, 1.5])
 ax.legend()
 
 fig.subplots_adjust(left=0.1, bottom=0.125, right=0.95, top=0.95)
-fig.savefig('figures/main/01_compare_basalmelt.png', dpi=600)
+fig.savefig('figures/supplement/01_compare_basalmelt.png', dpi=600)
 
 plt.show()
