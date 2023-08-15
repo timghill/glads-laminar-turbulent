@@ -26,7 +26,7 @@ linestyles = ['solid', 'dotted']
 lws = [1.5, 1, 0.75, 1.5]
 zorders = [1, 2, 4, 3]
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(7, 4))
 
 for i,caseid in enumerate(cases):
     figname_no_diurnal = no_diurnal_base % caseid
@@ -94,6 +94,7 @@ ax.set_xlabel('Month')
 ax.set_ylabel('Flotation fraction')
 ax.set_xlim([5, 6])
 ax.legend()
+fig.subplots_adjust(left=0.1, bottom=0.125, right=0.95, top=0.95)
 fig.savefig('compare_diurnal_seasonal.png', dpi=600)
 
 # plt.show()

@@ -1,6 +1,6 @@
 """
 
-Compare seasonal simulations with/without diurnals
+Compare seasonal simulations for basal melt rate
 
 """
 
