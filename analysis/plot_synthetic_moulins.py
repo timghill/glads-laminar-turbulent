@@ -48,7 +48,7 @@ for i, feature in enumerate(layer):
     XY[i, 0] = x
     XY[i, 1] = y
 
-yang16_z_density = np.loadtxt('yang2016_density.txt')
+yang16_z_density = np.loadtxt('../glads/data/yang2016_moulins/yang2016_density.txt')
 yang16_z_bins = yang16_z_density[:, 0]
 yang16_density = yang16_z_density[:, 1]
 
@@ -82,7 +82,7 @@ for ic in range(ncol):
 ## Compute moulin density
 surf_fun = lambda x: 6*(np.sqrt(x  +5e3) - np.sqrt(5e3)) + 390
 
-dmesh = nc.Dataset('../mesh/mesh_04.nc')
+dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
 nodexy = dmesh['tri/nodes'][:].data.T
 nodez = surf_fun(nodexy[:, 0])
 connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
