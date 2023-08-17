@@ -50,6 +50,13 @@ figname = 'figures/aux/00b_pressure_seasonal_basalmelt.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
     **synth_opts)
 
+## Case 00c: synthetic forcing, marine outlet
+cases = [1, 2, 3, 4, 5]
+fnames = ['../glads/00c_synth_marine/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+figname = 'figures/aux/00c_pressure_seasonal_marine.png'
+fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
+    **synth_opts)
+
 # =============================================================================
 ## KAN forcing suite
 
