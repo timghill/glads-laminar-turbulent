@@ -61,6 +61,25 @@ h_en_phys = h_en_scaled.*out_pp.para.scale.h;
 h_en_vol = sum(dmesh.tri.area_nodes.*h_en, 1);
 dh_en_vol = gradient(h_en_vol)./gradient(tt);
 
+dphids = out_pp.grad_phi_edge;
+Xi_channel = abs(out_pp.Q.*dphids);
+qnorm = squeeze(sqrt(sum(out_pp.qs.^2, 2)));
+
+qc = zeros(dmesh.tri.n_edges, length(tt));
+for ii=1:dmesh.tri.n_edges
+    neigh_el = dmesh.tri.connect_edge_el(ii, :);
+    neighs = neigh_el(neigh_el>0);
+    n_neighs = length(neighs);
+    for jj=1:n_neighs
+        qc(ii, :) = qc(ii, :) + qnorm(neighs(jj), :)/n_neighs;
+    end
+end
+
+Xi_sheet = abs(out_pp.para.physical.l_c.*qc.*dphids);
+diss_channel = Xi_channel/1e3/334e3;
+diss_sheet = Xi_sheet/1e3/334e3;
+diss = diss_channel + diss_sheet;
+
 tt_day = tt./86400/365;
 
 figure
