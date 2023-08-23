@@ -1,7 +1,8 @@
-fname = '../../glads/00_synth_forcing/RUN/output_003_seasonal.nc';
+fname = '../../glads/00_synth_forcing/RUN/output_001_seasonal.nc';
 
 addpath(genpath('../../glads/data/'));
 addpath(genpath('/home/tghill/SFU-code/glads/GlaDS-matlab/'));
+addpath('../../glads/00_synth_forcing/');
 load_glads_paths;
 
 
@@ -23,7 +24,7 @@ nodes = ncread(fname, 'nodes');
 
 
 bed = ncread(fname, 'bed');
-phi_bed = 1000*9.81*bed;
+phi_bed = 1000*9.8*bed;
 pw = phi - phi_bed;
 tindex = 365 + 190;
 
@@ -59,11 +60,13 @@ tot_source_input = sum(source_term_s(nodes, 0).*dmesh.tri.area_nodes).*ones(size
 
 n_edge = dmesh.tri.n_edges;
 qout = 0;
+flux_elements = [];
 for ii=1:n_edge
     bmark = dmesh.tri.bmark_edge(ii);
     edge_len = dmesh.tri.edge_length(ii);
     if bmark==1
         el_index = max(dmesh.tri.connect_edge_el(ii, :));
+        flux_elements = [flux_elements, el_index];
         qii = q(el_index, :, :);
 %         qnormal = qii*[-1; 0];
         qnormal = -reshape(qii(1, 1, :), [1, size(q, 3)]);
@@ -90,7 +93,7 @@ for ii=1:n_node
             elseif dmesh.tri.connect_edge(edge_num, 2)==ii
                 edge_sign = 1;
             end
-            Q_signed = abs(Qjj*edge_sign);
+            Q_signed = Qjj*edge_sign;
             Qboundary = [Qboundary; Q_signed];
 %             Q_signed = Qjj;
             Qout = Qout + Q_signed;
@@ -122,8 +125,8 @@ h_interp_fun = scatteredInterpolant(dmesh.tri.nodes, h(:, 1), 'nearest');
 for ii=1:length(time)
     h_interp_fun.Values = h(:, ii);
     h_edge = h_interp_fun(dmesh.tri.edge_midpoints);
-%     q_norm_edge = k_s.*h_edge.^(5./4.).*abs(dphids_channel(:, ii)).^(0.5);
-    q_norm_edge = k_s.*h_edge.*abs(dphids_channel(:, ii));
+    q_norm_edge = k_s.*h_edge.^(5./4.).*abs(dphids_channel(:, ii)).^(0.5);
+%     q_norm_edge = k_s.*h_edge.*abs(dphids_channel(:, ii));
     sheet_melt = abs(l_c*q_norm_edge.*dphids_channel(:, ii));
     Xi_sheet(:, ii) = sheet_melt;
 %     ii
@@ -146,6 +149,7 @@ Qstorage = [Qstorage, 0];
 Qmelt = sum(Xi.*dmesh.tri.edge_length, 1)/1000/334e3;
 
 exchange = 0;
+edge_exchange = zeros(dmesh.tri.n_edges, length(time));
 for ii=1:n_edge
     if dmesh.tri.bmark_edge(ii)==0
         node1 = dmesh.tri.connect_edge(ii, 1);
@@ -178,8 +182,9 @@ for ii=1:n_edge
     
         m_c1 = q1(1, 1, :).*un1(1) + q1(1, 2, :).*un1(2);
         m_c2 = q2(1, 1, :).*un2(1) + q2(1, 2, :).*un2(2);
-        m_c = m_c1 + m_c2;
-        exchange = exchange + m_c*dmesh.tri.edge_length(ii);
+        m_c = reshape(m_c1 + m_c2, [1, length(time)]);
+        exchange = exchange + m_c.*dmesh.tri.edge_length(ii);
+        edge_exchange(ii, :) = m_c.*dmesh.tri.edge_length(ii);
     end
 end
 exchange = reshape(exchange, [1, length(time)]);
@@ -214,4 +219,47 @@ figure
 hold on
 plot(total - (tot_moulin_input + tot_source_input + Qmelt))
 grid on
+
+% Check mass conservation around nodes
+check_nodes = [3995,4125,4012];
+
+for ii=1:length(check_nodes)
+    figure
+    hold on
+    nodeindex = check_nodes(ii);
+    nodex = dmesh.tri.nodes(nodeindex, 1);
+    nodey = dmesh.tri.nodes(nodeindex, 2);
+    plot(dmesh.tri.nodes(nodeindex, 1), dmesh.tri.nodes(nodeindex, 2), 'ko')
+    edge_indices = dmesh.tri.connect_edge_inv{nodeindex};
+    fprintf('Num edges: %d\n', length(edge_indices));
+    Q_neigh = Q(edge_indices, :);
+    Q_signs = zeros(length(edge_indices), 1);
+    tot_edge_melt = 0;
+    for jj=1:length(edge_indices)
+        neigh_nodes = dmesh.tri.connect_edge(edge_indices(jj), :);
+        if neigh_nodes(1)==nodeindex
+            Q_signs(jj) = -1;
+        elseif neigh_nodes(2)==nodeindex
+            Q_signs(jj) = 1;
+        end
+        
+        edgexy = dmesh.tri.edge_midpoints(edge_indices(jj), :);
+        Q_signed = Q_neigh(jj, tindex).*Q_signs(jj);
+        if Q_signed>0
+            textcolor = 'k';
+        else
+            textcolor = 'r';
+        end
+        edge_melt = Xi(edge_indices(jj), tindex).*dmesh.tri.edge_length(edge_indices(jj))/334e3/1e3;
+        tot_edge_melt = tot_edge_melt + edge_melt;
+        text(edgexy(1), edgexy(2), num2str(Q_signed), 'Color', textcolor);
+        plot([nodex, edgexy(1)], [nodey, edgexy(2)], 'k')
+    end
+    Qnode = sum(Q_neigh.*Q_signs, 1);
+    exchange_node = sum(edge_exchange(edge_indices, tindex));
+    net = Qnode(tindex) - (exchange_node/2 + tot_edge_melt)
+    tot_edge_melt
+    title(sprintf('Q net: %.3f, Sum m_c: %.3f', Qnode(tindex), sum(edge_exchange(edge_indices, tindex))))
+
+end
 
