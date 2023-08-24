@@ -1,4 +1,11 @@
-fname = '../../glads/00_synth_forcing/RUN/output_001_seasonal.nc';
+scenarios = {'steady', 'seasonal'};
+scenario = scenarios{2};
+switch scenario
+    case 'steady'
+        fname = '../../glads/00_synth_forcing/RUN/output_001_steady.nc';
+    case 'seasonal'
+        fname = '../../glads/00_synth_forcing/RUN/output_001_seasonal.nc';
+end
 
 addpath(genpath('../../glads/data/'));
 addpath(genpath('/home/tghill/SFU-code/glads/GlaDS-matlab/'));
@@ -7,7 +14,6 @@ load_glads_paths;
 
 
 basalmelt = 100e3*25e3*0.01/86400/365;
-dt = 86400;
 
 phi = ncread(fname, 'phi');
 q = ncread(fname, 'qs');
@@ -26,7 +32,6 @@ nodes = ncread(fname, 'nodes');
 bed = ncread(fname, 'bed');
 phi_bed = 1000*9.8*bed;
 pw = phi - phi_bed;
-tindex = 365 + 190;
 
 meshes = load('../../glads/data/mesh/mesh.mat');
 dmesh = meshes.meshes{4};
@@ -46,7 +51,17 @@ ii_moulin = moulindata(:, 1) + 1;
 source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
 
 % Moulin inputs will need to be adjusted for diurnal simulations
-source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_seasonal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+switch scenario
+    case 'steady'
+        dt = 86400*365*5;
+        tindex = 21;
+        source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+    case 'seasonal'
+        dt = 86400;
+        tindex = 365 + 190;
+        source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_seasonal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+end
+
 
 % CONTINUE
 moulin_input = [];
@@ -194,7 +209,7 @@ Svolume = sum(S.*dmesh.tri.edge_length);
 Srate = (Svolume(2:end) - Svolume(1:end-1))/dt;
 Srate = [0, Srate];
 
-figure
+f1 = figure;
 plot(qout)
 hold on
 plot(hrate)
@@ -206,14 +221,16 @@ grid on
 
 total = qout + hrate + Qout + Srate + Qstorage + Q_moulin;
 % plot(total)
-legend({'q', 'dh/dt', 'Q', 'dS/dt', 'e_v', 'Melt opening'})
+legend({'q', 'dh/dt', 'Q', 'dS/dt', 'e_v', 'Melt opening'}, 'Location', 'north')
+print(f1, 'mass_residual_internals', '-dpng', '-r600')
 
-figure
+f2 = figure;
 hold on
 plot(total)
 plot(tot_moulin_input + tot_source_input + Qmelt)
-legend({'Sum of internal components', 'Melt inputs'})
+legend({'Sum of internal components', 'Melt inputs'}, 'Location', 'northoutside')
 grid on
+print(f2, 'mass_residual', '-dpng', '-r600')
 
 figure
 hold on
@@ -224,7 +241,7 @@ grid on
 check_nodes = [3995,4125,4012];
 
 for ii=1:length(check_nodes)
-    figure
+    ff = figure;
     hold on
     nodeindex = check_nodes(ii);
     nodex = dmesh.tri.nodes(nodeindex, 1);
@@ -260,6 +277,6 @@ for ii=1:length(check_nodes)
     net = Qnode(tindex) - (exchange_node/2 + tot_edge_melt)
     tot_edge_melt
     title(sprintf('Q net: %.3f, Sum m_c: %.3f', Qnode(tindex), sum(edge_exchange(edge_indices, tindex))))
-
+    print(ff, sprintf('node_conservation_%d', check_nodes(ii)), '-dpng', '-r600');
 end
 

@@ -3,8 +3,8 @@ function pa = run_job(k_c, bump_scale, alpha, beta, omega, id)
 set_paths;
 addpath(genpath('../data/functions/'))
 
-fname_steady = sprintf('output_%03d_steady.mat', id);
-fname_seasonal = sprintf('output_%03d_seasonal.mat', id);
+fname_steady = sprintf('output_%03d_steady_tight.mat', id);
+fname_seasonal = sprintf('output_%03d_seasonal_tight.mat', id);
 
 % Fixed parameters
 config.k_s = 0.1;	% Turbulent conductivity
@@ -42,8 +42,12 @@ config.fname_seasonal = fname_seasonal;
 
 % Call GlaDS for each parameter set
 para_steady = get_para_steady(config);
+para_steady.numeric.ts.ode15s.opts.AbsTol = 1e-8;
+para_steady.numeric.ts.ode15s.opts.RelTol = 1e-8;
+para_steady.numeric.ian.tol_phi_fac = 1e-5;
 para_steady.physical;
 pa = para_steady;
+
 os = run_model(para_steady);
 
 save(fname_steady,'-struct', 'os');

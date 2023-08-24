@@ -1,4 +1,4 @@
-fname = './RUN/output_001_steady.mat';
+fname = './output_001_steady_tight.mat';
 
 set_paths
 addpath(genpath('../data/'));
