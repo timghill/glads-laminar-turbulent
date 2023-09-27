@@ -104,7 +104,7 @@ def main(fnames, figname, figsize=figsize,
 
         ax.text(0.05, 0.95, alphabet[ii], fontweight='bold', transform=ax.transAxes,
             va='top', ha='left')
-        ax.text(0.95, 0.95, labels[ii], fontweight='bold', transform=ax.transAxes,
+        ax.text(0.95, 0.95, labels[ii], transform=ax.transAxes,
             va='top', ha='right')
 
     cax1 = fig.add_subplot(cax_gs[1])
