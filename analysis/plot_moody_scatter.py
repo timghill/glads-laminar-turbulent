@@ -173,7 +173,7 @@ def plot_moody(fnames, fignames, colors=defaults.colors, omega=1/2000,
 
     ax_sctwin.loglog(Re_safe, darcy_friction.T, color='k', linewidth=0.5, zorder=0)
     ax_sctwin.loglog(Re_laminar, 64/Re_laminar, color='k', linewidth=0.5, zorder=-1)
-    ax_sctwin.loglog(Re_transition, 64/Re_transition, color='k', linewidth=0.5, linestyle='--')
+    ax_sctwin.loglog(Re_transition, 64/Re_transition, color='k', linewidth=0.5)
     ax_sctwin.set_yticks(list(np.arange(1e-2, 1e-1, 1e-2)) + list(np.arange(1e-1, 1e0 + 1e-1, 1e-1)))
     ax_sctwin.set_ylim([1e-2, 1e0])
     ax_sctwin.set_ylabel(r'Empirical friction factor $f_{\rm{D}}$', labelpad=4)
