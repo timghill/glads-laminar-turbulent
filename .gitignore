@@ -15,5 +15,6 @@ set_paths.m
 MISC/
 STATUSES/
 TMP/
+TMP
 RUN/
 OUTPUT/
