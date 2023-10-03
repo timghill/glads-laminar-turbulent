@@ -58,6 +58,9 @@ md.basalforcings.groundedice_melting_rate = 0.05*ones(md.mesh.numberofvertices, 
 md.basalforcings.geothermalflux = 0;
 md.hydrology.moulin_input = zeros(md.mesh.numberofvertices, 1);
 
+% Outputs
+md.hydrology.requested_outputs = {'default', 'HydrologyWaterVx', 'HydrologyWaterVy'};
+
 % Solve
 md.transient = deactivateall(md.transient);
 md.transient.ishydrology = 1;
@@ -71,7 +74,7 @@ md.timestepping.time_step = 6*hour/md.constants.yts;
 md.settings.output_frequency = 4*5;
 
 % md.timestepping.final_time = day*30/md.constants.yts;
-md.timestepping.final_time = 10;
+md.timestepping.final_time = 10*day/md.constants.yts;
 
 % Tolerances
 md.stressbalance.restol = 1e-3;
@@ -81,6 +84,6 @@ md.stressbalance.maxiter = 100;
 
 % Final options
 md.verbose.solution = 1;
-md.miscellaneous.name = 'seasonal'
+md.miscellaneous.name = 'seasonal';
 
 end

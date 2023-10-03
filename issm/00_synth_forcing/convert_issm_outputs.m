@@ -5,6 +5,9 @@ function convert_issm_outputs(mat_fname)
 
 set_paths
 nc_fname = replace(mat_fname, '.mat', '.nc');
+if isfile(nc_fname)
+    delete(nc_fname)
+end
 
 outs = load(mat_fname);
 md = outs.md;
@@ -16,6 +19,8 @@ nc.phi = [md.results.TransientSolution.HydraulicPotential];
 nc.h_s = [md.results.TransientSolution.HydrologySheetThickness];
 nc.S = [md.results.TransientSolution.ChannelArea];
 nc.Q = [md.results.TransientSolution.ChannelDischarge];
+nc.qx = [md.results.TransientSolution.HydrologyWaterVx].*nc.h_s;
+nc.qy = [md.results.TransientSolution.HydrologyWaterVy].*nc.h_s;
 
 
 % Parameters
@@ -66,6 +71,12 @@ ncwrite(nc_fname, 'phi', nc.phi);
 nccreate(nc_fname, 'h_s',...
     'Dimensions', {'nodes', n_nodes, 'time', n_time});
 ncwrite(nc_fname, 'h_s', nc.h_s);
+
+nccreate(nc_fname, 'qx', 'Dimensions', {'nodes', 'time'});
+ncwrite(nc_fname, 'qx', nc.qx);
+
+nccreate(nc_fname, 'qy', 'Dimensions', {'nodes', 'time'});
+ncwrite(nc_fname, 'qy', nc.qy);
 
 nccreate(nc_fname, 'S',...
     'Dimensions', {'edges', n_edges, 'time', n_time});
