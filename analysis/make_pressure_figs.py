@@ -58,18 +58,19 @@ fnames = ['../glads/00c_synth_marine/RUN/output_%03d_seasonal.nc'%caseid for cas
 figname = 'figures/aux/00c_pressure_seasonal_marine.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
     **synth_opts)
-
+"""
 # =============================================================================
 ## KAN forcing suite
 
 ## Case 01: Flat topo, KAN_L forcing
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+pattern = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/main/01_pressure_seasonal.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+"""
 ## Case 01: Flat topo, higher alpha
 cases = [3, 6, 2, 4, 5]
 pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
