@@ -31,11 +31,13 @@ synth_opts={'t_ticklabels':t_ticklabels[:-1],
 
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
-fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+print(fnames)
 figname = 'figures/main/00_pressure_seasonal.png'
 fig_00 = plot_pressure_maps_timeseries(fnames, figname, melt_forcing='SHMIPadj', Qmin=1, Qmax=100,
     **synth_opts)
 
+"""
 ## Case 00a: Flat topo, standard SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -165,5 +167,5 @@ fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/supplement/S01b_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
-
+"""
 plt.show()
