@@ -23,7 +23,7 @@ config.dmesh = dmesh;
 
 config.par = '../defaults.par';
 
-md = get_para_steady(config);
+md = get_para_seasonal(config);
 md=solve(md,'Transient');
 
 config.fname = 'output_001_steady.mat';
