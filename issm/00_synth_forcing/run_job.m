@@ -16,9 +16,10 @@ config.e_v = 1e-4;
 
 % config.omega = 0;
 
-dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
+% dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
+dmeshfile = '/home/tghill/SFU-code/laminar-turbulent/glads/data/mesh/mesh.mat';
 dmeshes = load(dmeshfile);
-dmesh = dmeshes.meshes{4}
+dmesh = dmeshes.meshes{4};
 config.dmesh = dmesh;
 
 config.par = '../defaults.par';
@@ -26,6 +27,11 @@ config.par = '../defaults.par';
 md = get_para_seasonal(config);
 md=solve(md,'Transient');
 
-config.fname = 'output_001_steady.mat';
+if ~isfolder('RUN/')
+    mkdir('RUN/')
+end
+config.fname = 'RUN/output_001_steady.mat';
 save(config.fname, 'md');
 
+convert_issm_outputs(config.fname);
+% delete(config.fname)
