@@ -8,13 +8,16 @@ config.k_c = 0.5;
 config.alpha_s = 5./4.;
 config.beta_s = 5./4.;
 
+config.alpha_c = 5./4.;
+config.beta_c = 3./2.;
+
 config.l_bed = 10;
 config.h_bed = 0.5;
 config.l_c = 10;
 
 config.e_v = 1e-4;
 
-% config.omega = 0;
+config.omega = 0;
 
 % dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
 dmeshfile = '/home/tghill/SFU-code/laminar-turbulent/glads/data/mesh/mesh.mat';
