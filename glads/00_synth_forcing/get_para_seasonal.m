@@ -1,69 +1,110 @@
-function para = get_para_seasonal(config)
-% para = get_para_diurnal(mesh_nr, n_moulin, omega, kc, ks, alpha, beta, hr, fname_steady, filename)
-%
-% Set para for diurnal runs
+function md = get_para_steady(config)
+% get_para_steady(config)
 
-fname_steady = config.fname_steady;
-filename = config.fname_seasonal;
+% Start model instance
+set_paths;
+md = model;
 
-%% Get defaults and unwrap
-addpath('../')
-para = get_para(config);
-[pm, pn, pin, ps, pst, psp, mesh, dmesh, pp, pt, psin, pmd, psmd, pcm] = unwrap_all_para(para);
+% Load mesh
+dmesh = config.dmesh;
+md.mesh = mesh2d();
+md.mesh.x = dmesh.tri.nodes(:, 1);
+md.mesh.y = dmesh.tri.nodes(:, 2);
+md.mesh.elements = dmesh.tri.connect;
+md = meshconvert(md, md.mesh.elements, md.mesh.x, md.mesh.y);
 
-pm.model_run_descript = 'Run seasonal';
-pm.save_filename = [pm.dir.model_save, filename];
+% Parameters and set glads hydrology
+md = setmask(md, '', '');
+md = parameterize(md, config.par);
 
-%% Time
-pt.start = 100*pp.year;
-pt.end   = pt.start + 2*pp.year;  % end time
-pt.out_t = pt.start : 1*pp.day : pt.end;
+md.hydrology = hydrologyglads();
 
-%% Synthetic bed topo
-addpath('../data/topo_x_squared_para/')
-pin.bed_elevation = make_anon_fn('@(xy, time) double(bed_elevation_flat(xy, time))');
-pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_flat(xy, time))');
+md.hydrology.sheet_conductivity = config.k_s*ones(md.mesh.numberofvertices, 1);
+md.hydrology.sheet_alpha = config.alpha_s;
+md.hydrology.sheet_beta = config.beta_s;
+md.hydrology.cavity_spacing = config.l_bed;
+md.hydrology.bump_height = config.h_bed*ones(md.mesh.numberofvertices, 1);
+md.hydrology.channel_sheet_width = config.l_c;
+md.hydrology.omega = config.omega;
+md.hydrology.englacial_void_ratio = config.e_v;
 
+md.hydrology.ischannels = 1;
+md.hydrology.channel_conductivity = config.k_c;
+md.hydrology.channel_alpha = 5./4.;
+md.hydrology.channel_beta = 3./2.;
 
-%% Source functions
-addpath('../data/shmip_melt/')
-n_moulin = config.n_moulin;
-moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
-catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
-ii_moulin = moulindata(:, 1) + 1;
-pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_seasonal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
+md.hydrology.requested_outputs = {'default', 'HydrologyWaterVx', 'HydrologyWaterVy'};
 
-%% Numerics
-st = {'ode15s', 'ode23s', 'ode23t', 'odebim'};  % can also use ode23t, ode23s but ode15s is probbaly best
-pn.ts.ode15s.stepper = st{1};
+% Initial conditions
+md.initialization.watercolumn = 0.2*md.hydrology.bump_height.*ones(md.mesh.numberofvertices, 1);
+md.initialization.channelarea = 0*ones(md.mesh.numberofedges, 1);
 
-%% Initial conditions from file
-% Since we are saving model runs as *.nc instead of *.mat,
-% we need to open the *.nc file and put the relevant
-% variables into a struct
+phi_bed = md.constants.g*md.materials.rho_freshwater*md.geometry.base;
+p_ice = md.constants.g*md.materials.rho_ice*md.geometry.thickness;
+md.initialization.hydraulic_potential = phi_bed + p_ice;
 
-IC_nc_fname = [pm.dir.model_save, fname_steady];
+md.initialization.vel = 30*ones(md.mesh.numberofvertices, 1);
+md.initialization.vx = -30*ones(md.mesh.numberofvertices, 1);
+md.initialization.vy = 0*ones(md.mesh.numberofvertices, 1);
 
-IC_phi = ncread(IC_nc_fname, 'phi');
-IC_h = ncread(IC_nc_fname, 'h_sheet');
-IC_S = ncread(IC_nc_fname, 'S_channel');
+% Boundary conditions
+md.hydrology.spcphi = NaN(md.mesh.numberofvertices, 1);
+pos = find(md.mesh.vertexonboundary & md.mesh.x==min(md.mesh.x));
+md.hydrology.spcphi(pos) = phi_bed(pos);
 
-% Need to non-dimensionalize these fields!
-pa_steady = get_para_steady(config);
-ps_steady = pa_steady.scale;
+md.hydrology.neumannflux = zeros(md.mesh.numberofelements, 1);
 
-IC_phi = IC_phi./ps_steady.phi;
-IC_h = IC_h./ps_steady.h;
-IC_S = IC_S./ps_steady.S;
+% Forcing
+md.hydrology.melt_flag = 1;
+md.basalforcings.groundedice_melting_rate = 0.05*ones(md.mesh.numberofvertices, 1);
+md.basalforcings.geothermalflux = 0;
 
-IC_fields = struct;
-IC_fields.phi = IC_phi(:, end);
-IC_fields.h_sheet = IC_h(:, end);
-IC_fields.S_channel = IC_S(:, end);
+n_moulin = 68;
+addpath('/home/tghill/SFU-code/laminar-turbulent/glads/data/shmip_melt/');
+addpath('/home/tghill/SFU-code/laminar-turbulent/glads/data/moulins/');
+moulindata = readmatrix(sprintf('/home/tghill/SFU-code/laminar-turbulent/glads/data/moulins/moulins_%03d.txt', n_moulin));
+catchmap = readmatrix(sprintf('/home/tghill/SFU-code/laminar-turbulent/glads/data/moulins/catchment_map_%03d.txt', n_moulin));
+ii_moulin = moulindata(:,1) + 1;
 
-pm.IC_from_file = true;
-pm.file.IC_file = IC_fields;
+addpath(genpath('../../glads/data/'));
+pin.bed_elevation = @(xy, t) bed_elevation_flat(xy, t);
+pin.ice_thickness = @(xy, t) ice_thickness_flat(xy, t);
 
-%% Nondimensionalize and re-wrap
-[psp, pst, psmd, psin, mesh] = scale_para(pp, pt, pmd, pin, dmesh, ps);
-para = wrap_para(pm, pn, pin, ps, pt, pst, psp, pp, mesh, dmesh, psin, pmd, psmd, pcm);
+source_term_c = @(time) source_moulin_shmip_adj_seasonal(time, pin, dmesh, ii_moulin, catchmap, 0);
+tt_melt = 0:(1/365):1;
+md.hydrology.moulin_input = zeros(md.mesh.numberofvertices+1, length(tt_melt));
+for ii=1:length(tt_melt)
+    ti_seconds = tt_melt(ii)*md.constants.yts;
+    md.hydrology.moulin_input(1:md.mesh.numberofvertices, ii) = source_term_c(ti_seconds);
+end
+
+md.hydrology.moulin_input(end, :) = tt_melt;
+
+% Solve
+md.transient = deactivateall(md.transient);
+md.transient.ishydrology = 1;
+
+md.cluster = generic('np', 1); % CHANGEME
+
+% Timestepping
+hour = 3600;
+day = 86400;
+dt_hours = 2;
+out_freq = (24*5/dt_hours);
+md.timestepping.time_step = dt_hours*hour/md.constants.yts;
+md.settings.output_frequency = out_freq;
+
+% md.timestepping.final_time = day*30/md.constants.yts;
+md.timestepping.final_time = 1;
+
+% Tolerances
+md.stressbalance.restol = 1e-3;
+md.stressbalance.reltol = nan;
+md.stressbalance.abstol = nan;
+md.stressbalance.maxiter = 100;
+
+% Final options
+md.verbose.solution = 1;
+md.miscellaneous.name = 'seasonal';
+
+end

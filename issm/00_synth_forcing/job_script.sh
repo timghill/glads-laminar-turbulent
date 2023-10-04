@@ -7,4 +7,6 @@
 #SBATCH --mail-type=FAIL,END
 
 module load matlab/2022b
-matlab -nodesktop -nosplash -r "run_job; exit"
+matlab -nodesktop -nosplash -r "run_job(0.05, 0.5, 5./4., 3./2., 1e-4, 0); exit"
+
+

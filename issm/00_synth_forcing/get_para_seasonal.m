@@ -2,6 +2,7 @@ function md = get_para_steady(config)
 % get_para_steady(config)
 
 % Start model instance
+addpath('../');
 set_paths;
 md = model;
 
@@ -20,18 +21,25 @@ md = parameterize(md, config.par);
 md.hydrology = hydrologyglads();
 
 md.hydrology.sheet_conductivity = config.k_s*ones(md.mesh.numberofvertices, 1);
-% md.hydrology.sheet_alpha = config.alpha_s;
-% md.hydrology.sheet_beta = config.beta_s;
+md.hydrology.sheet_alpha = config.alpha_s;
+md.hydrology.sheet_beta = config.beta_s;
 md.hydrology.cavity_spacing = config.l_bed;
 md.hydrology.bump_height = config.h_bed*ones(md.mesh.numberofvertices, 1);
 md.hydrology.channel_sheet_width = config.l_c;
-% md.hydrology.omega = config.omega;
+md.hydrology.omega = config.omega;
 md.hydrology.englacial_void_ratio = config.e_v;
+if md.hydrology.omega>0
+    md.hydrology.istransition=1;
+else
+    md.hydrology.istransition=0;
+end
 
 md.hydrology.ischannels = 1;
 md.hydrology.channel_conductivity = config.k_c;
-% md.hydrology.channel_alpha = 5./4.;
-% md.hydrology.channel_beta = 3./2.;
+md.hydrology.channel_alpha = 5./4.;
+md.hydrology.channel_beta = 3./2.;
+
+md.hydrology.requested_outputs = {'default', 'HydrologyWaterVx', 'HydrologyWaterVy'};
 
 % Initial conditions
 md.initialization.watercolumn = 0.2*md.hydrology.bump_height.*ones(md.mesh.numberofvertices, 1);
@@ -93,7 +101,7 @@ md.timestepping.time_step = dt_hours*hour/md.constants.yts;
 md.settings.output_frequency = out_freq;
 
 % md.timestepping.final_time = day*30/md.constants.yts;
-md.timestepping.final_time = 1;
+md.timestepping.final_time = 10;
 
 % Tolerances
 md.stressbalance.restol = 1e-3;

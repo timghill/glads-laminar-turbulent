@@ -1,12 +1,12 @@
-% function run_job(k_s, k_c, alpha_s, e_v, omega)
+function run_job(k_s, k_c, alpha_s, beta_s, e_v, omega)
 % run_job(k_s, k_c, alpha_s, alpha_c, omega)
 % Execute steady and seasonal ISSM-GlaDS simulations
 
-config.k_s = 0.05;
-config.k_c = 0.5;
+config.k_s = k_s;
+config.k_c = k_c;
 
-config.alpha_s = 5./4.;
-config.beta_s = 5./4.;
+config.alpha_s = alpha_s;
+config.beta_s = beta_s;
 
 config.alpha_c = 5./4.;
 config.beta_c = 3./2.;
@@ -15,9 +15,9 @@ config.l_bed = 10;
 config.h_bed = 0.5;
 config.l_c = 10;
 
-config.e_v = 1e-4;
+config.e_v = e_v;
 
-config.omega = 0;
+config.omega = omega;
 
 % dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
 dmeshfile = '/home/tghill/SFU-code/laminar-turbulent/glads/data/mesh/mesh.mat';
@@ -36,5 +36,5 @@ end
 config.fname = 'RUN/output_001_steady.mat';
 save(config.fname, 'md');
 
-convert_issm_outputs(config.fname);
+% convert_issm_outputs(config.fname);
 % delete(config.fname)
