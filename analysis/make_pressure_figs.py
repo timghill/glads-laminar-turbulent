@@ -95,10 +95,11 @@ figname ='figures/supplement/01a_pressure_seasonal_KANadj.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='KANadj',
      **KAN_opts,
      ff_ylim=[0, 2.25], ff_yticks=[0, 0.5, 1, 1.5, 2])
+"""
 
 ## Case 01b: Flat topo, KAN_L forcing, reduced e_v
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/01b_kan_forcing_ev/RUN/output_%03d_seasonal.nc'
+pattern = 'home/tghill/scratch/laminar-turbulent/glads/01b_kan_forcing_ev/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/supplement/01b_pressure_seasonal_ev.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
@@ -107,12 +108,13 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
 
 ## Case 01d: Basal melt rate
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
+pattern = 'home/tghill/scratch/laminar-turbulent/glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/aux/01d_pressure_seasonal_basalmelt.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+"""
 # =============================================================================
 ## Bed topo suite
 
