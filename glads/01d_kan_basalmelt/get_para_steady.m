@@ -5,7 +5,7 @@ function para = get_para_steady(config)
 
 %% Get defaults and unwrap
 addpath('../')
-para = get_para(config);
+para = get_para_basalmelt(config);
 [pm, pn, pin, ps, pst, psp, mesh, dmesh, pp, pt, psin, pmd, psmd, pcm] = unwrap_all_para(para);
 
 %% Time
@@ -20,7 +20,6 @@ catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin
 ii_moulin = moulindata(:, 1) + 1;
 
 addpath(genpath('../data/kan_l_melt/'))
-pin.source_term_s = make_anon_fn('@(xy, time) double(0.05/86400/365 + 0*xy(:, 1));');
 pin.source_term_c = make_anon_fn('@(time) double(KAN_moulin_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
 %% Nondimensionalize and re-wrap

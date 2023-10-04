@@ -17,7 +17,7 @@ import defaults
 
 models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
 
-def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
+def plot_moody(fnames, fignames, colors=defaults.colors, omega=1/2000,
     nu=1.79e-6, k_lam=0.1, h_0=0.5, rhow=1000, models=models):
 
     # fig, ax_scatter = plt.subplots()
@@ -173,7 +173,7 @@ def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
 
     ax_sctwin.loglog(Re_safe, darcy_friction.T, color='k', linewidth=0.5, zorder=0)
     ax_sctwin.loglog(Re_laminar, 64/Re_laminar, color='k', linewidth=0.5, zorder=-1)
-    ax_sctwin.loglog(Re_transition, 64/Re_transition, color='k', linewidth=0.5, linestyle='--')
+    ax_sctwin.loglog(Re_transition, 64/Re_transition, color='k', linewidth=0.5)
     ax_sctwin.set_yticks(list(np.arange(1e-2, 1e-1, 1e-2)) + list(np.arange(1e-1, 1e0 + 1e-1, 1e-1)))
     ax_sctwin.set_ylim([1e-2, 1e0])
     ax_sctwin.set_ylabel(r'Empirical friction factor $f_{\rm{D}}$', labelpad=4)
@@ -197,7 +197,7 @@ def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
     ax_scatter.set_yticks(yticks)
 
 
-    ax_scatter.text(1.5e1, 1.2e1, 'Laminar', rotation=0, fontweight='bold', color='gray')
+    ax_scatter.text(1.5e1, 1.8e1, 'Laminar', rotation=0, fontweight='bold', color='gray')
     ax_scatter.text(1e4, 50, 'Turbulent', rotation=0, fontweight='bold', color='gray')
 
 
@@ -211,14 +211,14 @@ def plot_moody(fnames, figname, colors=defaults.colors, omega=1/2000,
 # plt.show()
 
 if __name__=='__main__':
-    cases = [1, 2, 3, 4, 5]
-    fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-    models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
-    fignames = ['figures/main/00_moody_composite_theory.png', 'figures/main/00_moody_composite_scatter.png']
-    plot_moody(fnames, fignames, models=models)
+    #cases = [1, 2, 3, 4, 5]
+    #fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+    #models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
+    #fignames = ['figures/main/00_moody_composite_theory.png', 'figures/main/00_moody_composite_scatter.png']
+    #plot_moody(fnames, fignames, models=models)
 
-    # cases = [1, 2, 3, 4, 5]
-    # fnames = ['../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
-    # models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
-    # figname = '01_moody_composite_scatter.png'
-    # plot_moody(fnames, figname, models=models)
+    cases = [401, 402, 403, 404, 405]
+    fnames = ['../glads/dev_01_kan_forcing_scaling/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+    models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
+    figname = ['tmp.png', 'figures/aux/dev_01_moody_composite_scatter_40X.png']
+    plot_moody(fnames, figname, models=models, k_lam=0.05)

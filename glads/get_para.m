@@ -20,7 +20,7 @@ pm.git_revision_model_runs = strtrim(git('rev-parse --verify HEAD'));
 pm.verbosity = 4;   % Lots of output details
 
 %% Model output directories
-pm.dir.model_save = ['./', 'RUN', '/'];
+pm.dir.model_save = './RUN/';
 pm.save_filename = [pm.dir.model_save, filename];
 pm.save_filename_root = '';
 pm.save_index_file = 0;
@@ -57,6 +57,13 @@ pp.creep_const_s_soft = config.creep_const_soft; % Applied when N<0
 % Set englacial porosity
 e_v = config.e_v;
 pin.e_v = make_anon_fn('@(xy) double(0*xy(:,1) + e_v)',e_v);
+
+% Basal velocity
+u_bed = 30/pp.year;
+pin.u_bed = make_anon_fn('@(xy) double(0*xy(:, 1) + u_bed)', u_bed);
+
+% Basal melt rate
+pin.source_term_s = make_anon_fn('@(xy, time) double(0.05/86400/365 + 0*xy(:, 1));');
 
 pp.float_frac = 0; % used below for BC
 

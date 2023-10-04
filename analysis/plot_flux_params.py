@@ -16,7 +16,7 @@ rhoi = 910
 g = 9.8
 
 # Parameters
-k_s = 0.1       # Laminar conductivity
+k_s = 0.05      # Laminar conductivity
 omega = 1/2000  # Transition parameter
 h_bed = 0.5
 

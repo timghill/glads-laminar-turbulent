@@ -2,13 +2,13 @@ scenarios = {'steady', 'seasonal'};
 scenario = scenarios{2};
 switch scenario
     case 'steady'
-        fname = '../../glads/00_synth_forcing/RUN/output_001_steady.nc';
+        fname = '../../glads/00_synth_forcing/RUN/output_003_steady.nc';
     case 'seasonal'
-        fname = '../../glads/00_synth_forcing/RUN/output_001_seasonal.nc';
+        fname = '../../glads/00_synth_forcing/RUN/output_003_seasonal.nc';
 end
 
 addpath(genpath('../../glads/data/'));
-addpath(genpath('/home/tghill/SFU-code/glads/GlaDS-matlab/'));
+addpath(genpath('~/SFU-code/glads/GlaDS-matlab/'));
 addpath('../../glads/00_synth_forcing/');
 load_glads_paths;
 
@@ -95,6 +95,7 @@ hrate = [hrate, 0];
 
 n_node = dmesh.tri.n_nodes;
 Qout = 0;
+Qarr = sparse(dmesh.tri.n_nodes, dmesh.tri.n_edges);
 Qboundary = [];
 for ii=1:n_node
     if dmesh.tri.bmark(ii)==1
@@ -240,15 +241,14 @@ grid on
 % Check mass conservation around nodes
 check_nodes = [3995,4125,4012];
 
-for ii=1:length(check_nodes)
-    ff = figure;
-    hold on
-    nodeindex = check_nodes(ii);
+for ii=1:dmesh.tri.n_nodes
+%     ff = figure;
+%     hold on
+    nodeindex = ii;
     nodex = dmesh.tri.nodes(nodeindex, 1);
     nodey = dmesh.tri.nodes(nodeindex, 2);
-    plot(dmesh.tri.nodes(nodeindex, 1), dmesh.tri.nodes(nodeindex, 2), 'ko')
     edge_indices = dmesh.tri.connect_edge_inv{nodeindex};
-    fprintf('Num edges: %d\n', length(edge_indices));
+%     fprintf('Num edges: %d\n', length(edge_indices));
     Q_neigh = Q(edge_indices, :);
     Q_signs = zeros(length(edge_indices), 1);
     tot_edge_melt = 0;
@@ -262,21 +262,58 @@ for ii=1:length(check_nodes)
         
         edgexy = dmesh.tri.edge_midpoints(edge_indices(jj), :);
         Q_signed = Q_neigh(jj, tindex).*Q_signs(jj);
-        if Q_signed>0
-            textcolor = 'k';
-        else
-            textcolor = 'r';
-        end
-        edge_melt = Xi(edge_indices(jj), tindex).*dmesh.tri.edge_length(edge_indices(jj))/334e3/1e3;
-        tot_edge_melt = tot_edge_melt + edge_melt;
-        text(edgexy(1), edgexy(2), num2str(Q_signed), 'Color', textcolor);
-        plot([nodex, edgexy(1)], [nodey, edgexy(2)], 'k')
+        Qarr(ii, edge_indices(jj)) = Q_signed;
     end
-    Qnode = sum(Q_neigh.*Q_signs, 1);
-    exchange_node = sum(edge_exchange(edge_indices, tindex));
-    net = Qnode(tindex) - (exchange_node/2 + tot_edge_melt)
-    tot_edge_melt
-    title(sprintf('Q net: %.3f, Sum m_c: %.3f', Qnode(tindex), sum(edge_exchange(edge_indices, tindex))))
-    print(ff, sprintf('node_conservation_%d', check_nodes(ii)), '-dpng', '-r600');
 end
+%         if ismember(ii, check_nodes)
+%         plot(dmesh.tri.nodes(nodeindex, 1), dmesh.tri.nodes(nodeindex, 2), 'ko')
+%         if Q_signed>0
+%             textcolor = 'k';
+%         else
+%             textcolor = 'r';
+%         end
+%         edge_melt = Xi(edge_indices(jj), tindex).*dmesh.tri.edge_length(edge_indices(jj))/334e3/1e3;
+%         tot_edge_melt = tot_edge_melt + edge_melt;
+%         text(edgexy(1), edgexy(2), num2str(Q_signed), 'Color', textcolor);
+%         plot([nodex, edgexy(1)], [nodey, edgexy(2)], 'k')
+%         end
+%     Qnode = sum(Q_neigh.*Q_signs, 1);
+%     exchange_node = sum(edge_exchange(edge_indices, tindex));
+%     net = Qnode(tindex) - (exchange_node/2 + tot_edge_melt);
+%     tot_edge_melt;
+%     title(sprintf('Q net: %.3f, Sum m_c: %.3f', Qnode(tindex), sum(edge_exchange(edge_indices, tindex))))
+%     print(ff, sprintf('node_conservation_%d', check_nodes(ii)), '-dpng', '-r600');
+% end
+% end
+
+Q_cmap = cmocean('turbid');
+Qmin = 1; Qmax = 100;
+
+figure('Units', 'inches', 'Position', [2, 2, 8, 4])
+T = tiledlayout(1, 1);
+ax = nexttile;
+hold on
+Qplot = abs(Q(:, tindex));
+Qplot(Qplot<1) = nan;
+
+Q_sum = full(sum(Qarr, 2));
+patch('Faces', dmesh.tri.connect, 'Vertices', dmesh.tri.nodes, 'FaceVertexCData', Q_sum, 'FaceColor', 'flat', 'EdgeColor', 'none')
+cmocean('balance')
+clim([-1, 1])
+axis image
+cb = colorbar(ax);
+cb.Label.String = 'Q_{\rm{net}} (m^3 s^{-1})';
+title('MATLAB-GlaDS')
+
+cax = axes(T);
+cax.Visible=false;
+edge_plot(gca, dmesh, Qplot, Q_cmap, [1, 100], 'vmin', 1)
+colormap(cax, Q_cmap);
+cb2 = colorbar(cax);
+cb2.Layout.Tile = 'North';
+cb2.Label.String = 'Q (m^3 s^{-1})';
+% cb2.Ticks = [1, 5, 10, 15, 20];
+clim(cax, [Qmin, Qmax])
+
+print('MAT_glads_q_net', '-dpng', '-r600')
 

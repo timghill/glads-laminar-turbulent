@@ -75,11 +75,11 @@ md.cluster = generic('np', 1); % CHANGEME
 % Timestepping
 hour = 3600;
 day = 86400;
-md.timestepping.time_step = 6*hour/md.constants.yts;
-md.settings.output_frequency = 4*5;
+md.timestepping.time_step = 3*hour/md.constants.yts;
+md.settings.output_frequency = 8*5;
 
 % md.timestepping.final_time = day*30/md.constants.yts;
-md.timestepping.final_time = 10*day/md.constants.yts;
+md.timestepping.final_time = 5;
 
 % Tolerances
 md.stressbalance.restol = 1e-3;

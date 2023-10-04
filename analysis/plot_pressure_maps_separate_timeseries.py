@@ -40,7 +40,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.5, 1, 1.5],
     melt_forcing='SHMIP', fill_between=False,
     lws=defaults.linewidths, linestyles=defaults.linestyles,
-    zorders=defaults.zorders):
+    zorders=defaults.zorders, prefix='/home/tghill/scratch/laminar-turbulent/'):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -106,14 +106,14 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
     # Sort out melt forcing
     if melt_forcing=='KAN':
-        tt_temp = np.loadtxt('../glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
+        tt_temp = np.loadtxt(prefix + 'glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
         tt_days = tt_temp[:, 0]
         temp_sl = tt_temp[:, 1]
         lr = -0.005
         DT = lr*390
         temp_fun = lambda t: np.maximum(0*t, DT + np.interp(t%1, tt_days/365, temp_sl, left=0, right=0))
     elif melt_forcing=='KANadj':
-        tt_temp = np.loadtxt('../glads/data/kan_l_melt/KAN_L_2014_temp_adjusted.txt', delimiter=',')
+        tt_temp = np.loadtxt(prefix + 'glads/data/kan_l_melt/KAN_L_2014_temp_adjusted.txt', delimiter=',')
         tt_days = tt_temp[:, 0]
         temp_sl = tt_temp[:, 1]
         lr = -0.0075
@@ -182,7 +182,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
             tt = out['time'][:].data/86400/365 - 100
 
-        with nc.Dataset('../glads/data/mesh/mesh_04.nc', 'r') as dmesh:
+        with nc.Dataset(prefix + 'glads/data/mesh/mesh_04.nc', 'r') as dmesh:
             node_area = dmesh['tri/area_nodes'][:].data
 
         # Initialize triangulation for faster plotting
