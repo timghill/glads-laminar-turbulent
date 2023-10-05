@@ -123,7 +123,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
         qs_xy = out['qs'][:].data.T
         qs = np.sqrt(qs_xy[:, 0]**2 + qs_xy[:, 1]**2)
 
-        with nc.Dataset('../glads/data/mesh/mesh_04.nc', 'r') as dmesh:
+        with nc.Dataset('/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh_04.nc', 'r') as dmesh:
             node_area = (dmesh['tri/area_nodes'][:].data)
             el_area = (dmesh['tri/area'][:].data)
 
