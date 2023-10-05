@@ -23,11 +23,6 @@ addpath(genpath('../data/kan_l_melt/'))
 pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
 pin.source_term_c = make_anon_fn('@(time) double(KAN_moulin_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
-% addpath(genpath('../data/shmip_melt/'))
-% pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
-% pin.source_term_c = make_anon_fn('@(time) double(source_moulin_shmip_adj_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
-
-
 %% Nondimensionalize and re-wrap
 [psp, pst, psmd, psin, mesh] = scale_para(pp, pt, pmd, pin, dmesh, ps);
 para = wrap_para(pm, pn, pin, ps, pt, pst, psp, pp, mesh, dmesh, psin, pmd, psmd, pcm);
