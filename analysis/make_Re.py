@@ -11,10 +11,10 @@ from plot_Re import plot_Re
 
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
-fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
 figname = 'figures/main/00_Re_seasonal.png'
 fig_00 = plot_Re(fnames, figname, Qmin=1, Qmax=100, Re_ylim=(0, 4e3), tslice=530)
-
+"""
 ## Case 00a: Flat topo, SHMIP forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['../glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -99,4 +99,4 @@ figname = 'figures/supplement/S01b_Re_parameter.png'
 fig_S01 = plot_Re(fnames, figname, Qmin=1, Re_ylim=(0, 4e3), tslice=365+174)
 
 # plt.show()
-
+"""

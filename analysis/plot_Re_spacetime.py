@@ -32,7 +32,7 @@ def main(fnames, figname, figsize=figsize,
         hspace=0.2)
     
 
-    dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
+    dmesh = nc.Dataset('/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/glads/data/mesh/mesh_04.nc')
     nodes = dmesh['tri/nodes'][:].data.T
     connect = dmesh['tri/connect'][:].data.T
     # elements = dmesh['tri/elements'][:].data.T
@@ -124,29 +124,10 @@ def main(fnames, figname, figsize=figsize,
 
 if __name__=='__main__':
 
-    # cases = [101, 102, 103, 104, 105]
-    # fpattern = '../glads/dev_00_synth_forcing_scaling/RUN/output_%03d_seasonal.nc'
-    # fnames = [fpattern%caseid for caseid in cases]
-    # figname = 'figures/aux/00_Re_spacetime.png'
-    # main(fnames, figname, Re_ylim=(0, 4e3))
-
-    cases = [401, 402, 403, 404, 405]
-    fpattern = '../glads/dev_01_kan_forcing_scaling/RUN/output_%03d_seasonal.nc'
-    fnames = [fpattern%caseid for caseid in cases]
-    figname = 'figures/aux/01_Re_spacetime_40X.png'
-    main(fnames, figname, Re_ylim=(0, 4e3))
-
     cases = [1, 2, 3, 4, 5]
-    fpattern = '../glads/dev_01_kan_forcing_scaling/RUN/output_%03d_seasonal.nc'
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern%caseid for caseid in cases]
-    figname = 'figures/aux/01_Re_spacetime_00X.png'
-    main(fnames, figname, Re_ylim=(0, 4e3))
-
-
-    cases = [501, 502, 503, 504, 505]
-    fpattern = '../glads/dev_01_kan_forcing_scaling/RUN/output_%03d_seasonal.nc'
-    fnames = [fpattern%caseid for caseid in cases]
-    figname = 'figures/aux/01_Re_spacetime_50X.png'
+    figname = 'figures/main/00_synth_Re.png'
     main(fnames, figname, Re_ylim=(0, 4e3))
 
     
