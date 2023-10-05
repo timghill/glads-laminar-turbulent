@@ -15,12 +15,13 @@ config.l_bed = 10;
 config.h_bed = 0.5;
 config.l_c = 10;
 
-config.e_v = e_v;
+config.e_v = 1e-4;
 
 config.omega = omega;
 
-dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
+% dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
 % dmeshfile = '/home/tghill/SFU-code/laminar-turbulent/glads/data/mesh/mesh.mat';
+dmeshfile = '../../glads/data/mesh/mesh.mat';
 dmeshes = load(dmeshfile);
 dmesh = dmeshes.meshes{4};
 config.dmesh = dmesh;
