@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name="Seas farm"
-#SBATCH --time=00-04:0:00
-#SBATCH --mem=2G
+#SBATCH --job-name="Seas resubmit"
+#SBATCH --time=00-03:0:00
+#SBATCH --mem=8G
 #SBATCH --account=def-gflowers
 #SBATCH --mail-user=tha111@sfu.ca
 #SBATCH --mail-type=FAIL,END
@@ -9,4 +9,4 @@
 
 
 # Don't change this line:
-task.run
+autojob.run

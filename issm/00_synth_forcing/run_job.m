@@ -1,5 +1,5 @@
-function run_job(k_s, k_c, alpha_s, beta_s, e_v, omega)
-% run_job(k_s, k_c, alpha_s, alpha_c, omega)
+function run_job(k_c, k_s, alpha_s, beta_s, omega, id)
+% run_job(k_c, k_s, alpha_s, beta_s, omega, id)
 % Execute steady and seasonal ISSM-GlaDS simulations
 
 config.k_s = k_s;
@@ -19,8 +19,8 @@ config.e_v = e_v;
 
 config.omega = omega;
 
-% dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
-dmeshfile = '/home/tghill/SFU-code/laminar-turbulent/glads/data/mesh/mesh.mat';
+dmeshfile = '/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh.mat';
+% dmeshfile = '/home/tghill/SFU-code/laminar-turbulent/glads/data/mesh/mesh.mat';
 dmeshes = load(dmeshfile);
 dmesh = dmeshes.meshes{4};
 config.dmesh = dmesh;
@@ -33,8 +33,6 @@ md=solve(md,'Transient');
 if ~isfolder('RUN/')
     mkdir('RUN/')
 end
-config.fname = 'RUN/output_001_steady.mat';
+config.fname = sprintf('RUN/output_%03d_steady.mat', id);
 save(config.fname, 'md');
 
-% convert_issm_outputs(config.fname);
-% delete(config.fname)
