@@ -101,7 +101,7 @@ md.timestepping.time_step = dt_hours*hour/md.constants.yts;
 md.settings.output_frequency = out_freq;
 
 % md.timestepping.final_time = day*30/md.constants.yts;
-md.timestepping.final_time = 10;
+md.timestepping.final_time = 1;
 
 % Tolerances
 md.stressbalance.restol = 1e-3;
@@ -111,6 +111,6 @@ md.stressbalance.maxiter = 100;
 
 % Final options
 md.verbose.solution = 1;
-md.miscellaneous.name = 'seasonal';
+md.miscellaneous.name = config.name;
 
 end

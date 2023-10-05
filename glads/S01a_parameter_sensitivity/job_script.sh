@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Sens01"
+#SBATCH --job-name="Sens02"
 #SBATCH --time=00-24:0:00
 #SBATCH --mem=4G
 #SBATCH --account=def-gflowers

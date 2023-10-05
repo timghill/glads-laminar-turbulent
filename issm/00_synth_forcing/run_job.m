@@ -27,6 +27,7 @@ dmesh = dmeshes.meshes{4};
 config.dmesh = dmesh;
 
 config.par = '../defaults.par';
+config.name = sprintf('seasonal_%03d', id);
 
 md = get_para_seasonal(config);
 md=solve(md,'Transient');

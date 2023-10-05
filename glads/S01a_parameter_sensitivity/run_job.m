@@ -9,7 +9,7 @@ fname_seasonal = sprintf('output_%03d_seasonal.nc', id);
 
 % Fixed parameters
 config.k_s = k_s;	% Turbulent conductivity
-config.l_c = 10;
+config.l_c = 25;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
 config.mesh_nr = 4;
