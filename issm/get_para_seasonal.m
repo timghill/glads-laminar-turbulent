@@ -86,7 +86,6 @@ end
 
 md.hydrology.moulin_input(end, :) = tt_melt;
 
-
 % Solve
 md.transient = deactivateall(md.transient);
 md.transient.ishydrology = 1;
@@ -100,9 +99,6 @@ dt_hours = 2;
 out_freq = (24*5/dt_hours);
 md.timestepping.time_step = dt_hours*hour/md.constants.yts;
 md.settings.output_frequency = out_freq;
-md.timestepping.cycle_forcing = 1;
-md.timestepping.average_forcing = 1;
-md.timestepping.interp_forcing = 1;
 
 % md.timestepping.final_time = day*30/md.constants.yts;
 md.timestepping.final_time = 10;
