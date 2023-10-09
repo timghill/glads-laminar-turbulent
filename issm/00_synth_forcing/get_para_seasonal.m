@@ -77,7 +77,7 @@ pin.bed_elevation = @(xy, t) bed_elevation_flat(xy, t);
 pin.ice_thickness = @(xy, t) ice_thickness_flat(xy, t);
 
 source_term_c = @(time) source_moulin_shmip_adj_seasonal(time, pin, dmesh, ii_moulin, catchmap, 0);
-tt_melt = 0:(1/365):1;
+tt_melt = 0:(1/365):10;
 md.hydrology.moulin_input = zeros(md.mesh.numberofvertices+1, length(tt_melt));
 for ii=1:length(tt_melt)
     ti_seconds = (tt_melt(ii)+100)*md.constants.yts;
