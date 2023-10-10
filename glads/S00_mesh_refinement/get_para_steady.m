@@ -24,11 +24,7 @@ pin.ice_thickness = make_anon_fn('@(xy, time) double(ice_thickness_flat(xy, time
 n_moulin = config.n_moulin;
 
 addpath(genpath('./data/shmip_melt/'))
-pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
 pin.source_term_c = make_anon_fn('@(time) double(source_mesh_refinement(time, pin, dmesh));', pin, dmesh);
-
-% pin.source_term_s = make_anon_fn('@(xy, time) double(source_mesh_refinement(time, xy, pin));', pin);
-
 
 %% Nondimensionalize and re-wrap
 [psp, pst, psmd, psin, mesh] = scale_para(pp, pt, pmd, pin, dmesh, ps);

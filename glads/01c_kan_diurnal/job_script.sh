@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Seas farm"
+#SBATCH --job-name="Diurnal"
 #SBATCH --time=03-0:0:00
 #SBATCH --mem=4G
 #SBATCH --account=def-gflowers

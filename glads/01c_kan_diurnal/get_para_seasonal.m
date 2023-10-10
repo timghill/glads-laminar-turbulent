@@ -40,9 +40,6 @@ moulindata = readmatrix(sprintf('../data/moulins/moulins_%03d.txt', n_moulin));
 catchmap = readmatrix(sprintf('../data/moulins/catchment_map_%03d.txt', n_moulin));
 ii_moulin = moulindata(:, 1) + 1;
 
-% Distributed basal melt
-pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400/365 + 0*xy(:, 1));');
-
 % Moulin inputs will need to be adjusted for diurnal simulations
 pin.source_term_c = make_anon_fn('@(time) double(KAN_moulin_diurnal(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
 
