@@ -149,7 +149,7 @@ if __name__=='__main__':
     main(fnames, figname, Re_ylim=(0, 4e3))
 
     cases = [1, 2, 3, 4, 5]
-    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/S01b_parameter_sensitivity/RUN.0/output_%03d_seasonal.nc'
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern%caseid for caseid in cases]
     figname = 'figures/aux/S01b_Re.png'
     main(fnames, figname, Re_ylim=(0, 4e3))
