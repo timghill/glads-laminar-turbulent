@@ -32,9 +32,11 @@ def quantify_floatation(fnames, figname, tslices=None,
     if x_bands is None:
         ff_winters = np.zeros((len(fnames), 1))
         ff_summers = np.zeros((len(fnames), 1))
+        ff_maxs = np.zeros((len(fnames), 1))
     else:
         ff_winters = np.zeros((len(fnames), len(x_bands)))
         ff_summers = np.zeros((len(fnames), len(x_bands)))
+        ff_maxs = np.zeros((len(fnames), len(x_bands)))
         ff_days = np.zeros((len(fnames), len(x_bands)))
 
 
@@ -85,7 +87,7 @@ def quantify_floatation(fnames, figname, tslices=None,
                 ff_band_avg = np.sum(ff[mask]*(area_nodes[mask]), axis=0)/np.sum(area_nodes[mask])
 
                 ff_winter = np.mean(ff_band_avg[tslices[0]:tslices[1]])
-                # ff_summer = np.max(ff_band_avg)
+                ff_max = np.max(ff_band_avg)
                 summer_slice = ff_band_avg[tslices[2]:tslices[3]]
                 ff_summer = np.percentile(summer_slice, 95)
 
@@ -93,6 +95,7 @@ def quantify_floatation(fnames, figname, tslices=None,
                 # print(ff_band_avg[tslices[2]:tslices[3]])
                 ff_winters[i, k] = ff_winter
                 ff_summers[i, k] = ff_summer
+                ff_maxs[i, k] = ff_max
                 ff_days[i, k] = days_overpressure
                 
                 tt = time/86400 - 100*365
@@ -113,7 +116,7 @@ def quantify_floatation(fnames, figname, tslices=None,
         ax.fill_betweenx([0, 2], [tslices[2], tslices[2]], [tslices[3], tslices[3]], color='blue', alpha=0.2)
     fig.tight_layout()
     fig.savefig(figname, dpi=600)
-    return (ff_winters, ff_summers, ff_days)
+    return (ff_winters, ff_summers, ff_maxs, ff_days)
 
 print('-------------------------------------------------')
 print('    SYNTHETIC (case 00)')
@@ -122,12 +125,14 @@ cases = [1, 2, 3, 4, 5]
 synth_dir = '/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [synth_dir % caseid for caseid in cases]
 figname = 'stats_synth.png'
-winter, summer, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
+winter, summer, maxs, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
     tslices=synth_winter_tindex, labels=labels)
 print('Winter:')
 print(winter.T)
 print('Summer:')
 print(summer.T)
+print('Max:')
+print(maxs.T)
 print('Days overpressure:')
 print(days.T)
 
@@ -139,12 +144,14 @@ cases = [1, 2, 3, 4, 5]
 kan_dir = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [kan_dir % caseid for caseid in cases]
 figname = 'stats_KAN.png'
-winter, summer, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
+winter, summer, maxs, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
     tslices=KAN_winter_tindex, labels=labels)
 print('Winter:')
 print(winter.T)
 print('Summer:')
 print(summer.T)
+print('Max:')
+print(maxs.T)
 print('Days overpressure:')
 print(days.T)
 
