@@ -34,7 +34,7 @@ def plot_issm(mat_fnames, issm_fnames, figname,
             N_issm = idata['N'][:].data.T
             phi_issm = idata['phi'][:].data.T
             pw_issm = phi_issm - np.vstack(idata['phi_bed'][:].data)
-            ff_issm = pw_issm/(N_issm + pw)
+            ff_issm = pw_issm/(N_issm + pw_issm)
             itt = idata['time'][:].data.T
 
         itt = itt - 9
@@ -42,13 +42,14 @@ def plot_issm(mat_fnames, issm_fnames, figname,
         ax = axs.flat[ii]
         nodemask = np.logical_and(
             nodes[:,0]<=(xb+2.5e3), nodes[:,0]>=(xb-2.5e3))
+        # nodemask = nodes[:,0]>=0
         ax.plot(mtt, np.mean(ff[nodemask, :], axis=0),
             color=colors[ii])
         ax.plot(itt, np.mean(ff_issm[nodemask, :], axis=0),
             color=colors[ii], linestyle=':')
         
         ax.set_xlim([0, 1])
-        ax.set_ylim([0, 1])
+        ax.set_ylim([0.4, 1])
         ax.text(0.05, 0.95, alphabet[ii], va='top', fontweight='bold')
         ax.grid(linewidth=0.5, linestyle=':')
     
@@ -72,8 +73,10 @@ def plot_issm(mat_fnames, issm_fnames, figname,
         
 
 if __name__ == '__main__':
-    mat_fnames = ['../glads/00_synth_forcing/RUN/output_001_seasonal.nc' for i in range(5)]
-    issm_fnames = ['../issm/00_synth_forcing/RUN/output_001_steady.nc' for i in range(5)]
+    mat_fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
+    issm_fnames = ['../issm/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
+    print(mat_fnames)
+    print(issm_fnames)
     figname = None
     plot_issm(mat_fnames, issm_fnames, figname)
 
