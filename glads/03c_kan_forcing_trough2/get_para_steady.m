@@ -4,8 +4,7 @@ function para = get_para_steady(config)
 % Set para for steady state run
 
 %% Get defaults and unwrap
-addpath('../')
-para = get_para(config);
+para = get_para_topo(config);
 [pm, pn, pin, ps, pst, psp, mesh, dmesh, pp, pt, psin, pmd, psmd, pcm] = unwrap_all_para(para);
 
 %% Time
@@ -26,10 +25,6 @@ ii_moulin = moulindata(:, 1) + 1;
 
 addpath(genpath('../data/kan_l_melt/'))
 pin.source_term_c = make_anon_fn('@(time) double(KAN_moulin_steady(time, pin, dmesh, ii_moulin, catchmap));', pin, dmesh, ii_moulin, catchmap);
-
-% pin.source_term_s = make_anon_fn('@(xy, time) double(0.01/86400 + 0*xy(:, 1));');
-% xy = dmesh.tri.nodes;
-% pin.source_term_c = make_anon_fn('@(time) double(0*xy(:, 1));', xy);
 
 %% Nondimensionalize and re-wrap
 [psp, pst, psmd, psin, mesh] = scale_para(pp, pt, pmd, pin, dmesh, ps);

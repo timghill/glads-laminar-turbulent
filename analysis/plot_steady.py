@@ -253,7 +253,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=-1,
     cb2.set_label(r'${\rm{Re}}$')
     cb3.set_label(r'$Q~(\rm{m}^3~\rm{s}^{-1})$', labelpad=0)
 
-    fig.savefig(figname, dpi=600)
+    fig.savefig(figname, dpi=400)
     return fig
 
 if __name__=='__main__':

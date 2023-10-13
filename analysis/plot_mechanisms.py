@@ -288,7 +288,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
     # ax.set_xticklabels([str(tii) for tii in t_ticks])
     ax.set_xticklabels(t_ticklabels)
 
-    fig.savefig(figname, dpi=600)
+    fig.savefig(figname, dpi=400)
     return fig
 
         

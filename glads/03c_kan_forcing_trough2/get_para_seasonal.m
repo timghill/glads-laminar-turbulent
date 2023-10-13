@@ -7,8 +7,7 @@ fname_steady = config.fname_steady;
 filename = config.fname_seasonal;
 
 %% Get defaults and unwrap
-addpath('../')
-para = get_para(config);
+para = get_para_topo(config);
 [pm, pn, pin, ps, pst, psp, mesh, dmesh, pp, pt, psin, pmd, psmd, pcm] = unwrap_all_para(para);
 
 pm.model_run_descript = 'Run seasonal';

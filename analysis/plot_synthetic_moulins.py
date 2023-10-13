@@ -199,6 +199,6 @@ cb.set_ticks([0, 500, 1000, 1500, 2000])
 
 dmesh.close()
 
-fig.savefig(figname, dpi=600)
+fig.savefig(figname, dpi=400)
 
 plt.show()

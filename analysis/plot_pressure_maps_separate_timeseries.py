@@ -320,5 +320,5 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     axs_timeseries[-1].set_xlabel(t_xlabel)
     axs_timeseries[1].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
 
-    fig.savefig(figname, dpi=600)
+    fig.savefig(figname, dpi=400)
     return fig

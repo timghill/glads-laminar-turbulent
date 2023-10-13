@@ -1,7 +1,7 @@
 function pa = run_job(k_c, k_s, alpha, beta, omega, id)
 
-addpath('../')
-set_paths;
+% addpath('../')
+% set_paths;
 addpath(genpath('../data/functions/'))
 
 fname_steady = sprintf('output_%03d_steady.nc', id);
@@ -47,6 +47,3 @@ para_steady = get_para_steady(config);
 para_steady.physical;
 pa = para_steady;
 run_model(para_steady);
-  
-para_seasonal = get_para_seasonal(config);
-run_model(para_seasonal);
