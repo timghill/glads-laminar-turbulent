@@ -23,7 +23,7 @@ colors = np.array([[0.579, 0.677, 0.781, 1],
                    [0.929, 0.835, 0.408, 1],
                    [0.836, 0.590, 0.160, 1]])
 
-linestyles = ['dotted', 'solid']
+linestyles = ['solid', 'dotted']
 lws = [1.5, 1, 0.75, 1.5, 1]
 zorders = [1, 2, 5, 3, 4]
 
