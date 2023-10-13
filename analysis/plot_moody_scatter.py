@@ -217,6 +217,13 @@ if __name__=='__main__':
     fignames = ['figures/main/00_moody_composite_theory.png', 'figures/main/00_moody_composite_scatter.png']
     plot_moody(fnames, fignames, models=models)
 
+    cases = [1, 2, 3, 4, 5]
+    fnames = ['/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
+    models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
+    fignames = ['figures/aux/01_moody_composite_theory.png', 'figures/aux/01_moody_composite_scatter.png']
+    plot_moody(fnames, fignames, models=models)
+
+
     # cases = [401, 402, 403, 404, 405]
     # fnames = ['../glads/dev_01_kan_forcing_scaling/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
     # models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar', 'Transition 5/4', 'Transition 3/2']
