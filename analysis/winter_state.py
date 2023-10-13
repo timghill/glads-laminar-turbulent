@@ -17,8 +17,8 @@ from palettes.code import palettes,tools
 import GladsPlot as gplt
 
 # Set outputs to read in
-out_fname = '../glads/01_kan_forcing/RUN/output_005_seasonal.nc'
-mesh_fname = '../glads/data/mesh/mesh_04.nc'
+out_fname = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/glads/01_kan_forcing/RUN/output_005_seasonal.nc'
+mesh_fname = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/glads/data/mesh/mesh_04.nc'
 tslice = 365 + 125
 Qmin = -5
 Qmax = 1

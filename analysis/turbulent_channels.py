@@ -17,7 +17,7 @@ from palettes.code import palettes,tools
 import GladsPlot as gplt
 
 # Set outputs to read in
-out_fname = '../glads/01_kan_forcing/RUN/output_005_seasonal.nc'
+out_fname = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/glads/01_kan_forcing/RUN/output_005_seasonal.nc'
 nu = 1.79e-6
 # mesh_fname = '../glads/data/mesh/mesh_04.nc'
 
