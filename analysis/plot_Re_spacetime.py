@@ -118,7 +118,7 @@ def main(fnames, figname, figsize=figsize,
     for ax in axs[-2:]:
         ax.set_xlabel('Month')
 
-    fig.savefig(figname, dpi=400)
+    fig.savefig(figname, dpi=300)
 
         
 
