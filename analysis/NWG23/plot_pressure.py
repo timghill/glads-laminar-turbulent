@@ -132,7 +132,7 @@ def plot_pressure(fnames, figname, tslice=defaults.tslice,
 
 if __name__=='__main__':
     cases = [1, 2, 3, 4, 5]
-    fpattern = '../../glads/01_KAN_forcing/RUN/output_%03d_seasonal.nc'
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern % ii for ii in cases]
     figname = 'pressure.png'
     fig = plot_pressure(fnames, figname, tslice=[365+190])
