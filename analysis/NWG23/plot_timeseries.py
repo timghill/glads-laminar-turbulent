@@ -22,16 +22,16 @@ import helpers
 import defaults
 
 
-figsize=(7, 4)
+figsize=(5, 6)
 
-gs_kwargs=dict(wspace=0.05, hspace=0.2, 
+gs_kwargs=dict(wspace=0.05, hspace=0.1, 
     width_ratios = (100, 30, 110), 
-    left=0.09, right=0.98, bottom=0.08,
+    left=0.05, right=0.98, bottom=0.05,
     top=0.915)
 
 
 
-def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice, 
+def plot_timeseries(fnames, figname, tslice=defaults.tslice, 
     x_bands=defaults.x_bands, band_width=defaults.band_width, 
     figsize=figsize, gs_kwargs=gs_kwargs, labels=defaults.labels, 
     colors=defaults.colors, map_cmap=defaults.cmaps['floatation'],
@@ -138,7 +138,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     hratios = 100*np.ones(len(x_bands)+2)
     hratios[0] = 8
     gs_timeseries = gridspec.GridSpec(len(x_bands) + 2, 1, 
-        height_ratios=hratios)
+        height_ratios=hratios, left=0.15, right=0.95,
+        bottom=0.08, top=0.9)
 
     # Initialize axes
     axs_timeseries = np.array([fig.add_subplot(gs_timeseries[i+1, 0]) for i in range(len(x_bands) + 1)])
@@ -207,7 +208,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     melt_ax.set_ylim([0, 12])
     melt_ax.set_yticks([0, 4, 8, 12])
     melt_ax.grid(linestyle=':', linewidth=0.5)
-    melt_ax.axvline(tslice/365, color='k', linewidth=0.5)
+    # melt_ax.axvline(tslice/365, color='k', linewidth=0.5)
     melt_ax.text(0.025, 0.95, time_alphabet[j+1], transform=melt_ax.transAxes,
         va='top', ha='left', **text_args)
 
@@ -221,8 +222,6 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         axi.set_yticks(ff_yticks)
         axi.set_xticks(t_ticks)
         axi.grid(linestyle=':', linewidth=0.5)
-
-        ax_scatter.axvline(xb, color='k', linewidth=0.5)
 
     melt_ax.set_xlim(t_lim)
     melt_ax.set_xticks(t_ticks)
@@ -240,5 +239,8 @@ if __name__=='__main__':
     fpattern = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern % ii for ii in cases]
     figname = 'timeseries.png'
-    fig = plot_pressure(fnames, figname, tslice=[365+190])
+    fig = plot_timeseries(fnames, figname, tslice=365+190,
+        melt_forcing='KAN', t_ticks=[1 + 4/12, 1 + 6/12, 1 + 8/12, 1+10/12],
+        t_ticklabels=['May', 'July', 'Sep', 'Nov'], t_lim=[1+4/12, 1+10/12],
+        t_xlabel='Month')
     plt.show()
