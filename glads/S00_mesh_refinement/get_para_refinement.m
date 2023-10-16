@@ -1,4 +1,4 @@
-function para = get_para(config)
+function para = get_para_refinement(config)
 % para = get_para_steady(mesh_nr)
 %
 % Get default parameters for SHMIP ice-sheet margin domain run
@@ -84,6 +84,10 @@ pin.bc_dirichlet_phi = make_anon_fn('@(xy, time, bmark, phi_0, phi_m) double(pp.
 % given. Applied at edges where bmark_edge is even
 % zero flux:
 pin.bc_flux = make_anon_fn('@(xy, time, bmark_edge) double(zeros(sum(~logical(mod(bmark_edge,2)) & bmark_edge>0),1))');
+
+% Basal melt rate
+pin.source_term_s = make_anon_fn('@(xy, time) double(0.05/86400/365 + 0*xy(:, 1));');
+
 
 % Initial conditions
 hr = pp.h_bed;

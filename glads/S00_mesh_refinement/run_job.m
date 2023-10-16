@@ -1,6 +1,6 @@
 function pa = run_job(k_c, k_s, alpha, beta, omega, id)
 
-% addpath('../')
+addpath('../')
 % set_paths;
 addpath(genpath('../data/functions/'))
 

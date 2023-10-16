@@ -4,7 +4,7 @@ function para = get_para_steady(config)
 % Set para for steady state run
 
 %% Get defaults and unwrap
-para = get_para(config);
+para = get_para_refinement(config);
 [pm, pn, pin, ps, pst, psp, mesh, dmesh, pp, pt, psin, pmd, psmd, pcm] = unwrap_all_para(para);
 
 %% Time
