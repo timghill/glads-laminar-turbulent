@@ -157,7 +157,7 @@ fig_03 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='KA
 
 ## Case 03c: Sinusoidal trough topo, KAN forcing
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/03c_kan_forcing_trough2/RUN/output_%03d_seasonal.nc'
+pattern = '/home/tghill/scratch/laminar-turbulent/glads/03c_kan_forcing_trough2/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/supplement/03c_pressure_seasonal_trough2.png'
 fig_03c = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=200, melt_forcing='KAN',
