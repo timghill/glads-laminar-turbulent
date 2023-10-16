@@ -22,25 +22,20 @@ import helpers
 import defaults
 
 
-figsize=(5, 6)
-
-gs_kwargs=dict(wspace=0.05, hspace=0.1, 
-    width_ratios = (100, 30, 110), 
-    left=0.05, right=0.98, bottom=0.05,
-    top=0.915)
-
-
+figsize=(5, 5)
 
 def plot_timeseries(fnames, figname, tslice=defaults.tslice, 
-    x_bands=defaults.x_bands, band_width=defaults.band_width, 
-    figsize=figsize, gs_kwargs=gs_kwargs, labels=defaults.labels, 
+    x_bands=[30], band_width=defaults.band_width, 
+    figsize=figsize,labels=defaults.labels, 
     colors=defaults.colors, map_cmap=defaults.cmaps['floatation'],
     line_cmap=defaults.cmaps['Q'], Qmin=10, Qmax=100,
     t_lim=[1, 2], t_ticks=[1.0, 1.25, 1.5, 1.75, 2], ff_ylim=[0, 1.5],
-    t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.5, 1, 1.5],
+    t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.25, 0.5, 0.75, 1, 1.25, 1.5],
     melt_forcing='SHMIP', fill_between=False,
     lws=defaults.linewidths, linestyles=defaults.linestyles,
-    zorders=defaults.zorders, prefix='/home/tghill/scratch/laminar-turbulent/'):
+    zorders=defaults.zorders, prefix='../../',
+    boxes=[(1+5/12, 1+6/12), (1+7/12, 1+9/12)],
+    boxmonths=[('June', '', '', '', 'July'), ('Aug','','Sep','', 'Oct')]):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -130,6 +125,8 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
 
     ## Start the figure
     fig = plt.figure(figsize=figsize)
+    figs_focus = [plt.figure(figsize=(4, 2.5)) for ii in range(len(boxes))]
+    axs_focus = [ff.add_subplot() for ff in figs_focus]
 
     # A global gridspec giving two columns to work with
     # global_gs = gridspec.GridSpec(1, 3, **gs_kwargs)
@@ -137,9 +134,10 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
     # Left column: 3 timeseries panels and melt forcing
     hratios = 100*np.ones(len(x_bands)+2)
     hratios[0] = 8
+    hratios[2] = 67
     gs_timeseries = gridspec.GridSpec(len(x_bands) + 2, 1, 
-        height_ratios=hratios, left=0.15, right=0.95,
-        bottom=0.08, top=0.9)
+        height_ratios=hratios, left=0.125, right=0.95,
+        bottom=0.1, top=0.925)
 
     # Initialize axes
     axs_timeseries = np.array([fig.add_subplot(gs_timeseries[i+1, 0]) for i in range(len(x_bands) + 1)])
@@ -200,6 +198,13 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
 
             timeax.set_xticklabels([])
 
+            for j in range(len(boxes)):
+                fbox = figs_focus[j]
+                abox = axs_focus[j]
+                abox.plot(tt, f_mean, label=labels[ii],
+                    color=colors[ii], linewidth=lws[ii], zorder=zorders[ii],
+                    linestyle=linestyles[ii])
+
     melt = temp_fun(tt)
     melt_ax = axs_timeseries[-1]
     melt_ax.plot(tt, melt, color='k', linewidth=1)
@@ -222,6 +227,7 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
         axi.set_yticks(ff_yticks)
         axi.set_xticks(t_ticks)
         axi.grid(linestyle=':', linewidth=0.5)
+    
 
     melt_ax.set_xlim(t_lim)
     melt_ax.set_xticks(t_ticks)
@@ -229,14 +235,41 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
         melt_ax.set_xticklabels(t_ticklabels)
 
     axs_timeseries[-1].set_xlabel(t_xlabel)
-    axs_timeseries[1].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
-
+    axs_timeseries[0].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
+    
     fig.savefig(figname, dpi=300)
+    for j in range(len(boxes)):
+        bbox = boxes[j]
+        axi = axs_focus[j]
+        # axi.set_xticklabels([])
+        axi.set_xlim(bbox)
+        axi.set_xticks(np.linspace(bbox[0], bbox[1], 5))
+        axi.set_xticklabels(boxmonths[j])
+        axi.set_ylim([0.2, 1.6])
+        axi.grid(linestyle=':', linewidth=0.5)
+
+        axi.set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
+        # axi.set_facecolor((0.85, 0.85, 0.85))
+
+        fc = axs_timeseries[0].fill_betweenx([0,1.5], [bbox[0], bbox[0]], [bbox[1], bbox[1]],
+            color=(0.85, 0.85, 0.85), alpha=1, zorder=0)
+
+        fc2 = melt_ax.fill_betweenx([0,12], [bbox[0], bbox[0]], [bbox[1], bbox[1]],
+            color=(0.85, 0.85, 0.85), alpha=1, zorder=0)
+
+        fig.savefig('timeseries_%02d.png' % j, dpi=400)
+        fc.set_color((1, 1, 1, 0))
+        fc2.set_color((1,1,1,0))
+
+        figs_focus[j].subplots_adjust(left=0.15, right=0.95, top=0.95)
+        figs_focus[j].savefig('timeseries_focus_%02d.png' % j, dpi=400)
+
+
     return fig
 
 if __name__=='__main__':
     cases = [1, 2, 3, 4, 5]
-    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+    fpattern = '../../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern % ii for ii in cases]
     figname = 'timeseries.png'
     fig = plot_timeseries(fnames, figname, tslice=365+190,
