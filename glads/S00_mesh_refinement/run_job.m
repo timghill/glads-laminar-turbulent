@@ -1,7 +1,7 @@
 function pa = run_job(k_c, k_s, alpha, beta, omega, id)
 
 addpath('../')
-% set_paths;
+set_paths;
 addpath(genpath('../data/functions/'))
 
 fname_steady = sprintf('output_%03d_steady.nc', id);
