@@ -69,15 +69,15 @@ def plot_issm(mat_fnames, issm_fnames, figname,
         frameon=False)
 
     if figname:
-        fig.savefig(figname, dpi=300)
+        fig.savefig(figname, dpi=400)
         
 
 if __name__ == '__main__':
-    mat_fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
-    issm_fnames = ['../issm/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
+    mat_fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
+    issm_fnames = ['/home/tghill/scratch/laminar-turbulent/issm/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
     print(mat_fnames)
     print(issm_fnames)
-    figname = None
+    figname = 'figures/aux/issm_comparison.png'
     plot_issm(mat_fnames, issm_fnames, figname)
 
     plt.show()
