@@ -104,6 +104,6 @@ cax2.xaxis.set_label_position('top')
 
 cbar1.set_label('Bed Elevation (m)')
 cbar2.set_label('Thickness (m)')
-fig2.savefig('figures/supplement/bed_thickness.png', dpi=600)
+fig2.savefig('figures/supplement/bed_thickness.png', dpi=400)
 
 plt.show()

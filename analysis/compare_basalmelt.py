@@ -12,8 +12,8 @@ import scipy.interpolate
 
 
 cases = [1, 2, 3, 4, 5]
-slow_base = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
-fast_base = '../glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
+slow_base = '/home/tghill/scratch/laminar-turbulent/glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
+fast_base = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
     'Transition 5/4', 'Transition 3/2']
 
@@ -22,6 +22,7 @@ colors = np.array([[0.579, 0.677, 0.781, 1],
                    [0.250, 0.250, 0.250, 1],
                    [0.929, 0.835, 0.408, 1],
                    [0.836, 0.590, 0.160, 1]])
+
 linestyles = ['solid', 'dotted']
 lws = [1.5, 1, 0.75, 1.5, 1]
 zorders = [1, 2, 5, 3, 4]

@@ -28,7 +28,7 @@ synth_opts={'t_ticklabels':t_ticklabels[:-1],
 
 # =============================================================================
 ## Synthetic forcing suite
-
+"""
 ## Case 00: Flat topo, synthetic forcing
 cases = [1, 2, 3, 4, 5]
 fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%caseid for caseid in cases]
@@ -69,6 +69,8 @@ fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_f
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
 """
+
+"""
 ## Case 01: Flat topo, higher alpha
 cases = [3, 6, 2, 4, 5]
 pattern = '../glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
@@ -86,6 +88,8 @@ lss = ['dashed', 'solid', 'solid', 'solid', 'solid']
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5], labels=labels,
      lws=lws, linestyles=lss, colors=colors, zorders=zorders)
+"""
+
 """
 ## Case 01a: KAN increased forcing
 cases = [1, 2, 3, 4, 5]
@@ -112,6 +116,7 @@ fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/aux/01d_pressure_seasonal_basalmelt.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+"""
 
 """
 # =============================================================================
@@ -133,9 +138,10 @@ figname = 'figures/aux/02b_pressure_seasonal_valley.png'
 fig_02 = plot_pressure_maps_timeseries(fnames, figname, Qmin=10, Qmax=200, melt_forcing='SHMIPadj',
     **synth_opts, ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+"""
 ## Case 03a: Trough topo, KAN forcing
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/03a_kan_forcing_trough/RUN/output_%03d_seasonal.nc'
+pattern = '/home/tghill/scratch/laminar-turbulent/glads/03a_kan_forcing_trough/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/supplement/03a_pressure_seasonal_trough.png'
 fig_03 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='KAN',
@@ -143,7 +149,7 @@ fig_03 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='KA
 
 ## Case 03b: Valley topo, KAN forcing
 cases = [1, 2, 3, 4, 5]
-pattern = '../glads/03b_kan_forcing_valley/RUN/output_%03d_seasonal.nc'
+pattern = '/home/tghill/scratch/laminar-turbulent/glads/03b_kan_forcing_valley/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/supplement/03b_pressure_seasonal_valley.png'
 fig_03 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, melt_forcing='KAN',
@@ -157,14 +163,27 @@ figname = 'figures/supplement/03c_pressure_seasonal_trough2.png'
 fig_03c = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=200, melt_forcing='KAN',
     **KAN_opts, ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
+"""
 # =============================================================================
 ## Parameter sensitivity
-"""
 ## Case S01: Parameter sensitivity
+
 cases = [1, 2, 3, 4, 5]
 pattern = '/home/tghill/scratch/laminar-turbulent/glads/S01a_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
 fnames = [pattern % caseid for caseid in cases]
 figname = 'figures/supplement/S01a_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+
+
+## Case S01: Parameter sensitivity
+cases = [1, 2, 3, 4, 5]
+pattern = '/home/tghill/scratch/laminar-turbulent/glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+fnames = [pattern % caseid for caseid in cases]
+figname = 'figures/supplement/S01b_pressure_seasonal_params.png'
+fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
+     **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+
+"""
+
 plt.show()

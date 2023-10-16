@@ -22,7 +22,7 @@ def plot_activation(fname, figname, tlim=[3, 9]):
     ax1 = fig.add_subplot(gs[1, 1])
     cax = fig.add_subplot(gs[0, 0])
 
-    dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
+    dmesh = nc.Dataset('/home/tghill/scratch/laminar-turbulent/glads/data/mesh/mesh_04.nc')
     nodes = dmesh['tri/nodes'][:].data.T
     connect = dmesh['tri/connect'][:].data.T
     # elements = dmesh['tri/elements'][:].data.T
@@ -137,11 +137,11 @@ def width_average(xy, z, dx=1e3, metric=np.nanmean, xmin=0, xmax=100e3):
     return xmid, z_avg
 
 if __name__=='__main__':
-    fname = '../glads/00_synth_forcing/RUN/output_005_seasonal.nc'
+    fname = '/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_005_seasonal.nc'
     figname = 'figures/aux/00_activation.png'
     fig = plot_activation(fname, figname, tlim=[3, 9])
 
-    fname = '../glads/01_kan_forcing/RUN/output_005_seasonal.nc'
+    fname = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_005_seasonal.nc'
     figname = 'figures/supplement/01_activation.png'
     fig = plot_activation(fname, figname, tlim=[4, 10])
     plt.show()

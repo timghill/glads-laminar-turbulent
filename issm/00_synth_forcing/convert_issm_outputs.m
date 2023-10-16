@@ -3,8 +3,8 @@ function convert_issm_outputs(mat_fname)
 %
 % Convert ISSM outputs from *.mat to *.nc
 
-addpath('../')
-set_paths
+%addpath('../')
+%set_paths
 nc_fname = replace(mat_fname, '.mat', '.nc');
 if isfile(nc_fname)
     delete(nc_fname)

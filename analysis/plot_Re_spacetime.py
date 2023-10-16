@@ -118,7 +118,7 @@ def main(fnames, figname, figsize=figsize,
     for ax in axs[-2:]:
         ax.set_xlabel('Month')
 
-    fig.savefig(figname, dpi=600)
+    fig.savefig(figname, dpi=300)
 
         
 
@@ -128,6 +128,36 @@ if __name__=='__main__':
     fpattern = '/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern%caseid for caseid in cases]
     figname = 'figures/main/00_synth_Re.png'
+    main(fnames, figname, Re_ylim=(0, 4e3))
+
+    cases = [1, 2, 3, 4, 5]
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'
+    fnames = [fpattern%caseid for caseid in cases]
+    figname = 'figures/aux/00a_shmip_Re.png'
+    main(fnames, figname, Re_ylim=(0, 4e3))
+
+    cases = [1, 2, 3, 4, 5]
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+    fnames = [fpattern%caseid for caseid in cases]
+    figname = 'figures/supplement/01_KAN_Re.png'
+    main(fnames, figname, Re_ylim=(0, 4e3))
+
+    cases = [1, 2, 3, 4, 5]
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/01a_kan_adj_forcing/RUN/output_%03d_seasonal.nc'
+    fnames = [fpattern%caseid for caseid in cases]
+    figname = 'figures/aux/01a_KAN_adj_Re.png'
+    main(fnames, figname, Re_ylim=(0, 4e3))
+
+    cases = [1, 2, 3, 4, 5]
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/S01a_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+    fnames = [fpattern%caseid for caseid in cases]
+    figname = 'figures/aux/S01a_Re.png'
+    main(fnames, figname, Re_ylim=(0, 4e3))
+
+    cases = [1, 2, 3, 4, 5]
+    fpattern = '/home/tghill/scratch/laminar-turbulent/glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
+    fnames = [fpattern%caseid for caseid in cases]
+    figname = 'figures/aux/S01b_Re.png'
     main(fnames, figname, Re_ylim=(0, 4e3))
 
     
