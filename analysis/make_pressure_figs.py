@@ -163,7 +163,6 @@ figname = 'figures/supplement/03c_pressure_seasonal_trough2.png'
 fig_03c = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=200, melt_forcing='KAN',
     **KAN_opts, ff_ylim=[0,1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
-"""
 # =============================================================================
 ## Parameter sensitivity
 ## Case S01: Parameter sensitivity
@@ -184,6 +183,5 @@ figname = 'figures/supplement/S01b_pressure_seasonal_params.png'
 fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
      **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
-"""
 
 plt.show()
