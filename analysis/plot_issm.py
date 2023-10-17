@@ -63,7 +63,7 @@ def plot_issm(mat_fnames, issm_fnames, figname,
     
 
     fig.text(0.01, 0.5, r'$p_{\rm{w}}/p_{\rm{i}}$', va='center', rotation='vertical')
-    fig.text(0.5, 0.02, 'Month', va='bottom')
+    fig.text(0.5, 0.02, 'Years', va='bottom')
     axs.flat[4].legend(labels=('Matlab', 'ISSM'),
         bbox_to_anchor=(1.05, 0, 1, 1), mode='expand',
         frameon=False)
@@ -74,7 +74,7 @@ def plot_issm(mat_fnames, issm_fnames, figname,
 
 if __name__ == '__main__':
     mat_fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
-    issm_fnames = ['/home/tghill/scratch/laminar-turbulent/issm/00_synth_forcing/RUN/output_%03d_steady.nc'%i for i in range(1,6)]
+    issm_fnames = ['/home/tghill/scratch/laminar-turbulent/issm/00_synth_forcing/RUN/output_%03d.nc'%i for i in range(1,6)]
     print(mat_fnames)
     print(issm_fnames)
     figname = 'figures/aux/issm_comparison.png'
