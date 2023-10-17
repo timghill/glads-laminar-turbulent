@@ -57,7 +57,7 @@ ax.loglog(h/hcrit, omega/nu * q_tran_32, color=colors[4], linewidth=1.25, label=
 ax.legend(frameon=False)
 
 ax.set_ylim([1e-2, 1e2])
-xx.set_xlim([1e-1, 1e1])
+ax.set_xlim([1e-1, 1e1])
 # ax.set_xlim([0, 2])
 # ax.set_ylim([0, 5])
 

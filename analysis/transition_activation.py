@@ -145,4 +145,10 @@ if __name__=='__main__':
     fname = prefix + 'glads/01_kan_forcing/RUN/output_005_seasonal.nc'
     figname = 'figures/supplement/01_activation.png'
     fig = plot_activation(fname, figname, tlim=[4, 10])
+
+    fname = prefix + 'glads/S01b_parameter_sensitivity/RUN/output_005_seasonal.nc'
+    figname = 'figures/aux/S01b_activation.png'
+    fig = plot_activation(fname, figname, tlim=[4, 10])
+
+
     plt.show()
