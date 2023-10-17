@@ -12,8 +12,9 @@ import scipy.interpolate
 
 
 cases = [1, 2, 3, 4]
-no_diurnal_base = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
-yes_diurnal_base = '/home/tghill/scratch/laminar-turbulent/glads/01c_kan_diurnal/RUN/output_%03d_seasonal.nc'
+prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+no_diurnal_base = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+yes_diurnal_base = prefix + 'glads/01c_kan_diurnal/RUN/output_%03d_seasonal.nc'
 labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
     'Transition 5/4', 'Transition 3/2']
 

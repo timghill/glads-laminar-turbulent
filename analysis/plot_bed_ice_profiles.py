@@ -17,6 +17,8 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 bed_fun = lambda x: 350 + 0*x
 surf_fun = lambda x: 6*(np.sqrt(x  +5e3) - np.sqrt(5e3)) + 390
 
+prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+
 # Graphics
 # ice_color = 'lightcyan'
 ice_color = 'lightblue'
@@ -87,9 +89,8 @@ for xb in bands:
     ax.plot_surface(xxs, yys*0, z3, zorder=2, color=band_color, alpha=1, antialiased=False)
 
 # Plot moulins
-dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
-moulins = np.loadtxt('../glads/data/moulins/moulins_068.txt')
-print(moulins)
+dmesh = nc.Dataset(prefix + 'glads/data/mesh/mesh_04.nc')
+moulins = np.loadtxt(prefix + 'glads/data/moulins/moulins_068.txt')
 moulinx = moulins[:, 1]
 mouliny = moulins[:, 2]
 moulinz = surf_fun(moulinx)
@@ -127,7 +128,7 @@ for ii in range(len(z_bins)-1):
     band_area = np.sum(node_area[node_mask])
     density_bins[ii] = n_moulin_ii/band_area
 
-yang_2016_density = np.loadtxt('../glads/data/yang2016_moulins/yang2016_density.txt')
+yang_2016_density = np.loadtxt(prefix + 'glads/data/yang2016_moulins/yang2016_density.txt')
 
 z_bin_center = 0.5*(z_bins[:-1] + z_bins[1:])
 ax2 = fig.add_subplot()

@@ -118,6 +118,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
 if __name__=='__main__':
     cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    fnames = ['/home/tghill/scratch/laminar-turbulent/glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
+    prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+    fnames = [prefix + 'glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
     figname = 'figures/supplement/S00_mesh_refinement.png'
     plot_mesh_refinement(fnames, figname)

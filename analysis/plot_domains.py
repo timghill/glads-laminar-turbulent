@@ -17,9 +17,9 @@ nodes = dmesh['tri/nodes'][:].data.T
 connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
 
 # Get bed elevation from model outputs
-out_trough1 = nc.Dataset('../glads/02a_synth_forcing_trough/RUN/output_003_seasonal.nc')
-out_trough2 = nc.Dataset('../glads/03c_kan_forcing_trough2/RUN/output_003_seasonal.nc')
-out_valley = nc.Dataset('../glads/02b_synth_forcing_valley/RUN/output_003_seasonal.nc')
+out_trough1 = nc.Dataset(prefix + 'glads/03a_kan_forcing_trough/RUN/output_003_seasonal.nc')
+out_trough2 = nc.Dataset(prefix + 'glads/03c_kan_forcing_trough2/RUN/output_003_seasonal.nc')
+out_valley  = nc.Dataset(prefix + 'glads/03b_kan_forcing_valley/RUN/output_003_seasonal.nc')
 
 bed_flat = 350 + 0*nodes[:, 0]
 bed_trough1 = out_trough1['bed'][:].data

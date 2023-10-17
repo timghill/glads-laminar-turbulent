@@ -89,11 +89,9 @@ def plot_issm(mat_fnames, issm_fnames, figname,
         
 
 if __name__ == '__main__':
-    # mat_fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
-    # issm_fnames = ['/home/tghill/scratch/laminar-turbulent/issm/00_synth_forcing/RUN/output_%03d.nc'%i for i in range(1,6)]
-
-    mat_fnames = ['../glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
-    issm_fnames = ['../issm/00_synth_forcing/RUN/output_%03d.nc'%i for i in range(1,6)]
+    prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+    mat_fnames = [prefix + 'glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
+    issm_fnames = [prefix _ 'issm/00_synth_forcing/RUN/output_%03d.nc'%i for i in range(1,6)]
     figname = 'figures/supplement/issm_comparison.png'
     plot_issm(mat_fnames, issm_fnames, figname)
 

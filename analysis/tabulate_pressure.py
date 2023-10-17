@@ -1,7 +1,7 @@
 """
 
 Compare summer and winter water pressure statistics for turbulent, transition,
-and laminar models
+and laminar models and summarize in a table
 
 """
 
@@ -27,8 +27,8 @@ labels = ['Turbulent 5/4', 'Turbulent 3/2',
 labels = [l.ljust(14) for l in labels]
 
 def quantify_floatation(fnames, figname, tslices=None,
-    x_bands=None, band_width=None, strfmt='%.4f', labels=None):
-    """Docstring..."""
+    x_bands=None, band_width=None, strfmt='%.4f', labels=None,
+    prefix='/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'):
     if x_bands is None:
         ff_winters = np.zeros((len(fnames), 1))
         ff_summers = np.zeros((len(fnames), 1))
@@ -46,7 +46,7 @@ def quantify_floatation(fnames, figname, tslices=None,
     if labels is None:
         labels = [fname.split('/')[-1] for fname in fnames]
     
-    dmesh = nc.Dataset('/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/glads/data/mesh/mesh_04.nc')
+    dmesh = nc.Dataset(prefix + 'glads/data/mesh/mesh_04.nc')
     area_nodes = np.vstack(dmesh['tri/area_nodes'][:].data.T)
     fig, axs = plt.subplots(nrows=len(x_bands))
     # ff_strfmt = []
@@ -122,9 +122,9 @@ print('-------------------------------------------------')
 print('    SYNTHETIC (case 00)')
 print('-------------------------------------------------')
 cases = [1, 2, 3, 4, 5]
-synth_dir = '/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
+synth_dir = prefix + 'glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [synth_dir % caseid for caseid in cases]
-figname = 'stats_synth.png'
+figname = 'figures/aux/stats_synth.png'
 winter, summer, maxs, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
     tslices=synth_winter_tindex, labels=labels)
 print('Winter:')
@@ -141,9 +141,9 @@ print('-------------------------------------------------')
 print('    KAN (case 01)')
 print('-------------------------------------------------')
 cases = [1, 2, 3, 4, 5]
-kan_dir = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+kan_dir = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 fnames = [kan_dir % caseid for caseid in cases]
-figname = 'stats_KAN.png'
+figname = 'figures/aux/stats_KAN.png'
 winter, summer, maxs, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
     tslices=KAN_winter_tindex, labels=labels)
 print('Winter:')
@@ -154,23 +154,5 @@ print('Max:')
 print(maxs.T)
 print('Days overpressure:')
 print(days.T)
-
-"""
-print('-------------------------------------------------')
-print('    SENSITIVITY')
-print('-------------------------------------------------')
-cases = [1, 2, 3, 4, 5]
-kan_dir = '../glads/S01b_parameter_sensitivity/RUN/output_%03d_seasonal.nc'
-fnames = [kan_dir % caseid for caseid in cases]
-figname = 'stats_KAN_sensitivity.png'
-winter, summer, days = quantify_floatation(fnames, figname, x_bands=x_bands, band_width=band_widths,
-    tslices=KAN_winter_tindex, labels=labels)
-print('Winter:')
-print(winter.T)
-print('Summer:')
-print(summer.T)
-print('Days overpressure:')
-print(days.T)
-"""
 
 plt.show()

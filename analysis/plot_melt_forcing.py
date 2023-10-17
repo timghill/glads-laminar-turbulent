@@ -8,7 +8,9 @@ from matplotlib import pyplot as plt
 fig, (ax1, ax2) = plt.subplots(figsize=(8, 4), ncols=2, sharey=True)
 
 # Get sea-level temperature forcing
-tt_temp = np.loadtxt('../glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
+
+prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+tt_temp = np.loadtxt(prefix + 'glads/data/kan_l_melt/KAN_L_2014_temp_clipped.txt', delimiter=',')
 tt_days = tt_temp[:, 0]
 temp_sl = tt_temp[:, 1]
 

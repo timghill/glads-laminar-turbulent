@@ -12,8 +12,9 @@ import scipy.interpolate
 
 
 cases = [1, 2, 3, 4, 5]
-slow_base = '/home/tghill/scratch/laminar-turbulent/glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
-fast_base = '/home/tghill/scratch/laminar-turbulent/glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+slow_base = prefix + 'glads/01d_kan_basalmelt/RUN/output_%03d_seasonal.nc'
+fast_base = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
 labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
     'Transition 5/4', 'Transition 3/2']
 
@@ -100,7 +101,6 @@ for i,caseid in enumerate(cases):
 ax.grid()
 ax.set_xlabel('Month')
 ax.set_ylabel(r'Floatation fraction ($p_{\rm{w}}/p_{\rm{i}}$)')
-# ax.set_xlim([5, 6])
 ax.set_xlim([4, 10])
 ax.set_xticks([4, 5, 6, 7, 8, 9, 10])
 ax.set_xticklabels(['May', '',  'July', '', 'Sep', '', 'Nov'])

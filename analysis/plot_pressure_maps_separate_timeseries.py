@@ -40,7 +40,8 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.5, 1, 1.5],
     melt_forcing='SHMIP', fill_between=False,
     lws=defaults.linewidths, linestyles=defaults.linestyles,
-    zorders=defaults.zorders, prefix='/home/tghill/scratch/laminar-turbulent/'):
+    zorders=defaults.zorders, 
+    prefix='/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'):
     """
     Plot 2D floatation fraction maps and timeseries.
 

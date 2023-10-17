@@ -258,8 +258,9 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=-1,
 
 if __name__=='__main__':
     ## Case 00: Flat topo, synthetic forcing
+    prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
     cases = [1, 2, 3, 4, 5]
-    fnames = ['/home/tghill/scratch/laminar-turbulent/glads/00_synth_forcing/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
+    fnames = [prefix + 'glads/00_synth_forcing/RUN/output_%03d_steady.nc'%caseid for caseid in cases]
     figname = 'figures/supplement/00_steady.png'
     fig_00 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100)
 
