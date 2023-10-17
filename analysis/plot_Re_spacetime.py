@@ -12,7 +12,7 @@ from palettes.code import palettes, tools
 
 figsize=(7, 3.5)
 
-gs_kwargs=dict(wspace=0.075, hspace=0.2, 
+gs_kwargs=dict(wspace=0.125, hspace=0.2, 
         left=0.09, right=0.95, bottom=0.12,
         top=0.95)
 
@@ -22,7 +22,8 @@ labels = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
 def main(fnames, figname, figsize=figsize,
     gs_kwargs=gs_kwargs, map_cmap=None, Re_ylim=[0, 4e3],
     labels=labels,
-    prefix='/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+    prefix='/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/',
+    tlim=[1+4/12,1+10/12]
     ):
     n_cases = len(fnames)
     # Set up figure
@@ -105,6 +106,7 @@ def main(fnames, figname, figsize=figsize,
     for ax in axs:
         ax.set_xticks([1+4/12, 1+6/12, 1+8/12, 1+10/12])
         ax.set_xticklabels(['May', 'July', 'Sep', 'Nov'])
+        ax.set_xlim(tlim)
 
     for ax in axs[:3]:
         ax.set_xticklabels([])
@@ -113,8 +115,6 @@ def main(fnames, figname, figsize=figsize,
         ax.set_yticklabels([])
 
     axs[2].set_ylabel('Distance from terminus (km)')
-    axs[-1].set_xticks([1+6/12, 1+8/12, 1+10/12])
-    axs[-1].set_xticklabels(['July', 'Sep', 'Nov'])
     
     for ax in axs[-2:]:
         ax.set_xlabel('Month')
@@ -130,13 +130,13 @@ if __name__=='__main__':
     fpattern = prefix + 'glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern%caseid for caseid in cases]
     figname = 'figures/main/00_synth_Re.png'
-    main(fnames, figname, Re_ylim=(0, 4e3))
+    main(fnames, figname, Re_ylim=(0, 4e3), tlim=[1+3/12,1+9/12])
 
     cases = [1, 2, 3, 4, 5]
     fpattern = prefix + 'glads/00a_shmip_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [fpattern%caseid for caseid in cases]
     figname = 'figures/aux/00a_shmip_Re.png'
-    main(fnames, figname, Re_ylim=(0, 4e3))
+    main(fnames, figname, Re_ylim=(0, 4e3), tlim=[1+3/12,1+9/12])
 
     cases = [1, 2, 3, 4, 5]
     fpattern = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
