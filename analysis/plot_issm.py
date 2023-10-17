@@ -63,7 +63,7 @@ def plot_issm(mat_fnames, issm_fnames, figname,
     
 
     fig.text(0.01, 0.5, r'$p_{\rm{w}}/p_{\rm{i}}$', va='center', rotation='vertical')
-    fig.text(0.5, 0.02, 'Month', va='bottom')
+    fig.text(0.5, 0.02, 'Years', va='bottom')
     axs.flat[4].legend(labels=('Matlab', 'ISSM'),
         bbox_to_anchor=(1.05, 0, 1, 1), mode='expand',
         frameon=False)
