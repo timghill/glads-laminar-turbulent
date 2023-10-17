@@ -12,7 +12,7 @@ config.k_s = k_s;	% Turbulent conductivity
 config.l_c = 10;
 config.n_moulin = 68;
 config.creep_const_soft = 0;
-config.mesh_nr = 4;
+config.mesh_nr = id;
 config.e_v = 1e-4;
 
 % Tuning parameters

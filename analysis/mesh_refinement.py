@@ -26,9 +26,10 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
 
         # Read mesh file
-        dmesh_fname = '../glads/data/mesh/mesh_refinement_%02d.nc' % (i+1)
+        dmesh_fname = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/glads/data/mesh/mesh_refinement_%02d.nc' % (i+1)
         dmesh = nc.Dataset(dmesh_fname, 'r')
         nodes = dmesh['tri/nodes'][:].data.T
+        print(nodes.shape)
         connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
         connect_edge = dmesh['tri/connect_edge'][:].data.T.astype(int) - 1
         area_nodes = dmesh['tri/area_nodes'][:].data.T
@@ -41,6 +42,7 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
         # Floatation fraction: check pressure steady state
         phi = out['phi'][-1].data
+        print(phi.shape)
         rhow = 1000
         g = 9.8
         phi0 = rhow*g*out['bed'][:].data
@@ -116,6 +118,6 @@ def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 
 if __name__=='__main__':
     cases = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    fnames = ['../glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
+    fnames = ['/home/tghill/scratch/laminar-turbulent/glads/S00_mesh_refinement/RUN/output_%03d_steady.nc' % caseid for caseid in cases]
     figname = 'figures/supplement/S00_mesh_refinement.png'
     plot_mesh_refinement(fnames, figname)
