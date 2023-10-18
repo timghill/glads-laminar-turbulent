@@ -5,6 +5,8 @@ Top-level analysis
 
 ## Simulation directories:
 
+The simulations here use the Alliance Canada [Meta-Farm](https://docs.alliancecan.ca/wiki/META-Farm) tool to submit jobs with various parameter settings. Each simulation directory uses a text file `table.dat` to specify parameter settings for a suite of simulations. Each case calls a function, `run_job.m`, to set up and run the job. The directory structure is described below.
+
 ### `issm/`:
 
 Configure jobs for running the base scenario with the ISSM implementation of GlaDS.
