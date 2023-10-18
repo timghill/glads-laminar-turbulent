@@ -37,7 +37,7 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
     lws=defaults.linewidths, linestyles=defaults.linestyles,
     zorders=zorders, prefix='../../',
     boxes=[(1+4/12, 1+5/12), (1+5/12, 1+6/12), (1+6/12, 1+8/12)],
-    boxmonths=[('June', '', '', '', 'July'), ('May','','','', 'June'),
+    boxmonths=[('May', '', '', '', 'June'), ('June','','','', 'July'),
                 ('July', '', 'Aug', '', 'Sep')]):
     """
     Plot 2D floatation fraction maps and timeseries.
