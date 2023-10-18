@@ -21,6 +21,8 @@ import GladsPlot as gplt
 import helpers
 import defaults
 
+zorders = np.array([2, 2, 3, 2, 2]) + 2
+
 
 figsize=(5, 5)
 
@@ -33,9 +35,10 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
     t_ticklabels=None, t_xlabel='Year', ff_yticks=[0, 0.25, 0.5, 0.75, 1, 1.25, 1.5],
     melt_forcing='SHMIP', fill_between=False,
     lws=defaults.linewidths, linestyles=defaults.linestyles,
-    zorders=defaults.zorders, prefix='../../',
-    boxes=[(1+5/12, 1+6/12), (1+7/12, 1+9/12)],
-    boxmonths=[('June', '', '', '', 'July'), ('Aug','','Sep','', 'Oct')]):
+    zorders=zorders, prefix='../../',
+    boxes=[(1+4/12, 1+5/12), (1+5/12, 1+6/12), (1+6/12, 1+8/12)],
+    boxmonths=[('June', '', '', '', 'July'), ('May','','','', 'June'),
+                ('July', '', 'Aug', '', 'Sep')]):
     """
     Plot 2D floatation fraction maps and timeseries.
 
@@ -196,6 +199,8 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
             timeax.text(0.95, 0.95, '%d km' % xb, transform=timeax.transAxes,
             va='top', ha='right', **text_args)
 
+            # timeax.axhline(1.0, color='grey', linewidth=0.5, linestyle='solid', zorder=2)
+
             timeax.set_xticklabels([])
 
             for j in range(len(boxes)):
@@ -264,6 +269,7 @@ def plot_timeseries(fnames, figname, tslice=defaults.tslice,
         figs_focus[j].subplots_adjust(left=0.15, right=0.95, top=0.95)
         figs_focus[j].savefig('timeseries_focus_%02d.png' % j, dpi=400)
 
+    fig.savefig(figname, dpi=400)
 
     return fig
 
