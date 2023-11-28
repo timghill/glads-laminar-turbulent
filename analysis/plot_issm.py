@@ -4,6 +4,7 @@ Compare ISSM and MATLAB model flotation fraction and channel area
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib.gridspec import GridSpec
 import netCDF4 as nc
 

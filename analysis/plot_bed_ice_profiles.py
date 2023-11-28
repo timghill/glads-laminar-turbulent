@@ -7,6 +7,8 @@ Plot bed and ice surface elevation profiles
 import numpy as np
 import netCDF4 as nc
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
+
 import matplotlib.colors as mcolors
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.transforms import Bbox
@@ -17,7 +19,8 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 bed_fun = lambda x: 350 + 0*x
 surf_fun = lambda x: 6*(np.sqrt(x  +5e3) - np.sqrt(5e3)) + 390
 
-prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+# prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+prefix = '/home/user1/SFU-code/laminar-turbulent/'
 
 # Graphics
 # ice_color = 'lightcyan'
@@ -28,7 +31,7 @@ line_color = 'k'
 # band_color = 'lightslategrey'
 band_color = 'steelblue'
 figname = 'figures/main/domain_profile.png'
-figsize=(5, 4.5)
+figsize=(4, 4)
 
 bands = [15, 30, 70]
 band_width = 5
@@ -111,7 +114,7 @@ ax.view_init(elev=24, azim=-125) #Works!
 ax.set_box_aspect((4, 1, 1))
 ax.set_aspect('equalxy')
 
-ax.set_position(Bbox.from_extents(0.1, 0.315, 1., 1.2))
+ax.set_position(Bbox.from_extents(0.2, 0.375, 1., 1.2))
 # ax.text(0.05, 0.95, 'a', fontweight='bold')
 
 ## Compute moulin density
@@ -132,17 +135,21 @@ yang_2016_density = np.loadtxt(prefix + 'glads/data/yang2016_moulins/yang2016_de
 
 z_bin_center = 0.5*(z_bins[:-1] + z_bins[1:])
 ax2 = fig.add_subplot()
-ax2.set_position(Bbox.from_bounds(0.25, 0.125, 0.5, 0.25))
+ax2.set_position(Bbox.from_bounds(0.2, 0.125, 0.6, 0.25))
 ax2.plot(yang_2016_density[:, 0], yang_2016_density[:, 1], label='Target density', color='k')
 ax2.plot(z_bin_center, density_bins, label='Synthetic density', color='k', linestyle='dashed')
 ax2.spines['right'].set_visible(False)
 ax2.spines['top'].set_visible(False)
 ax2.set_xlim([200, 2000])
 ax2.set_ylim([0, 0.07])
-ax2.text(-0.25, 2.75, 'a', transform=ax2.transAxes, fontweight='bold')
-ax2.text(-0.25, 1, 'b', transform=ax2.transAxes, fontweight='bold')
+# ax2.text(-0.25, 2.75, 'a', transform=ax2.transAxes, fontweight='bold')
+# ax2.text(-0.25, 1, 'b', transform=ax2.transAxes, fontweight='bold')
 
-ax2.legend(bbox_to_anchor=(-0.15, 0.9, 1.3, 0.2), ncol=2, mode='expand', frameon=False)
+fig.text(0.075, 0.85, 'a', fontweight='bold')
+fig.text(0.075, 0.4, 'b', fontweight='bold')
+
+ax2.legend(bbox_to_anchor=(-0.15, 0.9, 1.3, 0.2), 
+    ncol=2, mode='expand', frameon=False, fontsize=9)
 
 ax2.set_xlabel('Elevation (m)')
 ax2.set_ylabel(r'Density (km$^{-2}$)')

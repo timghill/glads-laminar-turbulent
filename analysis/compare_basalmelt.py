@@ -6,6 +6,7 @@ Compare seasonal simulations for basal melt rate
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib import gridspec
 import netCDF4 as nc
 import scipy.interpolate

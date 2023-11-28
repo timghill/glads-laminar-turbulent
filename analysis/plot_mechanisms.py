@@ -8,6 +8,7 @@ import numpy as np
 import netCDF4 as nc
 
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib.gridspec import GridSpec
 
 from scipy import interpolate
@@ -15,7 +16,7 @@ from scipy import interpolate
 import defaults
 from helpers import weighted_width_average
 
-figsize=(6, 6)
+figsize=(7, 6)
 
 def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice, 
     x_band=defaults.x_bands[1], band_width=defaults.band_width, 
@@ -262,7 +263,7 @@ def plot_mechanisms(fnames, figname, models, tslice=defaults.tslice,
     ax1 = axs[0, 0]
     # ax1.plot([-1, 0], [-1, 0], color='k')
     ax1.legend(labels=labels, bbox_to_anchor=[0., 1, 2, 0.2], ncol=3,
-        loc='lower center', frameon=False, mode='expand')
+        loc='lower center', frameon=False, mode='expand', fontsize=8)
 
     
     axs[-1, 0].set_xlabel('x (km)')

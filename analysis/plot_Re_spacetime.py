@@ -4,6 +4,7 @@ Plot Reynolds number profiles
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib import gridspec
 import netCDF4 as nc
 
@@ -97,7 +98,7 @@ def main(fnames, figname, figsize=figsize,
         ax.text(0.05, 0.95, alphabet[ii], fontweight='bold', transform=ax.transAxes,
             va='top', ha='left')
         ax.text(0.95, 0.95, labels[ii], transform=ax.transAxes,
-            va='top', ha='right')
+            va='top', ha='right', fontsize=8)
 
     cax1 = fig.add_subplot(cax_gs[1])
     cb = fig.colorbar(pc, cax=cax1, orientation='horizontal')

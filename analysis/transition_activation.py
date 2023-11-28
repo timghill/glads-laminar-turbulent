@@ -7,6 +7,7 @@ Plot relative size of each term in the transition parameterization
 import numpy as np
 import netCDF4 as nc
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib import gridspec
 
 import cmocean

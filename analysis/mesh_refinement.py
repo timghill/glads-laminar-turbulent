@@ -8,6 +8,7 @@ import numpy as np
 import netCDF4 as nc
 
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 
 def plot_mesh_refinement(fnames, figname, figsize=(6, 4)):
 

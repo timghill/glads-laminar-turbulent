@@ -6,6 +6,7 @@ Plot image-derived moulin locations and synthetic design
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib import gridspec
 from matplotlib import tri
 from scipy import interpolate

@@ -6,6 +6,7 @@ Simple plot of flux parameterizations
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 
 from defaults import colors
 

@@ -10,6 +10,7 @@ from scipy.optimize import newton
 from scipy import interpolate
 
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib import ticker
 import netCDF4 as nc
 
