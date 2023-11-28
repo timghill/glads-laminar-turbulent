@@ -6,6 +6,7 @@ Call plot_pressure_maps_timeseries.py to make pressure figures
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 
 from plot_pressure_maps_separate_timeseries import plot_pressure_maps_timeseries
 import defaults

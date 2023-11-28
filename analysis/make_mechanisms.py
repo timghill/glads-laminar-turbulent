@@ -5,6 +5,7 @@ Call plot_mechanisms.py
 """
 
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 
 from plot_mechanisms import plot_mechanisms
 import defaults
