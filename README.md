@@ -1,5 +1,7 @@
 # Simulations and analysis for laminar--turbulent flux parameterization
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10019656.svg)](https://doi.org/10.5281/zenodo.10019656)
+
 ## 'analysis/'
 Top-level analysis
 
