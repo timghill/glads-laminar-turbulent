@@ -210,7 +210,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
             mapax.set_xticklabels([])
         
         mapax.text(0.95, 0.95, map_alphabet[ii], transform=mapax.transAxes,
-            va='top', ha='right', **text_args)
+            va='top', ha='right', color='w', **text_args)
         mapax.text(0.95, 0.05, labels[ii], transform=mapax.transAxes,
             va='bottom', ha='right', fontsize=8, color='w')
         xmid, ff_avg = helpers.weighted_width_average(nodes, ff[:, tslice], node_area)
