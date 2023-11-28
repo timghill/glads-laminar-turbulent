@@ -4,6 +4,7 @@ Plot bed elevation and ice thickness for bed topo realizations
 
 import numpy as np
 from matplotlib import pyplot as plt
+plt.rc('font', size=9) 
 from matplotlib import tri
 from matplotlib.transforms import Bbox
 from matplotlib.gridspec import GridSpec
@@ -12,7 +13,9 @@ import cmocean
 from palettes.code import palettes
 
 # Get mesh info
-dmesh = nc.Dataset('../glads/data/mesh/mesh_04.nc')
+
+prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+dmesh = nc.Dataset(prefix + 'glads/data/mesh/mesh_04.nc')
 nodes = dmesh['tri/nodes'][:].data.T
 connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
 
