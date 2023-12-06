@@ -208,6 +208,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
         mapax.add_collection(lc)
         mapax.set_xlabel('Distance from terminus (km)')
         mapax.set_ylabel('Distance across (km)')
+        mapax.axvline(30, color='w', linewidth=0.25)
 
         # if ii<n_cases:
         #     mapax.set_xticklabels([])
