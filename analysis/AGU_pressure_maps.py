@@ -349,7 +349,7 @@ if __name__=='__main__':
     cases = [1]
     pattern = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [pattern % caseid for caseid in cases]
-    figname = 'figures/main/01_pressure_seasonal.png'
+    figname = 'figures/aux/AGU_map.png'
     fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
         **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
