@@ -23,7 +23,7 @@ import helpers
 import defaults
 
 
-figsize=(7, 2.5)
+figsize=(5, 1.85)
 
 gs_kwargs=dict(wspace=0.05, hspace=0.2, 
     width_ratios = (100, 30, 110), 
@@ -325,7 +325,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     # axs_timeseries[-1].set_xlabel(t_xlabel)
     # axs_timeseries[1].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
 
-    fig.subplots_adjust(left=0.1, right=0.95, bottom=0.1, top=0.95)
+    fig.subplots_adjust(left=0.125, right=0.95, bottom=0.1, top=0.95)
     fig.savefig(figname, dpi=300)
     return fig
 
