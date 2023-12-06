@@ -326,3 +326,30 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
 
     fig.savefig(figname, dpi=300)
     return fig
+
+if __name__=='__main__':
+
+    t_ticks = [1 + 4/12, 1 + 6/12, 1 + 8/12, 1 + 10/12]
+    t_ticklabels = ['May', 'July', 'Sep', 'Nov']
+    t_lim = [t_ticks[0], t_ticks[-1]]
+    t_xlabel = 'Month'
+
+    KAN_opts = {'t_ticklabels':t_ticklabels,
+                't_xlabel':t_xlabel,
+                't_ticks':t_ticks,
+                't_lim':t_lim}
+
+    synth_opts={'t_ticklabels':t_ticklabels[:-1],
+                't_xlabel':t_xlabel,
+                't_ticks':t_ticks[:-1],
+                't_lim':[1 + 3/12, 1 + 9/12]}
+
+    prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
+    cases = [1]
+    pattern = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
+    fnames = [pattern % caseid for caseid in cases]
+    figname = 'figures/main/01_pressure_seasonal.png'
+    fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
+        **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
+
+    plt.show()
