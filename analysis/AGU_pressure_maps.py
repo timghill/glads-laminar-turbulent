@@ -23,7 +23,7 @@ import helpers
 import defaults
 
 
-figsize=(5, 1.85)
+figsize=(4, 1.5)
 
 gs_kwargs=dict(wspace=0.05, hspace=0.2, 
     width_ratios = (100, 30, 110), 
@@ -325,7 +325,7 @@ def plot_pressure_maps_timeseries(fnames, figname, tslice=defaults.tslice,
     # axs_timeseries[-1].set_xlabel(t_xlabel)
     # axs_timeseries[1].set_ylabel(r'$p_{\rm{w}}/p_{\rm{i}}$')
 
-    fig.subplots_adjust(left=0.125, right=0.95, bottom=0.1, top=0.95)
+    fig.subplots_adjust(left=0.15, right=0.95, bottom=0.15, top=0.95)
     fig.savefig(figname, dpi=300)
     return fig
 
@@ -350,7 +350,7 @@ if __name__=='__main__':
     cases = [1]
     pattern = prefix + 'glads/01_kan_forcing/RUN/output_%03d_seasonal.nc'
     fnames = [pattern % caseid for caseid in cases]
-    figname = 'figures/aux/AGU_map.png'
+    figname = 'figures/aux/AGU_map_4in.png'
     fig_01 = plot_pressure_maps_timeseries(fnames, figname, Qmin=1, Qmax=100, melt_forcing='KAN',
         **KAN_opts, ff_ylim=[0, 1.75], ff_yticks=[0, 0.5, 1, 1.5])
 
