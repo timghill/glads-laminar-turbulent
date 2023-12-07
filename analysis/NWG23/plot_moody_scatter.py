@@ -195,8 +195,8 @@ def plot_moody(fnames, fignames, colors=defaults.colors, omega=1/2000,
     ax_scatter.set_yticks(yticks)
 
 
-    ax_scatter.text(1.5e1, 1.8e1, 'Laminar', rotation=0, fontweight='bold', color='gray')
-    ax_scatter.text(1e4, 50, 'Turbulent', rotation=0, fontweight='bold', color='gray')
+    ax_scatter.text(1e2, 1.025e2, 'Laminar', rotation=0, fontweight='bold', color='gray', ha='center')
+    ax_scatter.text(1e4, 1.025e2, 'Turbulent', rotation=0, fontweight='bold', color='gray')
 
 
     fig_theory.subplots_adjust(wspace=0.45, bottom=0.15, left=0.125, right=0.85, top=0.95)
@@ -229,13 +229,13 @@ def plot_moody(fnames, fignames, colors=defaults.colors, omega=1/2000,
             ncols = 2
         else:
             ncols = 1
-        ax_scatter.legend(bbox_to_anchor=[1.25, 0.3, 0.5, 0.5],
+        ax_scatter.legend(bbox_to_anchor=[1.35, 0.3, 0.5, 0.5],
             ncol=1, mode='expand', borderaxespad=0.05, frameon=True, borderpad=0,
             markerscale=3,
             facecolor=(1, 1, 1, 0.5), edgecolor='none', fancybox=False, fontsize=9,
             loc='upper left')
 
-        fig_scatter.subplots_adjust(right=0.6, left=0.1, top=0.95)
+        fig_scatter.subplots_adjust(right=0.6, left=0.1, top=0.9)
 
         
         if ii in checkpoints:
