@@ -234,12 +234,14 @@ def plot_moody(fnames, fignames, colors=defaults.colors, omega=1/2000,
             markerscale=3,
             facecolor=(1, 1, 1, 0.5), edgecolor='none', fancybox=False, fontsize=9,
             loc='upper left')
+
+        fig_scatter.subplots_adjust(right=0.6, left=0.1, top=0.95)
+
         
         if ii in checkpoints:
             jj = checkpoints.index(ii)
             fig_scatter.savefig(checknames[jj], dpi=400)
 
-    fig_scatter.subplots_adjust(right=0.6, left=0.1, top=0.95)
 
     fig_theory.savefig(fignames[0], dpi=400)
     fig_scatter.savefig(fignames[1], dpi=400)
