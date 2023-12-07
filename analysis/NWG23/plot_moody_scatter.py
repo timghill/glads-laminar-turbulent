@@ -202,6 +202,8 @@ def plot_moody(fnames, fignames, colors=defaults.colors, omega=1/2000,
     fig_theory.subplots_adjust(wspace=0.45, bottom=0.15, left=0.125, right=0.85, top=0.95)
     fig_scatter.subplots_adjust(wspace=0.45, bottom=0.125, left=0.125, right=0.85, top=0.85)
 
+    fig_scatter.subplots_adjust(right=0.6, left=0.1, top=0.9)
+
     fig_scatter.savefig('moody_scatter_00.png', dpi=400)
     checkpoints = [1, 2, 4]
     checknames = [  'moody_scatter_01.png',
