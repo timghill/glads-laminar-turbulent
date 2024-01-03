@@ -28,7 +28,7 @@ def plot_issm(mat_fnames, issm_fnames, figname,
     cax1 = fig.add_subplot(gs[:2, 1])
     cax2 = fig.add_subplot(gs[-1, 1])
     alphabet = ['a', 'b', 'c', 'd', 'e']
-    with nc.Dataset('../../glads/data/mesh/mesh_04.nc', 'r') as dmesh:
+    with nc.Dataset('../../../glads/data/mesh/mesh_04.nc', 'r') as dmesh:
         edge_length = np.vstack(dmesh['tri/edge_length'][:].data)
         nodes = dmesh['tri/nodes'][:].data.T
         connect = dmesh['tri/connect'][:].data.T.astype(int) - 1
