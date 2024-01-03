@@ -13,10 +13,10 @@ models = ['Turbulent 5/4', 'Turbulent 3/2', 'Laminar',
             'Transition 5/4', 'Transition 3/2']
 
 def plot_issm(mat_fnames, issm_fnames, figname,
-    colors=defaults.colors, xb=30e3, bw=5e3, Qb=15e3,
+    colors=defaults.colors, xb=15e3, bw=5e3, Qb=15e3,
     models=models,
     xticks=[1+4/12,1+6/12,1+8/12], xticklabels=['May', 'July', 'Sep'],
-    xlim=[1+3/12,1+9/12], ylim=[0.4, 1.0],
+    xlim=[1+3/12,1+9/12], ylim=[0., 1.0],
     ):
     # Set up the figure and axes
     fig = plt.figure(figsize=(7, 4))
@@ -91,7 +91,7 @@ def plot_issm(mat_fnames, issm_fnames, figname,
 if __name__ == '__main__':
     prefix = '/home/tghill/projects/def-gflowers/tghill/laminar-turbulent/'
     mat_fnames = [prefix + 'glads/00_synth_forcing/RUN/output_%03d_seasonal.nc'%i for i in range(1,6)]
-    issm_fnames = [prefix _ 'issm/00_synth_forcing/RUN/output_%03d.nc'%i for i in range(1,6)]
+    issm_fnames = [prefix + 'issm/00_synth_forcing/RUN/output_%03d.nc'%i for i in range(1,6)]
     figname = 'figures/supplement/issm_comparison.png'
     plot_issm(mat_fnames, issm_fnames, figname)
 
